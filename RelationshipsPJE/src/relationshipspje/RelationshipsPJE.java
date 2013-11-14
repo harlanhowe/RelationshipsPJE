@@ -16,5 +16,6 @@ public class RelationshipsPJE {
     public static void main(String[] args) {
         int numPototoes = 12;
         boolean thatsAMoon;
+        Potato red = new Potato();
     }
 }
