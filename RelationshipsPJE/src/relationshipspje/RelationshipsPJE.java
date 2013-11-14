@@ -15,6 +15,6 @@ public class RelationshipsPJE {
      */
     public static void main(String[] args) {
         int numPototoes;
-        boolean thatsAMoon;
+        boolean thatsAMoon = true;
     }
 }
