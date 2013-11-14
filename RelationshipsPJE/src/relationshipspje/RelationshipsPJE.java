@@ -14,7 +14,7 @@ public class RelationshipsPJE {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int numPototoes;
+        int numPototoes = 12;
         boolean thatsAMoon;
     }
 }
