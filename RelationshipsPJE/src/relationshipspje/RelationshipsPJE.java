@@ -13,9 +13,8 @@ public class RelationshipsPJE {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        int numPototoes = 12;
-        boolean thatsAMoon;
-        Potato red = new Potato();
+    public static void main(String[] args) 
+    {
+        
     }
 }
