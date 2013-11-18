@@ -18,10 +18,17 @@ public class PeopleClass
     private boolean isMale;
     private Map<String, ArrayList<Integer>> relations;
     private ArrayList relationship= new ArrayList<Integer>();
+    /**
+     *
+     **/
     public PeopleClass()
     {
         
         relations=new TreeMap<String,ArrayList<Integer>>();
+    }
+    public void getPerson(int idNum)
+    {
+        
     }
     
     public int getId()
