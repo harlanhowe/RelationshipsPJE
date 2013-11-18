@@ -4,6 +4,8 @@
  */
 package relationshipspje;
 
+import java.util.*;
+
 /**
  *
  * @author john.woodhouse
@@ -14,6 +16,13 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
+    private Map<String, ArrayList<Integer>> relations;
+    private ArrayList relationship= new ArrayList<Integer>();
+    public PeopleClass()
+    {
+        
+        relations=new TreeMap<String,ArrayList<Integer>>();
+    }
     
     public int getId()
     {
@@ -30,5 +39,9 @@ public class PeopleClass
     public boolean getIsMale()
     {
         return isMale;
+    }
+    public ArrayList<Integer> getRelationship()
+    {
+        return relationship;
     }
 }
