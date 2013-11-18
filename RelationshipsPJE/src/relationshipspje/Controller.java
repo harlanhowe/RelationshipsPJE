@@ -20,7 +20,7 @@ public class Controller
     private File preferredRelType;
     private File preferredRelation;
     private TreeMap<Integer, PeopleClass> personList;
-    private TreeMap<Integer, Relations> relationList;
+    private TreeMap<Integer, RelationType> relationList;
     
     public Controller()
     {
