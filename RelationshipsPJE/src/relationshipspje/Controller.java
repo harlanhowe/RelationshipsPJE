@@ -6,7 +6,9 @@ package relationshipspje;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
 
@@ -16,9 +18,9 @@ import javax.swing.JFileChooser;
  */
 public class Controller 
 {
-    private File preferredPeople;
-    private File preferredRelType;
-    private File preferredRelation;
+    private File preferredPeopleFile;
+    private File preferredRelTypeFile;
+    private File preferredRelationFile;
     private TreeMap<Integer, PeopleClass> personList;
     private TreeMap<Integer, RelationType> relationList;
     
@@ -30,30 +32,84 @@ public class Controller
     public void openPeople()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredPeople);
+        chooser.setSelectedFile(preferredPeopleFile);
         int result = chooser.showOpenDialog(null);//this);
         if (result == JFileChooser.APPROVE_OPTION)
         {
-            preferredPeople = chooser.getSelectedFile();
+            preferredPeopleFile = chooser.getSelectedFile();
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                PrintWriter output = new PrintWriter(preferredPeople);
+                Scanner input = new Scanner(preferredPeopleFile);
                 // read from the file, store relations into arrayList;
+                while (input.hasNext())
+                {
+                    int id;
+                    int genderNum;
+                    String firstName;
+                    String lastName;
+                    
+                    try
+                    {
+                        id = input.nextInt();
+                    }
+                    catch (InputMismatchException noInt)
+                    {
+                        System.out.println(noInt);
+                        System.out.println("I tried to read a non-existent int");
+                        break;
+                    }
+                    try
+                    {
+                        firstName = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    try
+                    {
+                        lastName = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    try
+                    {
+                        genderNum = input.nextInt();
+                    }
+                    catch (InputMismatchException noInt)
+                    {
+                        System.out.println(noInt);
+                        System.out.println("I tried to read a non-existent int");
+                        break;
+                    }
+                    
+                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, genderNum);
+                    
+                    personList.put(id,theNewGuy);
+                    
+                    
+                }
                
                 // output.println("Here is example stuff to save....");
                 // put your output code here!
                 
                 
                 
-                output.close();
+                input.close();
             }
             catch (FileNotFoundException fnfe)
             {
-                throw new RuntimeException("File "+preferredPeople+" cannot be loaded.");
+                throw new RuntimeException("File "+preferredPeopleFile+" cannot be loaded.");
             }
         }
     }
@@ -61,18 +117,18 @@ public class Controller
     public void openRelTypes()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredRelType);
+        chooser.setSelectedFile(preferredRelTypeFile);
         int result = chooser.showOpenDialog(null);//this);
         if (result == JFileChooser.APPROVE_OPTION)
         {
-            preferredRelType = chooser.getSelectedFile();
+            preferredRelTypeFile = chooser.getSelectedFile();
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                PrintWriter output = new PrintWriter(preferredRelType);
+                Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
@@ -80,11 +136,11 @@ public class Controller
                 
                 
                 
-                output.close();
+                input.close();
             }
             catch (FileNotFoundException fnfe)
             {
-                throw new RuntimeException("File "+preferredRelType+" cannot be laoded.");
+                throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
             }
         }
     }
@@ -92,18 +148,18 @@ public class Controller
     public void openRelations()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredRelation);
+        chooser.setSelectedFile(preferredRelationFile);
         int result = chooser.showOpenDialog(null);//this);
         if (result == JFileChooser.APPROVE_OPTION)
         {
-            preferredRelation = chooser.getSelectedFile();
+            preferredRelationFile = chooser.getSelectedFile();
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                PrintWriter output = new PrintWriter(preferredRelation);
+                Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
@@ -111,11 +167,11 @@ public class Controller
                 
                 
                 
-                output.close();
+                input.close();
             }
             catch (FileNotFoundException fnfe)
             {
-                throw new RuntimeException("File "+preferredRelation+" cannot be loaded.");
+                throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
             }
         }
     }
