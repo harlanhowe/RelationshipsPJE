@@ -17,7 +17,7 @@ public class PeopleClass
     private String firstName;
     private boolean isMale;
     private Map<String, ArrayList<Integer>> relations;
-    private ArrayList relationship= new ArrayList<Integer>();
+    private ArrayList relationshipList= new ArrayList<Integer>();
     /**
      *
      **/
@@ -45,6 +45,6 @@ public class PeopleClass
     }
     public ArrayList<Integer> getRelationship()
     {
-        return relationship;
+        return relationshipList;
     }
 }
