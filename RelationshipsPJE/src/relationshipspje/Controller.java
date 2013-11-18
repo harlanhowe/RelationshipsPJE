@@ -29,6 +29,8 @@ public class Controller
         
     }
     
+    
+    //Read our list of people from a save file, and store them in a map for easy access by the user interface.
     public void openPeople()
     {
         JFileChooser chooser = new JFileChooser();
@@ -52,6 +54,8 @@ public class Controller
                     String firstName;
                     String lastName;
                     
+                    
+                    //See if I can find the integer that designates the id. Fails if not.
                     try
                     {
                         id = input.nextInt();
@@ -62,6 +66,8 @@ public class Controller
                         System.out.println("I tried to read a non-existent int");
                         break;
                     }
+                    
+                    //See if I can find the next string to put as the first name. Fails if not.
                     try
                     {
                         firstName = input.next();
@@ -72,6 +78,8 @@ public class Controller
                         System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
                         break;
                     }
+                    
+                    //See if I can find the next string to put as the last name. Fails if not.
                     try
                     {
                         lastName = input.next();
@@ -82,6 +90,8 @@ public class Controller
                         System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
                         break;
                     }
+                    
+                    //See if I can find a 1 or a 0 for the gender. Fails if not.
                     try
                     {
                         genderNum = input.nextInt();
@@ -93,6 +103,8 @@ public class Controller
                         break;
                     }
                     
+                    
+                    //Make a new person, and put it into my list of people, with the id as the dictionary key.
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, genderNum);
                     
                     personList.put(id,theNewGuy);
