@@ -8,6 +8,10 @@ package relationshipspje;
  *
  * @author phillip.johnson
  */
-public class Controller {
-    
+public class Controller 
+{
+    public Controller()
+    {
+        
+    }
 }
