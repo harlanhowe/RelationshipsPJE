@@ -8,6 +8,7 @@ package relationshipspje;
  *
  * @author john.woodhouse
  */
-public class PeopleClass {
+public class PeopleClass 
+{
     
 }
