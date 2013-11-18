@@ -26,10 +26,6 @@ public class PeopleClass
         
         relations=new TreeMap<String,ArrayList<Integer>>();
     }
-    public void getPerson(int idNum)
-    {
-        
-    }
     
     public int getId()
     {
