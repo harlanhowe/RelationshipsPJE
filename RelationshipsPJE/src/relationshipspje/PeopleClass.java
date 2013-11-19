@@ -29,7 +29,9 @@ public class PeopleClass
     public PeopleClass(int newId, String newFirstName, String newLastName, boolean newIsMale)
     {
         id = newId;
-        
+        firstName=newFirstName;
+        lastName=newLastName;
+        isMale=newIsMale;
     }
     
     public int getId()
