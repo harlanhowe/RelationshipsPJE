@@ -26,12 +26,12 @@ public class RelationType
     }
     /** Precondition: data must be given from Controller
      * 
-     * @param newId
-     * @param newType
-     * @param newMaleName
-     * @param newFemaleName
-     * @param newInverseMaleName
-     * @param newInverseFemaleName 
+     * @param newId Id for the new relation
+     * @param newType What type is the new relation
+     * @param newMaleName the masculine version of the person who is related to the other people
+     * @param newFemaleName the feminine version of the person who is related to the other people
+     * @param newInverseMaleName the masculine version of the related person
+     * @param newInverseFemaleName the feminine version of the related person
      */
     public RelationType(int newId, String newType, String newMaleName, String newFemaleName, String newInverseMaleName, String newInverseFemaleName)
     {
