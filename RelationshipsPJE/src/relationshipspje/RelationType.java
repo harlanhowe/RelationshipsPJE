@@ -18,6 +18,14 @@ public class RelationType
     private String femaleName;
     private String inverseMaleName;
     private String inverseFemaleName;
-    private String neutralName;
     private Map<Integer, String> relationNumber;
+    
+    public RelationType()
+    {
+        
+    }
+    public RelationType(int newId, String newType, String newMaleName, String newFemaleName, String newInverseMaleName, String newInverseFemaleName)
+    {
+        
+    }
 }
