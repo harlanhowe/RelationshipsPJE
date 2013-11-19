@@ -103,9 +103,14 @@ public class Controller
                         break;
                     }
                     
+                    boolean newBool = false;
+                    
+                    if (genderNum == 1)
+                        newBool = true;
+                    
                     
                     //Make a new person, and put it into my list of people, with the id as the dictionary key.
-                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, genderNum);
+                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, newBool);
                     
                     personList.put(id,theNewGuy);
                     
