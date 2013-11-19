@@ -42,4 +42,28 @@ public class RelationType
         inverseMaleName=newInverseMaleName;
         inverseFemaleName=newInverseFemaleName;
     }
+    public int id()
+    {
+        return id;
+    }
+    public String type()
+    {
+        return type;
+    }
+    public String maleName()
+    {
+        return maleName;
+    }
+    public String femaleName()
+    {
+        return femaleName;
+    }
+    public String inverseMaleName()
+    {
+        return inverseMaleName;
+    }
+    public String inverseFemaleName()
+    {
+        return inverseFemaleName;
+    }
 }
