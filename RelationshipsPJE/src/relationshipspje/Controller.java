@@ -70,7 +70,7 @@ public class Controller
                     //See if I can find the next string to put as the first name. Fails if not.
                     try
                     {
-                        firstName = input.next();
+                        lastName = input.next();
                     }
                     catch (NoSuchElementException noStrings)
                     {
@@ -82,7 +82,7 @@ public class Controller
                     //See if I can find the next string to put as the last name. Fails if not.
                     try
                     {
-                        lastName = input.next();
+                        firstName = input.next();
                     }
                     catch (NoSuchElementException noStrings)
                     {
@@ -147,7 +147,97 @@ public class Controller
             {
                 Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
-               
+                while (input.hasNext())
+                {
+                    int id;
+                    String neutral;
+                    String male;
+                    String female;
+                    String maleInv;
+                    String femaleInv;
+                    
+                    
+                    //See if I can find the integer that designates the id. Fails if not.
+                    try
+                    {
+                        id = input.nextInt();
+                    }
+                    catch (InputMismatchException noInt)
+                    {
+                        System.out.println(noInt);
+                        System.out.println("I tried to read a non-existent int");
+                        break;
+                    }
+                    
+                    //See if I can find the next string to put as the first name. Fails if not.
+                    try
+                    {
+                        neutral = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    
+                    //See if I can find the next string to put as the last name. Fails if not.
+                    try
+                    {
+                        male = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    
+                    //See if I can find a 1 or a 0 for the gender. Fails if not.
+                    try
+                    {
+                        female = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    
+                    
+                    try
+                    {
+                        maleInv = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    
+                    
+                    try
+                    {
+                        femaleInv = input.next();
+                    }
+                    catch (NoSuchElementException noStrings)
+                    {
+                        System.out.println(noStrings);
+                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
+                        break;
+                    }
+                    
+                    
+                    
+                    //Make a new person, and put it into my list of people, with the id as the dictionary key.
+                    RelationType theNewRel = new RelationType(id, male, female, maleInv, femaleInv);
+                    
+                    relationList.put(id,theNewRel);
+                    
+                    
+                }
                 // output.println("Here is example stuff to save....");
                 // put your output code here!
                 
