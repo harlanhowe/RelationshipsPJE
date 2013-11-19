@@ -28,6 +28,7 @@ public class PeopleClass
     }
     public PeopleClass(int newId, String newFirstName, String newLastName, boolean newIsMale)
     {
+        id = newId;
         
     }
     
