@@ -26,6 +26,11 @@ public class PeopleClass
         
         relations=new TreeMap<String,ArrayList<Integer>>();
     }
+    public PeopleClass(int newId, String newFirstName, String newLastName, boolean newIsMale)
+    {
+        id = newId;
+        
+    }
     
     public int getId()
     {
