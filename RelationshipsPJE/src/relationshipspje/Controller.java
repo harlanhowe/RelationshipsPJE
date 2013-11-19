@@ -232,7 +232,7 @@ public class Controller
                     
                     
                     //Make a new person, and put it into my list of people, with the id as the dictionary key.
-                    RelationType theNewRel = new RelationType(id, male, female, maleInv, femaleInv);
+                    RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv, neutral);
                     
                     relationList.put(id,theNewRel);
                     
