@@ -60,4 +60,9 @@ public class PeopleClass
     {
         return relations;
     }
+    public void addRelationship(PeopleClass person, RelationType relationGiven)
+    {
+        relations.put(person, relationGiven);
+    }
+    
 }
