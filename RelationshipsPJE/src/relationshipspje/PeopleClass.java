@@ -1,3 +1,5 @@
+package relationshipspje;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -15,7 +17,7 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
-    private TreeMap<PeopleClass, RelationType> relations;
+    private TreeMap<Integer, Integer> relations;
     
     /**
      *
@@ -23,7 +25,7 @@ public class PeopleClass
     public PeopleClass()
     {
         
-        relations=new TreeMap<PeopleClass ,RelationType>();
+        relations=new TreeMap<Integer ,Integer>();
     }
     /**precondition: need to receive information from Controller 
      * 
@@ -56,11 +58,11 @@ public class PeopleClass
     {
         return isMale;
     }
-    public TreeMap<PeopleClass ,RelationType> getAllRelationships()
+    public TreeMap<Integer ,Integer> getAllRelationships()
     {
         return relations;
     }
-    public void addRelationship(PeopleClass person, RelationType relationGiven)
+    public void addRelationship(Integer person, Integer relationGiven)
     {
         relations.put(person, relationGiven);
     }
