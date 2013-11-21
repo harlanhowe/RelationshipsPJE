@@ -15,15 +15,15 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
-    private Map<String, ArrayList<Integer>> relations;
-    private ArrayList relationshipList= new ArrayList<Integer>();
+    private Map<Integer, Integer> relations;
+    
     /**
      *
      **/
     public PeopleClass()
     {
         
-        relations=new TreeMap<String,ArrayList<Integer>>();
+        relations=new TreeMap<Integer ,Integer>();
     }
     /**precondition: need to receive information from Controller 
      * 
@@ -55,9 +55,5 @@ public class PeopleClass
     public boolean getIsMale()
     {
         return isMale;
-    }
-    public ArrayList<Integer> getRelationship()
-    {
-        return relationshipList;
     }
 }
