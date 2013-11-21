@@ -5,8 +5,6 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JFileChooser;
@@ -22,10 +20,14 @@ public class Controller
     private File preferredRelationFile;
     private TreeMap<Integer, PeopleClass> personList;
     private TreeMap<Integer, RelationType> relationList;
+    private int lastPersonId;
+    private int lastRelTypeId;
+    private int lastRelationId;
+    
     
     public Controller()
     {
-        
+        relationList = new TreeMap<Integer, RelationType>();
     }
     
     
@@ -49,69 +51,28 @@ public class Controller
                 while (input.hasNext())
                 {
                     int id;
-                    int genderNum;
+                    boolean gender;
                     String firstName;
                     String lastName;
                     
+                    String inputString = input.nextLine();
                     
-                    //See if I can find the integer that designates the id. Fails if not.
-                    try
-                    {
-                        id = input.nextInt();
-                    }
-                    catch (InputMismatchException noInt)
-                    {
-                        System.out.println(noInt);
-                        System.out.println("I tried to read a non-existent int");
-                        break;
-                    }
+                    String[] part = inputString.split("\t");
                     
-                    //See if I can find the next string to put as the first name. Fails if not.
-                    try
-                    {
-                        lastName = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
                     
-                    //See if I can find the next string to put as the last name. Fails if not.
-                    try
-                    {
-                        firstName = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
                     
-                    //See if I can find a 1 or a 0 for the gender. Fails if not.
-                    try
-                    {
-                        genderNum = input.nextInt();
-                    }
-                    catch (InputMismatchException noInt)
-                    {
-                        System.out.println(noInt);
-                        System.out.println("I tried to read a non-existent int");
-                        break;
-                    }
-                    
-                    boolean newBool = false;
-                    
-                    if (genderNum == 1)
-                        newBool = true;
+                    id = Integer.parseInt(part[0]);
+                    gender = Boolean.parseBoolean(part[3]);
+                    firstName = part[2];
+                    lastName = part[1];
                     
                     
                     //Make a new person, and put it into my list of people, with the id as the dictionary key.
-                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, newBool);
+                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, gender);
                     
                     personList.put(id,theNewGuy);
+                    
+                    lastPersonId = id;
                     
                     
                 }
@@ -148,6 +109,10 @@ public class Controller
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
+                    String inputString = input.nextLine();
+                    
+                    String[] part = inputString.split("\t");
+                    
                     int id;
                     String neutral;
                     String male;
@@ -156,77 +121,21 @@ public class Controller
                     String femaleInv;
                     
                     
-                    //See if I can find the integer that designates the id. Fails if not.
-                    try
-                    {
-                        id = input.nextInt();
-                    }
-                    catch (InputMismatchException noInt)
-                    {
-                        System.out.println(noInt);
-                        System.out.println("I tried to read a non-existent int");
-                        break;
-                    }
-                    
-                    //See if I can find the next string to put as the first name. Fails if not.
-                    try
-                    {
-                        neutral = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
-                    
-                    //See if I can find the next string to put as the last name. Fails if not.
-                    try
-                    {
-                        male = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
-                    
-                    //See if I can find a 1 or a 0 for the gender. Fails if not.
-                    try
-                    {
-                        female = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
+                    id = Integer.parseInt(part[0]);
+                    neutral = part[1];
+                    male = part[2];
+                    female = part[3];
+                    maleInv = part[4];
+                    femaleInv = part[5];
                     
                     
-                    try
-                    {
-                        maleInv = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
                     
-                    
-                    try
-                    {
-                        femaleInv = input.next();
-                    }
-                    catch (NoSuchElementException noStrings)
-                    {
-                        System.out.println(noStrings);
-                        System.out.println("I don't know how I am here, 'cause while loop, but you don't have anything else in this file. Stop reading it.");
-                        break;
-                    }
+                    System.out.println(femaleInv);
+                    System.out.println(maleInv);
+                    System.out.println(male);
+                    System.out.println(female);
+                    System.out.println(neutral);
+                    System.out.println(id);
                     
                     
                     
@@ -234,6 +143,8 @@ public class Controller
                     RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
                     
                     relationList.put(id,theNewRel);
+                    
+                    lastRelTypeId = id;
                     
                     
                 }
@@ -267,6 +178,28 @@ public class Controller
             {
                 Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
+                while (input.hasNext())
+                {
+                
+                    String inputString = input.nextLine();
+                    
+                    String[] part = inputString.split("\t");
+                    
+                    int id;
+                    int relatorId;
+                    int relateeId;
+                    int relationTypeId;
+                    
+                    id = Integer.parseInt(part[0]);
+                    relatorId = Integer.parseInt(part[1]);
+                    relateeId = Integer.parseInt(part[2]);
+                    relationTypeId = Integer.parseInt(part[3]);
+                    
+                    
+                    
+                    
+                    lastRelationId = id;
+                }
                
                 // output.println("Here is example stuff to save....");
                 // put your output code here!
@@ -280,5 +213,50 @@ public class Controller
                 throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
             }
         }
+    }
+    
+    public void addPerson(String firstName, String lastName, Boolean isMale)
+    {
+        int id = lastPersonId++;
+        
+        
+        PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
+                    
+        personList.put(id,theNewGuy);
+        
+        lastPersonId = id;
+    }
+    
+    public void removePerson(String name)
+    {
+        for (int i = 0; i < personList.size(); i ++)
+        {
+            if (personList.get(i).getFirstName().equals(name) || personList.get(i).getLastName().equals(name))
+            {
+                //
+                //
+                //IMPORTANT!!! Talk about having the TreeMap in PeopleClass be in the format <RelateeId, RelationTypeId>.
+                //
+                //
+                
+                personList.remove(i);
+            }
+        }
+    }
+    
+    public void addRelation(String relatorName, String relateeName, String relationType)
+    {
+        int relationId = lastRelTypeId++;
+    }
+    
+    public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
+    {
+        int id = lastRelTypeId++;
+        
+        RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
+                    
+        relationList.put(id,theNewRel);
+        
+        lastRelTypeId = id;
     }
 }
