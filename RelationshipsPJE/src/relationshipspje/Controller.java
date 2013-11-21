@@ -259,4 +259,15 @@ public class Controller
         
         lastRelTypeId = id;
     }
+    
+    
+    public TreeMap<Integer, PeopleClass> getPersonList()
+    {
+        return personList;
+    }
+    
+    public TreeMap<Integer, RelationType> getRelationTypes()
+    {
+        return relationList;
+    }
 }
