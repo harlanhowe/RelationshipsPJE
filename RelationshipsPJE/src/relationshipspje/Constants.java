@@ -1,3 +1,4 @@
+package relationshipspje;
 
 public class Constants {
 
