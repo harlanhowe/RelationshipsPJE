@@ -23,10 +23,14 @@ public class Controller
     private File preferredRelationFile;
     private TreeMap<Integer, PeopleClass> personList;
     private TreeMap<Integer, RelationType> relationList;
+    private int lastPersonId;
+    private int lastRelTypeId;
+    private int lastRelationId;
+    
     
     public Controller()
     {
-        
+        relationList = new TreeMap<Integer, RelationType>();
     }
     
     
@@ -50,12 +54,13 @@ public class Controller
                 while (input.hasNext())
                 {
                     int id;
-                    int genderNum;
+                    boolean gender;
                     String firstName;
                     String lastName;
                     
+                    String inputString = input.nextLine();
                     
-                    //See if I can find the integer that designates the id. Fails if not.
+                    String[] part = inputString.split("\t");
                     try
                     {
                         id = input.nextInt();
@@ -107,7 +112,6 @@ public class Controller
                     
                     if (genderNum == 1)
                         newBool = true;
-                    
                     
                     //Make a new person, and put it into my list of people, with the id as the dictionary key.
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, newBool);
@@ -281,5 +285,61 @@ public class Controller
                 throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
             }
         }
+    }
+    
+    public void addPerson(String firstName, String lastName, Boolean isMale)
+    {
+        int id = lastPersonId++;
+        
+        
+        PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
+                    
+        personList.put(id,theNewGuy);
+        
+        lastPersonId = id;
+    }
+    
+    public void removePerson(String name)
+    {
+        for (int i = 0; i < personList.size(); i ++)
+        {
+            if (personList.get(i).getFirstName().equals(name) || personList.get(i).getLastName().equals(name))
+            {
+                //
+                //
+                //IMPORTANT!!! Talk about having the TreeMap in PeopleClass be in the format <RelateeId, RelationTypeId>.
+                //
+                //
+                
+                personList.remove(i);
+            }
+        }
+    }
+    
+    public void addRelation(String relatorName, String relateeName, String relationType)
+    {
+        int relationId = lastRelTypeId++;
+    }
+    
+    public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
+    {
+        int id = lastRelTypeId++;
+        
+        RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
+                    
+        relationList.put(id,theNewRel);
+        
+        lastRelTypeId = id;
+    }
+    
+    
+    public TreeMap<Integer, PeopleClass> getPersonList()
+    {
+        return personList;
+    }
+    
+    public TreeMap<Integer, RelationType> getRelationTypes()
+    {
+        return relationList;
     }
 }

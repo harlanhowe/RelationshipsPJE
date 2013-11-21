@@ -16,15 +16,15 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
-    private Map<String, ArrayList<Integer>> relations;
-    private ArrayList relationshipList= new ArrayList<Integer>();
+    private TreeMap<PeopleClass, RelationType> relations;
+    
     /**
      *
      **/
     public PeopleClass()
     {
         
-        relations=new TreeMap<String,ArrayList<Integer>>();
+        relations=new TreeMap<PeopleClass ,RelationType>();
     }
     /**precondition: need to receive information from Controller 
      * 
@@ -57,8 +57,13 @@ public class PeopleClass
     {
         return isMale;
     }
-    public ArrayList<Integer> getRelationship()
+    public TreeMap<PeopleClass ,RelationType> getAllRelationships()
     {
-        return relationshipList;
+        return relations;
     }
+    public void addRelationship(PeopleClass person, RelationType relationGiven)
+    {
+        relations.put(person, relationGiven);
+    }
+    
 }
