@@ -4,6 +4,7 @@
  */
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -17,11 +18,11 @@ public class RelationType
     private String femaleName;
     private String inverseMaleName;
     private String inverseFemaleName;
-    private Map<Integer, String> relationNumber;
+    private Map<Integer, Integer> relationNumber;
     
     public RelationType()
     {
-        
+        relationNumber=new TreeMap<Integer, Integer>();
     }
     /** Precondition: data must be given from Controller
      * 
