@@ -1,9 +1,10 @@
+package relationshipspje;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -18,7 +19,7 @@ public class RelationType
     private String femaleName;
     private String inverseMaleName;
     private String inverseFemaleName;
-    private Map<Integer, Integer> relationNumber;
+    private TreeMap<Integer, Integer> relationNumber;
     
     public RelationType()
     {
@@ -65,5 +66,9 @@ public class RelationType
     public String inverseFemaleName()
     {
         return inverseFemaleName;
+    }
+    public TreeMap<Integer, Integer> getRelationNumber()
+    {
+        return relationNumber;
     }
 }
