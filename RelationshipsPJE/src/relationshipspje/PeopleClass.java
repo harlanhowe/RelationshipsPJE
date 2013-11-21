@@ -15,7 +15,7 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
-    private Map<Integer, Integer> relations;
+    private TreeMap<PeopleClass, RelationType> relations;
     
     /**
      *
@@ -23,7 +23,7 @@ public class PeopleClass
     public PeopleClass()
     {
         
-        relations=new TreeMap<Integer ,Integer>();
+        relations=new TreeMap<PeopleClass ,RelationType>();
     }
     /**precondition: need to receive information from Controller 
      * 
@@ -55,5 +55,9 @@ public class PeopleClass
     public boolean getIsMale()
     {
         return isMale;
+    }
+    public TreeMap<PeopleClass ,RelationType> getAllRelationships()
+    {
+        return relations;
     }
 }
