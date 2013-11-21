@@ -1,3 +1,5 @@
+package relationshipspje;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -258,5 +260,16 @@ public class Controller
         relationList.put(id,theNewRel);
         
         lastRelTypeId = id;
+    }
+    
+    
+    public TreeMap<Integer, PeopleClass> getPersonList()
+    {
+        return personList;
+    }
+    
+    public TreeMap<Integer, RelationType> getRelationTypes()
+    {
+        return relationList;
     }
 }
