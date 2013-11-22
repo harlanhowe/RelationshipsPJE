@@ -41,10 +41,6 @@ public class PeopleClass
         lastName=newLastName;
         isMale=newIsMale;
     }
-    public PeopleClass(int givenId)
-    {
-        
-    }
     public int getId()
     {
         return id;
@@ -68,7 +64,8 @@ public class PeopleClass
     public void addRelationship(PeopleClass person, RelationType relationGiven)
     {
         relations.put(person, relationGiven);
-        person.addRelationship(this, relationGiven);
+        if (relationGiven.inverseOfSelf()==true)
+            person.addRelationship(this, relationGiven);
         
     }
     
