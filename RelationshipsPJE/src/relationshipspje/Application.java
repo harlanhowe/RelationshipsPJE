@@ -45,6 +45,7 @@ public class Application {
 		TreeMap<PeopleClass,RelationType> relationships = currentPerson.getAllRelationships();
 		ArrayList<PeopleClass> people = (ArrayList<PeopleClass>) relationships.keySet();
 		for (int i = 0;i<relationships.size();i++){
+			/*Output the person's information here*/
 			System.out.print(currentPerson.getLastName()+","+currentPerson.getFirstName()+" has a ");
 			
 			
@@ -82,28 +83,30 @@ public class Application {
 	private void processResponse(int userInput) {//Processes the user response and chooses appropriate way to deal with it 
 		switch (userInput)
 		{
-		case 0: //Add Relationship
+		case 0: //switch person to view
+			currentPerson = null;
+		case 1: //Add Relationship
 			addRelationship();
 			break;
-		case 1://Delete Relationship
+		case 2://Delete Relationship
 			deleteRelationship();
 			break;
-		case 2://Add New Person
+		case 3://Add New Person
 			addPerson();
 			break;
-		case 3: //Delete Person
+		case 4: //Delete Person
 			deletePerson();
 			break;
-		case 4: //Add New Relationship Type
+		case 5: //Add New Relationship Type
 			addRelationshipType();
 			break;
-		case 5: //Delete Relationship Type
+		case 6: //Delete Relationship Type
 			deleteRelationshipType();
 			break;
-		case 6: //Save
+		case 7: //Save
 			saveState();
 			break;
-		case 7: //Exit Program
+		case 8: //Exit Program
 			endProgram();
 			break;
 		}
@@ -113,32 +116,123 @@ public class Application {
 
 	private void saveState() {
 		// TODO Auto-generated method stub
+		controller.saveData();
 		
 	}
 
 	private void deleteRelationshipType() {
 		// TODO Auto-generated method stub
+		ArrayList<RelationType> relationshipTypes = controller.getAllRelationshipTypes();
+		ArrayList<String> options = new ArrayList<String>();
+		for (int i = 0;i<relationshipTypes.size();i++){
+			options.add(relationshipTypes.get(i).getGenericName());
+
+		}
+		int response = this.displayMenuAndGetResponse("Relationshp Types",options,"Select a relationship type to delete",true);
+		if (response == -1){
+			System.out.println("Relationship Type Deletion Cancelled");
+			return;
+		}else{
+			controller.deleteRelationshipType(relationshipTypes.get(response));
+
+		}
 		
 	}
 
 	private void addRelationshipType() {
 		// TODO Auto-generated method stub
+
+		System.out.println("Please enter the generic name of the relationship type");
+		String genericName = input.nextLine();
+		System.out.println("Please enter the forward male name of the relationship type");
+		String fwdMaleName = input.nextLine();
+		System.out.println("Please enter the forward female name of the relationship type");
+		String fwdFemaleName = input.nextLine();
+		System.out.println("Please enter the reverse male name of the relationship type");
+		String revMaleName = input.nextLine();
+		System.out.println("Please enter the reverse female name of the relationship type");
+		String revFemaleName = input.nextLine();
+		
+		boolean needsInverse = true;
+		if (fwdMaleName.equals(revMaleName) && fwdFemaleName.equals(revFemaleName)){
+			needsInverse = false;
+		}
+		else{
+			System.out.println("Please enter the generic name of the inverse relationship type");
+			String inverseGenericName  = input.nextLine();
+
+			controller.addRelationshipType(genericName,fwdMaleName,fwdFemaleName,revMaleName,revFemaleName,inverseGenericName);
+		}
+
+		
+
+
 		
 	}
 
 	private void deletePerson() {
 		// TODO Auto-generated method stub
+		ArrayList<PeopleClass> people = controller.getAllPeople();
+		ArrayList<String> options = new ArrayList<String>();
+		for (int i = 0;i<people.size();i++){ //Add to 'options' Strings that are in the form of 'firstname','lastname' like 'Howe, Harlan'
+			
+			name = people.get(i).getLastName()+", "+people.get(i).getFirstName();
+			options.add(name);
+			
+		}
+		int response = this.displayMenuAndGetResponse("People",options,"Select a person to delete from database",true);
+		if (response == -1){
+			System.out.println("Person Deletion Cancelled");
+			return;
+		}
+		else{
+			controller.deletePerson(people.get(response));
+		}
 		
 	}
 
 	private void addPerson() {
 		// TODO Auto-generated method stub
+
+		System.out.println("Please enter the first name of the person");
+		String firstname = input.nextLine(); //get firstname
+		System.out.println("Please enter the last name of the person");
+		String lastName = input.nextLine(); //get lastname
+
+		boolean male = true;
+		String[] choices = {"Y","N"};
+		String choice = this.displayStringChoiceAndGetResponse("Is this is person male?", choices);
+		if (choice.equals("N")){ //if user says no, then person is not male
+			male = false;
+		}
+
+		controller.addPerson(firstname,lastName,male); //add person to database
+
 		
 	}
 
 	private void deleteRelationship() {
 		// TODO Auto-generated method stub
 		TreeMap<PeopleClass,RelationType> relationships = currentPerson.getAllRelationships();
+		ArrayList<String> options = new ArrayList<String>();
+
+		for (int i = 0;i<relationships.size();i++){
+			/*Output the person's information here*/
+			options.add(currentPerson.getLastName()+","+currentPerson.getFirstName()+" has a "
+
+				);
+		}
+		int response = this.displayMenuAndGetResponse("Relationships",options,"Select relationship to delete:",true);
+		if (response == -1){
+			System.out.println("Relationship Deletion Cancelled");
+			return;
+		}
+		else{
+			//Call a delete method in current person and delete according to response
+			currentPerson.deleteRelationship()
+
+		}
+
 		
 		
 		
@@ -207,6 +301,7 @@ public class Application {
 		//Process Options
 		
 		//Create Options
+		options.add("Switch Current Person");
 		options.add("Add Relationship");
 		options.add("Delete Relationship");
 		options.add("Add New Person");
