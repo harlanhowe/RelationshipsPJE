@@ -71,6 +71,10 @@ public class RelationType
     {
         return relationNumber;
     }
+    /**
+     * 
+     * @return whether or not the relationship is an inverse of itself
+     */
     public boolean inverseOfSelf()
     {
         if((maleName.equals(inverseMaleName))&&(femaleName.equals(inverseFemaleName)))
