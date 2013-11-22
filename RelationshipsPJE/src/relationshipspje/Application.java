@@ -1,10 +1,13 @@
+package relationshipspje;
+
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Application {
 	
 	private Scanner input;
-	private int response;
 	private PeopleClass currentPerson;
 	private Controller controller;
 	
@@ -22,7 +25,7 @@ public class Application {
 		while(true){
 			if (currentPerson!=null){ //you have selected a person to view their information
 				displayInformation(currentPerson);
-				response = displayMenu(); //output the main menu every run and store the input in variable 'response'
+				int response = displayMenu(); //output the main menu every run and store the input in variable 'response'
 				processResponse(response);
 			}
 			else{ //Ask user to select a person to view their relationship
@@ -39,6 +42,13 @@ public class Application {
 	private void displayInformation(PeopleClass person) {//Output information about selected Person
 		System.out.println("You are viewing the relationships of: "+person.getLastName()+", "+person.getFirstName());
 		//TODO output information here
+		TreeMap<PeopleClass,RelationType> relationships = currentPerson.getAllRelationships();
+		ArrayList<PeopleClass> people = (ArrayList<PeopleClass>) relationships.keySet();
+		for (int i = 0;i<relationships.size();i++){
+			System.out.print(currentPerson.getLastName()+","+currentPerson.getFirstName()+" has a ");
+			
+			
+		}
 		
 		
 		
@@ -128,25 +138,59 @@ public class Application {
 
 	private void deleteRelationship() {
 		// TODO Auto-generated method stub
+		TreeMap<PeopleClass,RelationType> relationships = currentPerson.getAllRelationships();
+		
+		
 		
 	}
 
+	
+	/*Gets a list of all people, displays a menu to select one of them, displays another menu to select a relationship type, 
+	 * and adds a new relationship to the currentPerson
+	 */
+	
 	private void addRelationship() {
-		// TODO Auto-generated method stub
-		ArrayList<PeopleClass> people = controller.getAllPeople();
-		people.remove(currentPerson); //Make sure to remove the current person 
+		TreeMap<Integer,PeopleClass> people = controller.getPersonList();
+		people.remove(currentPerson.getId()); //Make sure to remove the current person 
 		ArrayList<String> options = new ArrayList<String>(); 
 		String name;
 		for (int i = 0;i<people.size();i++){ //Add to 'options' Strings that are in the form of 'firstname','lastname' like 'Howe, Harlan'
+			
 			name = people.get(i).getLastName()+", "+people.get(i).getFirstName();
 			options.add(name);
 			
 		}
-		int response = this.displayMenuAndGetResponse("People", options, "Select a Person", true);
-		if (response == -1){
+		for (Map.Entry<Integer, PeopleClass> entry : people.entrySet())
+		{
+			
+		    System.out.println(entry.getKey() + "/" + entry.getValue());
+		}
+		
+		
+		int personResponse = this.displayMenuAndGetResponse("People", options, "Who should be related to "+currentPerson.getLastName()+", "+currentPerson.getFirstName()+"?", true);
+		
+		if (personResponse == -1){
 			System.out.println("Relationship Creation Cancelled");
 			return;
 		}
+		PeopleClass target = people.get(personResponse);
+		
+		options.clear();
+		ArrayList<RelationType> relationshipTypes = controller.getAllRelationshipTypes();
+		for (int i = 0;i<relationshipTypes.size();i++){
+			//options.add(relationshipTypes.get(i).)
+			//TODO fill an options arraylist of relationship names
+		}
+		
+		int relationTypeResponse = this.displayMenuAndGetResponse("Relationship Types", options, "Select a relationship type", true);
+		if (relationTypeResponse == -1){
+			System.out.println("Relationship Creation Cancelled");
+			return;
+		}
+		RelationType type = relationshipTypes.get(relationTypeResponse);
+		
+		currentPerson.addNewRelation(target,type);
+		System.out.println("Relationship added!");
 		
 		
 		

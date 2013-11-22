@@ -1,4 +1,8 @@
 package relationshipspje;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0fbee50cadee94e7847dee51128b565de82444b1
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -23,14 +27,10 @@ public class Controller
     private File preferredRelationFile;
     private TreeMap<Integer, PeopleClass> personList;
     private TreeMap<Integer, RelationType> relationList;
-    private int lastPersonId;
-    private int lastRelTypeId;
-    private int lastRelationId;
-    
     
     public Controller()
     {
-        relationList = new TreeMap<Integer, RelationType>();
+        
     }
     
     
@@ -54,13 +54,12 @@ public class Controller
                 while (input.hasNext())
                 {
                     int id;
-                    boolean gender;
+                    int genderNum;
                     String firstName;
                     String lastName;
                     
-                    String inputString = input.nextLine();
                     
-                    String[] part = inputString.split("\t");
+                    //See if I can find the integer that designates the id. Fails if not.
                     try
                     {
                         id = input.nextInt();
@@ -112,6 +111,7 @@ public class Controller
                     
                     if (genderNum == 1)
                         newBool = true;
+                    
                     
                     //Make a new person, and put it into my list of people, with the id as the dictionary key.
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, newBool);
@@ -286,6 +286,8 @@ public class Controller
             }
         }
     }
+<<<<<<< HEAD
+=======
     
     public void addPerson(String firstName, String lastName, Boolean isMale)
     {
@@ -342,4 +344,5 @@ public class Controller
     {
         return relationList;
     }
+>>>>>>> 0fbee50cadee94e7847dee51128b565de82444b1
 }
