@@ -14,11 +14,11 @@ import java.util.TreeMap;
 public class RelationType 
 {
     private int id;
-    private String type;
-    private String maleName;
-    private String femaleName;
-    private String inverseMaleName;
-    private String inverseFemaleName;
+    private String genericName;
+    private String fwdMaleName;
+    private String fwdFemaleName;
+    private String revMaleName;
+    private String revFemaleName;
     private TreeMap<Integer, Integer> relationNumber;
     
     public RelationType()
@@ -37,41 +37,56 @@ public class RelationType
     public RelationType(int newId, String newType, String newMaleName, String newFemaleName, String newInverseMaleName, String newInverseFemaleName)
     {
         id=newId;
-        type=newType;
-        maleName=newMaleName;
-        femaleName=newFemaleName;
-        inverseMaleName=newInverseMaleName;
-        inverseFemaleName=newInverseFemaleName;
+        genericName=newType;
+        fwdMaleName=newMaleName;
+        fwdFemaleName=newFemaleName;
+        revMaleName=newInverseMaleName;
+        revFemaleName=newInverseFemaleName;
     }
-    public int id()
-    {
-        return id;
-    }
-    public String type()
-    {
-        return type;
-    }
-    public String maleName()
-    {
-        return maleName;
-    }
-    public String femaleName()
-    {
-        return femaleName;
-    }
-    public String inverseMaleName()
-    {
-        return inverseMaleName;
-    }
-    public String inverseFemaleName()
-    {
-        return inverseFemaleName;
-    }
-    public TreeMap<Integer, Integer> getRelationNumber()
-    {
-        return relationNumber;
-    }
-    /**
+    
+    public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getGenericName() {
+		return genericName;
+	}
+	public void setGenericName(String genericName) {
+		this.genericName = genericName;
+	}
+	public String getFwdMaleName() {
+		return fwdMaleName;
+	}
+	public void setFwdMaleName(String fwdMaleName) {
+		this.fwdMaleName = fwdMaleName;
+	}
+	public String getFwdFemaleName() {
+		return fwdFemaleName;
+	}
+	public void setFwdFemaleName(String fwdFemaleName) {
+		this.fwdFemaleName = fwdFemaleName;
+	}
+	public String getRevMaleName() {
+		return revMaleName;
+	}
+	public void setRevMaleName(String revMaleName) {
+		this.revMaleName = revMaleName;
+	}
+	public String getRevFemaleName() {
+		return revFemaleName;
+	}
+	public void setRevFemaleName(String revFemaleName) {
+		this.revFemaleName = revFemaleName;
+	}
+	public TreeMap<Integer, Integer> getRelationNumber() {
+		return relationNumber;
+	}
+	public void setRelationNumber(TreeMap<Integer, Integer> relationNumber) {
+		this.relationNumber = relationNumber;
+	}
+	/**
      * 
      * @return whether or not the relationship is an inverse of itself
      */

@@ -15,6 +15,9 @@ public class Application {
 		 input =  new Scanner(System.in);
 		 currentPerson = null;
 		 controller = new Controller();
+		 controller.openPeople();
+		 controller.openRelTypes();
+		 controller.openRelationships();
 	}
 	
 	/*
@@ -41,13 +44,23 @@ public class Application {
 	
 	private void displayInformation(PeopleClass person) {//Output information about selected Person
 		System.out.println("You are viewing the relationships of: "+person.getLastName()+", "+person.getFirstName());
-		//TODO output information here
-		TreeMap<PeopleClass,RelationType> relationships = currentPerson.getAllRelationships();
-		ArrayList<PeopleClass> people = (ArrayList<PeopleClass>) relationships.keySet();
+		ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
 		for (int i = 0;i<relationships.size();i++){
-			/*Output the person's information here*/
-			System.out.print(currentPerson.getLastName()+","+currentPerson.getFirstName()+" has a ");
 			
+			Relationship relationship = relationships.get(i);
+			RelationType type = relationship.getRelationType();
+			PeopleClass secondaryPerson = relationship.getSecondaryPerson();
+			
+			String relationshipTypeName;
+			if (secondaryPerson.getIsMale())
+				relationshipTypeName = type.getFwdMaleName();
+			else
+				relationshipTypeName = type.getFwdFemaleName();
+			
+			
+			System.out.print(currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a ");
+			System.out.print(relationshipTypeName+", ");
+			System.out.println(relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName());
 			
 		}
 		
@@ -58,11 +71,9 @@ public class Application {
 
 	private void selectPerson() { //Prompts the user to select a person from all the people in the database, and sets currentPerson accordingly
 		// TODO UNCOMMENT WHEN CODE UPDATED
-		//ArrayList<PeopleClass> people = controller.getAllPeople(); //get people in alphabetical order
+		ArrayList<PeopleClass> people = controller.getAllPeople(); //get people in alphabetical order
 		
-		ArrayList<PeopleClass> people = new ArrayList<PeopleClass>();
-		people.add(new PeopleClass(0,"John","Smith",true));
-		people.add(new PeopleClass(1,"Jane","Doe",false));
+
 		
 		ArrayList<String> options = new ArrayList<String>(); 
 		String name;
@@ -84,7 +95,9 @@ public class Application {
 		switch (userInput)
 		{
 		case 0: //switch person to view
+			System.out.println("Switching Person...");
 			currentPerson = null;
+			break;
 		case 1: //Add Relationship
 			addRelationship();
 			break;
@@ -176,7 +189,7 @@ public class Application {
 		ArrayList<String> options = new ArrayList<String>();
 		for (int i = 0;i<people.size();i++){ //Add to 'options' Strings that are in the form of 'firstname','lastname' like 'Howe, Harlan'
 			
-			name = people.get(i).getLastName()+", "+people.get(i).getFirstName();
+			String name = people.get(i).getLastName()+", "+people.get(i).getFirstName();
 			options.add(name);
 			
 		}

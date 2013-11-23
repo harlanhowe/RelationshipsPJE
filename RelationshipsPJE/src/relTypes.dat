@@ -1,0 +1,10 @@
+1	spouse	husband	wife	husband	wife
+2	student	student	student	teacher	teacher
+3	teacher	teacher	teacher	student	student
+4	parent	father	mother	son	daughter
+5	child	son	daughter	father	mother
+6	classmate	classmate	classmate	classmate	classmate
+7	grandparent	grandfather	grandmother	grandson	granddaughter
+8	grandchild	grandson	granddaughter	grandfather	grandmother
+9	parent-in-law	father-in-law	mother-in-law	son-in-law	daughter-in-law
+10	child-in-law	son-in-law	daughter-in-law	father-in-law	mother-in-law
