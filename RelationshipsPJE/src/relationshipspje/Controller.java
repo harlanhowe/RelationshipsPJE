@@ -454,7 +454,11 @@ public class Controller
 		// TODO Auto-generated method stub
 		int id = lastRelationshipId++;
 		Relationship newRelationship = new Relationship(id,currentPerson,target,type);
+		id++;
+		Relationship newInverseRelationship = new Relationship(id,target,currentPerson,type);
+		
 		relationshipsList.add(newRelationship);
+		relationshipsList.add(newInverseRelationship);
 		lastRelationshipId = id;
 	}
 
