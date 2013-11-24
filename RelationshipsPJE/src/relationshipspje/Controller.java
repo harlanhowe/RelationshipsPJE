@@ -332,7 +332,6 @@ public class Controller
                 	String inputString = input.nextLine();
 				    String[] part = inputString.split("\t");
                 	
-				    System.out.println(inputString);
 				    
 				    id = Integer.parseInt(part[0]);
 				    person1id = Integer.parseInt(part[1]);
@@ -434,7 +433,33 @@ public class Controller
         int relationId = lastRelTypeId++;
     }
     
-    public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
+    
+    
+
+
+	public ArrayList<RelationType> getAllRelationshipTypes() {
+		// TODO Auto-generated method stub
+		return relationTypeList;
+	}
+
+
+	public void deleteRelationship(Relationship relationship) {
+		// TODO Auto-generated method stub
+		relationshipsList.remove(relationship);
+		
+	}
+
+
+	public void addNewRelationship(PeopleClass currentPerson, PeopleClass target, RelationType type) {
+		// TODO Auto-generated method stub
+		int id = lastRelationshipId++;
+		Relationship newRelationship = new Relationship(id,currentPerson,target,type);
+		relationshipsList.add(newRelationship);
+		lastRelationshipId = id;
+	}
+
+	//add realtionship without inverse
+	public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
     {
         int id = lastRelTypeId++;
         
@@ -444,11 +469,30 @@ public class Controller
         
         lastRelTypeId = id;
     }
-    
-
-
-	public ArrayList<RelationType> getAllRelationshipTypes() {
+	
+	//Add relationship type with inverse
+	public void addRelType(String genericName, String fwdMaleName,String fwdFemaleName, String revMaleName, String revFemaleName,String inverseGenericName) {
 		// TODO Auto-generated method stub
-		return relationTypeList;
+		int id = lastRelTypeId++;
+        
+        RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+        id++;
+        RelationType newRelInverse = new RelationType(id,inverseGenericName,revMaleName,revFemaleName,fwdMaleName,fwdFemaleName);
+        relationTypeList.add(theNewRel);
+        relationTypeList.add(newRelInverse);
+        lastRelTypeId = id;
+		
+	}
+
+
+	public void deleteRelationshipType(RelationType relationType) {
+		// TODO Auto-generated method stub
+		relationTypeList.remove(relationType);
+		ArrayList<Relationship> relationshipsListClone = (ArrayList<Relationship>) relationshipsList.clone();
+		for (int i =0 ;i<relationshipsListClone.size();i++){
+			if (relationshipsListClone.get(i).getRelationType() == relationType){
+				relationshipsList.remove(relationshipsListClone.get(i));
+			}
+		}
 	}
 }
