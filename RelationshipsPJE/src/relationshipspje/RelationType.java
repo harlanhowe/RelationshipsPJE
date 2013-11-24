@@ -92,7 +92,7 @@ public class RelationType
      */
     public boolean inverseOfSelf()
     {
-        if((maleName.equals(inverseMaleName))&&(femaleName.equals(inverseFemaleName)))
+        if((fwdMaleName.equals(revMaleName))&&(fwdFemaleName.equals(revFemaleName)))
             return true;
         else
             return false;
