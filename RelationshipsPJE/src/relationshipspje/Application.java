@@ -41,23 +41,27 @@ public class Application {
 		
 		
 	}
-	
-	private void displayInformation(PeopleClass person) {//Output information about selected Person
-		System.out.println("You are viewing the relationships of: "+person.getLastName()+", "+person.getFirstName());
-		ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
-		for (int i = 0;i<relationships.size();i++){
+	/*
+	 * Displays all the relationships of current person
+	 * 
+	 */
+	private void displayInformation(PeopleClass person) {
+		System.out.println("You are viewing the relationships of: "+person.getLastName()+", "+person.getFirstName()); 
+		
+		ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson); //get all relationships for person
+		for (int i = 0;i<relationships.size();i++){ //iterate through each relationship
 			
 			Relationship relationship = relationships.get(i);
-			RelationType type = relationship.getRelationType();
-			PeopleClass secondaryPerson = relationship.getSecondaryPerson();
+			RelationType type = relationship.getRelationType(); //get the type of the relationship
+			PeopleClass secondaryPerson = relationship.getSecondaryPerson();//get the secondary person of the relationship
 			
 			String relationshipTypeName;
-			if (secondaryPerson.getIsMale())
+			if (secondaryPerson.getIsMale()) //depending on the gender of the secondary person, the title will be different
 				relationshipTypeName = type.getFwdMaleName();
 			else
 				relationshipTypeName = type.getFwdFemaleName();
 			
-			
+			//Print out the 'currentPerson' has a 'relationshipTypeName', 'secondaryPerson' statement
 			System.out.print(currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a ");
 			System.out.print(relationshipTypeName+", ");
 			System.out.println(relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName());
@@ -69,11 +73,12 @@ public class Application {
 		
 	}
 
-	private void selectPerson() { //Prompts the user to select a person from all the people in the database, and sets currentPerson accordingly
-		// TODO UNCOMMENT WHEN CODE UPDATED
-		ArrayList<PeopleClass> people = controller.getAllPeople(); //get people in alphabetical order
-		
-
+	/*
+	 * Prompts user to select a person from all people in database
+	 * sets currentUser to the person that the user selected
+	 */
+	private void selectPerson() { 
+		ArrayList<PeopleClass> people = controller.getAllPeople();
 		
 		ArrayList<String> options = new ArrayList<String>(); 
 		String name;
@@ -90,8 +95,10 @@ public class Application {
 	
 	
 	
-
-	private void processResponse(int userInput) {//Processes the user response and chooses appropriate way to deal with it 
+	/*
+	 * Processes the number that the user clicked from the main menu
+	 */
+	private void processResponse(int userInput) {
 		switch (userInput)
 		{
 		case 0: //switch person to view
@@ -127,17 +134,24 @@ public class Application {
 		
 	}
 
+	/*
+	 * Calls controller method that will save all changes to the database files themselves
+	 */
 	private void saveState() {
 		// TODO Auto-generated method stub
 		controller.saveData();
 		
 	}
 
+	/*
+	 * Deletes a relationship type
+	 */
 	private void deleteRelationshipType() {
 		// TODO Auto-generated method stub
-		ArrayList<RelationType> relationshipTypes = controller.getAllRelationshipTypes();
+		ArrayList<RelationType> relationshipTypes = controller.getAllRelationshipTypes(); //get all relationship types
 		ArrayList<String> options = new ArrayList<String>();
-		for (int i = 0;i<relationshipTypes.size();i++){
+		
+		for (int i = 0;i<relationshipTypes.size();i++){ //add each to options so that the user can choose which to delete
 			options.add(relationshipTypes.get(i).getGenericName());
 
 		}
@@ -146,16 +160,20 @@ public class Application {
 			System.out.println("Relationship Type Deletion Cancelled");
 			return;
 		}else{
-			controller.deleteRelationshipType(relationshipTypes.get(response));
+			controller.deleteRelationshipType(relationshipTypes.get(response)); //call controller method to delete the relationshp type
 
 		}
 		
 	}
 
+	/*
+	 * Adds a new relationship type
+	 */
 	private void addRelationshipType() {
 		// TODO Auto-generated method stub
-		input.nextLine();
+		input.nextLine(); //clear the input buffer
 		
+		//Asks the user to input information pertaining to the new relationship type
 		System.out.println("Please enter the generic name of the relationship type");
 		String genericName = input.nextLine();
 		System.out.println("Please enter the forward male name of the relationship type");
@@ -167,14 +185,16 @@ public class Application {
 		System.out.println("Please enter the reverse female name of the relationship type");
 		String revFemaleName = input.nextLine();
 		
+		
+		//Checks if an inverse relationship needs to be created
 		if (fwdMaleName.equals(revMaleName) && fwdFemaleName.equals(revFemaleName)){
-			controller.addRelType(genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+			controller.addRelType(genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName); //Create without inverse 
 		}
 		else{
 			System.out.println("Please enter the generic name of the inverse relationship type");
 			String inverseGenericName  = input.nextLine();
 
-			controller.addRelType(genericName,fwdMaleName,fwdFemaleName,revMaleName,revFemaleName,inverseGenericName);
+			controller.addRelType(genericName,fwdMaleName,fwdFemaleName,revMaleName,revFemaleName,inverseGenericName);//Create with inverse
 		}
 
 		
@@ -183,30 +203,34 @@ public class Application {
 		
 	}
 
+	/*
+	 * Deletes a person from the database
+	 */
 	private void deletePerson() {
-		// TODO Auto-generated method stub
-		ArrayList<PeopleClass> people = controller.getAllPeople();
+		ArrayList<PeopleClass> people = controller.getAllPeople(); //gets all people form database
 		ArrayList<String> options = new ArrayList<String>();
 		for (int i = 0;i<people.size();i++){ //Add to 'options' Strings that are in the form of 'firstname','lastname' like 'Howe, Harlan'
-			
 			String name = people.get(i).getLastName()+", "+people.get(i).getFirstName();
 			options.add(name);
-			
 		}
-		int response = this.displayMenuAndGetResponse("People",options,"Select a person to delete from database",true);
+		int response = this.displayMenuAndGetResponse("People",options,"Select a person to delete from database",true); //display menu
 		if (response == -1){
 			System.out.println("Person Deletion Cancelled");
 			return;
 		}
 		else{
-			controller.deletePerson(people.get(response));
+			controller.deletePerson(people.get(response)); //Call controller method to delete a person
 		}
 		
 	}
 
+	/*
+	 * Adds a person to the database
+	 */
 	private void addPerson() {
-		// TODO Auto-generated method stub
-		input.nextLine();
+		input.nextLine(); //clear input buffer
+		
+		//Ask information about the new person
 		System.out.print("Please enter the first name of the person: ");
 		String firstname = input.nextLine(); //get firstname
 		System.out.print("Please enter the last name of the person: ");
@@ -214,7 +238,7 @@ public class Application {
 
 		boolean male = true;
 		String[] choices = {"Y","N"};
-		String choice = this.displayStringChoiceAndGetResponse("Is this is person male?", choices);
+		String choice = this.displayStringChoiceAndGetResponse("Is this is person male?", choices); //Ask user if the person is male or not
 		if (choice.equals("N")){ //if user says no, then person is not male
 			male = false;
 		}
@@ -224,13 +248,16 @@ public class Application {
 		
 	}
 
+	/*
+	 * Deletes a relationship from a current person
+	 * Also deletes the inverse relationship from secondary person
+	 * So if Mr. howe has a wife Ms. Howe, it also deletes Ms. Howe as a husband Mr. Howe
+	 */
 	private void deleteRelationship() {
-		// TODO Auto-generated method stub
-		ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
-		ArrayList<String> options = new ArrayList<String>();
+		ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson); //gets all relationships
+		ArrayList<String> options = new ArrayList<String>(); 
 
-		for (int i = 0;i<relationships.size();i++){
-			/*Output the person's information here*/
+		for (int i = 0;i<relationships.size();i++){ //Create a string in the format of "currentPerson" has a "relationshipName", "secondaryPerson" and adds it to options
 			Relationship relationship = relationships.get(i);
 			RelationType type = relationship.getRelationType();
 			PeopleClass secondaryPerson = relationship.getSecondaryPerson();
@@ -245,10 +272,8 @@ public class Application {
 					+relationshipTypeName+", "+relationship.getSecondaryPerson().getLastName()+", "
 					+relationship.getSecondaryPerson().getFirstName();
 			options.add(option);
-			
-
-				
 		}
+		
 		int response = this.displayMenuAndGetResponse("Relationships",options,"Select relationship to delete:",true);
 		if (response == -1){
 			System.out.println("Relationship Deletion Cancelled");
@@ -257,7 +282,7 @@ public class Application {
 		else{
 			//Call a delete method in current person and delete according to response
 			
-			controller.deleteRelationship(relationships.get(response));
+			controller.deleteRelationship(relationships.get(response));//call controller method to delete relationship
 
 		}
 
@@ -270,7 +295,6 @@ public class Application {
 	/*Gets a list of all people, displays a menu to select one of them, displays another menu to select a relationship type, 
 	 * and adds a new relationship to the currentPerson
 	 */
-	
 	private void addRelationship() {
 		ArrayList<PeopleClass> people = controller.getAllPeople();
 		people.remove(currentPerson); //Make sure to remove the current person 
@@ -289,13 +313,11 @@ public class Application {
 			System.out.println("Relationship Creation Cancelled");
 			return;
 		}
-		PeopleClass target = people.get(personResponse);
-		
-		options.clear();
+		PeopleClass target = people.get(personResponse); //gets the PeopleClass that the user selected
+		//At this point user has selected a target person, he now just needs to select a relationshipType
+		options.clear(); //clears the options array so that it can now store options of relationship types
 		ArrayList<RelationType> relationshipTypes = controller.getAllRelationshipTypes();
-		for (int i = 0;i<relationshipTypes.size();i++){
-			//options.add(relationshipTypes.get(i).)
-			//TODO fill an options arraylist of relationship names
+		for (int i = 0;i<relationshipTypes.size();i++){ //fills options with generic names of relationshipTypes
 			options.add(relationshipTypes.get(i).getGenericName());
 		}
 		
@@ -304,25 +326,29 @@ public class Application {
 			System.out.println("Relationship Creation Cancelled");
 			return;
 		}
-		RelationType type = relationshipTypes.get(relationTypeResponse);
+		RelationType type = relationshipTypes.get(relationTypeResponse); //Stores the relationshipType the user selected in a class
 		
-		controller.addNewRelationship(currentPerson, target, type);
+		controller.addNewRelationship(currentPerson, target, type); //calls controller method to add new relationship 
 		System.out.println("Relationship added!");
 		
 		
 		
 	}
 
-	private void endProgram() {//End the program with a good-bye message
+	/*
+	 * Ends Program with good-bye message
+	 */
+	private void endProgram() {
 		System.out.println("Thank you for using the program!");
 		System.exit(0);
 		
 	}
 
-	public int displayMenu(){ //Sets up options and displays the main menu
-		ArrayList<String> options = new ArrayList<String>();
-		//Process Options
-		
+	/*
+	 * Sets up the options for the main  menu and displays the menu
+	 */
+	public int displayMenu(){
+		ArrayList<String> options = new ArrayList<String>();		
 		//Create Options
 		options.add("Switch Current Person");
 		options.add("Add Relationship");
