@@ -52,50 +52,58 @@ public class Controller
 //        if (result == JFileChooser.APPROVE_OPTION)
 //        {
 //            preferredPeopleFile = chooser.getSelectedFile();
-//            
-//            // now try to open the file and read from it with a scanner.
+//        }
+            
+            // now try to open the file and read from it with a scanner.
         
         
             Scanner input;
-			try {
-				input = new Scanner(new File("people.dat"));
+            try 
+            {
+                input = new Scanner(new File("people.dat"));
 	
 				// read from the file, store relations into arrayList;
-				while (input.hasNext())
-				{
-				    int id;
-				    boolean isMale;
-				    String firstName;
-				    String lastName;
-				    
-				    String inputString = input.nextLine();
-				    
-				    String[] part = inputString.split("\t");
-				    
-				    id = Integer.parseInt(part[0]);
-				    firstName = part[1];
-				    lastName = part[2];
-				    if (part[3].equals("true"))
-				    	isMale = true;
-				    else
-				    	isMale = false;
-				    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
-				    
-				    personList.add(theNewGuy);
-				    
-				    if (!input.hasNext()){
-				    	lastPersonId = id;
-				    	break;
-				    }
-				    
-				}
-				
-				
-				input.close();
-	        }catch(Exception e){
-	        	
-	        }
+		while (input.hasNext())
+		{
+                    int id;
+                    boolean isMale;
+                    String firstName;
+                    String lastName;
 
+                    String inputString = input.nextLine();
+
+                    String[] part = inputString.split("\t");
+
+                    id = Integer.parseInt(part[0]);
+                    firstName = part[1];
+                    lastName = part[2];
+                    if (part[3].equals("true"))
+                    isMale = true;
+                    else
+                        isMale = false;
+                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
+
+                    personList.add(theNewGuy);
+
+                    if (!input.hasNext())
+                        {
+                            lastPersonId = id;
+                            break;
+                        }
+				    
+                }
+				
+				
+                input.close();
+	    }
+            catch(Exception e)
+            {
+	        	
+	    }
+            
+            
+
+        
         
     }
     
@@ -108,9 +116,10 @@ public class Controller
 //        if (result == JFileChooser.APPROVE_OPTION)
 //        {
 //            preferredRelTypeFile = chooser.getSelectedFile();
-//            
-//            // now try to open the file and read from it with a scanner.
-//        
+//        }
+            
+            // now try to open the file and read from it with a scanner.
+        
         
             try
             {
@@ -159,7 +168,6 @@ public class Controller
             {
                 throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
             }
-        
     }
     
     public void openRelationships()
@@ -170,10 +178,11 @@ public class Controller
 //        if (result == JFileChooser.APPROVE_OPTION)
 //        {
 //            preferredRelationFile = chooser.getSelectedFile();
-//            
-//            // now try to open the file and read from it with a scanner.
-//        
-//        
+//        }
+            
+            // now try to open the file and read from it with a scanner.
+        
+        
             try
             {
                 Scanner input = new Scanner(new File("relationships.dat"));
@@ -358,4 +367,18 @@ public class Controller
 			}
 		}
 	}
+        
+        public void saveData()
+        {
+            
+        }
+        
+        public void deletePerson(PeopleClass personToDel)
+        {
+            
+            for (int i = 0; i <relationshipsList.size(); i++)
+                if (relationshipsList.get(i).isRelationshipOf(personToDel)||relationshipsList.get(i).getSecondaryPerson().equals(personToDel))
+                    relationshipsList.remove(i);
+            personList.remove(personToDel);
+        }
 }
