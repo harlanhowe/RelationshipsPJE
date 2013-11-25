@@ -86,15 +86,15 @@ public class RelationType
 	public void setRelationNumber(TreeMap<Integer, Integer> relationNumber) {
 		this.relationNumber = relationNumber;
 	}
-	/**
-     * 
-     * @return whether or not the relationship is an inverse of itself
-     */
-    public boolean inverseOfSelf()
-    {
-        if((maleName.equals(inverseMaleName))&&(femaleName.equals(inverseFemaleName)))
-            return true;
-        else
-            return false;
-    }
+//	/**
+//     * 
+//     * @return whether or not the relationship is an inverse of itself
+//     */
+//    public boolean inverseOfSelf()
+//    {
+//        if((fwdMaleName.equals(revMaleName))&&(fwdFemaleName.equals(revFemaleName)))
+//            return true;
+//        else
+//            return false;
+//    }
 }
