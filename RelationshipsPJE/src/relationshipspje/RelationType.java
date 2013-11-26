@@ -5,8 +5,6 @@ package relationshipspje;
  * and open the template in the editor.
  */
 
-import java.util.TreeMap;
-
 /**
  *
  * @author john.woodhouse
@@ -24,60 +22,70 @@ public class RelationType
     /** Precondition: data must be given from Controller
      * 
      * @param newId Id for the new relation
-     * @param newType What type is the new relation
-     * @param newMaleName the masculine version of the person who is related to the other people
-     * @param newFemaleName the feminine version of the person who is related to the other people
-     * @param newInverseMaleName the masculine version of the related person
-     * @param newInverseFemaleName the feminine version of the related person
+     * @param newGenericType What type is the new relation
+     * @param newFwdMaleName the masculine version of the person who is related to the other people
+     * @param newFwdFemaleName the feminine version of the person who is related to the other people
+     * @param newRevMaleName the masculine version of the related person
+     * @param newRevFemaleName the feminine version of the related person
      */
-    public RelationType(int newId, String newType, String newMaleName, String newFemaleName, String newInverseMaleName, String newInverseFemaleName)
+    public RelationType(int newId, String newGenericType, String newFwdMaleName, String newFwdFemaleName, String newRevMaleName, String newRevFemaleName)
     {
         id=newId;
-        genericName=newType;
-        fwdMaleName=newMaleName;
-        fwdFemaleName=newFemaleName;
-        revMaleName=newInverseMaleName;
-        revFemaleName=newInverseFemaleName;
+        genericName=newGenericType;
+        fwdMaleName=newFwdMaleName;
+        fwdFemaleName=newFwdFemaleName;
+        revMaleName=newRevMaleName;
+        revFemaleName=newRevFemaleName;
 
     }
 
     
-    public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getGenericName() {
-		return genericName;
-	}
-	public void setGenericName(String genericName) {
-		this.genericName = genericName;
-	}
-	public String getFwdMaleName() {
-		return fwdMaleName;
-	}
-	public void setFwdMaleName(String fwdMaleName) {
-		this.fwdMaleName = fwdMaleName;
-	}
-	public String getFwdFemaleName() {
-		return fwdFemaleName;
-	}
-	public void setFwdFemaleName(String fwdFemaleName) {
-		this.fwdFemaleName = fwdFemaleName;
-	}
-	public String getRevMaleName() {
-		return revMaleName;
-	}
-	public void setRevMaleName(String revMaleName) {
-		this.revMaleName = revMaleName;
-	}
-	public String getRevFemaleName() {
-		return revFemaleName;
-	}
-	public void setRevFemaleName(String revFemaleName) {
-		this.revFemaleName = revFemaleName;
-	}
-
-
+    public int getId() 
+    {
+	return id;
+    }
+    public void setId(int id) 
+    {
+	this.id = id;
+    }
+    public String getGenericName() 
+    {
+	return genericName;
+    }
+    public void setGenericName(String genericName) 
+    {
+	this.genericName = genericName;
+    }
+    public String getFwdMaleName() 
+    {
+	return fwdMaleName;
+    }
+    public void setFwdMaleName(String fwdMaleName) 
+    {
+	this.fwdMaleName = fwdMaleName;
+    }
+    public String getFwdFemaleName() 
+    {
+	return fwdFemaleName;
+    }
+    public void setFwdFemaleName(String fwdFemaleName) 
+    {
+	this.fwdFemaleName = fwdFemaleName;
+    }
+    public String getRevMaleName() 
+    {
+	return revMaleName;
+    }
+    public void setRevMaleName(String revMaleName) 
+    {
+	this.revMaleName = revMaleName;
+    }
+    public String getRevFemaleName() 
+    {
+	return revFemaleName;
+    }
+    public void setRevFemaleName(String revFemaleName) 
+    {
+	this.revFemaleName = revFemaleName;
+    }
 }
