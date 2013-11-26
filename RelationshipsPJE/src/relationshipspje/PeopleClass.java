@@ -100,8 +100,8 @@ public class PeopleClass
     }
     /**
      * 
-     * @param person the relationshipee of the person
-     * @param relationGiven the relation the person has with the relationshipee
+     * @param person who the person is related to
+     * @param relationGiven the relation the person has with the other
      */
     public void addRelationship(PeopleClass person, RelationType relationGiven)
     {
