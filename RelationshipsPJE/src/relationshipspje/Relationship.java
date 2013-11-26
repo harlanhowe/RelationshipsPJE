@@ -51,5 +51,10 @@ public class Relationship {
 	public void setRelationType(RelationType relationType) {
 		this.relationType = relationType;
 	}
+        
+        public int getId()
+        {
+            return id;
+        }
 	
 }
