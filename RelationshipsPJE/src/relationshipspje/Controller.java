@@ -296,11 +296,6 @@ public class Controller
         }
     }
     
-    public void addRelation(String relatorName, String relateeName, String relationType)
-    {
-        int relationId = lastRelTypeId++;
-    }
-    
     
     
 
@@ -311,23 +306,34 @@ public class Controller
 	}
 
 
-	public void deleteRelationship(Relationship relationship) {
-		// TODO Auto-generated method stub
-		relationshipsList.remove(relationship);
-		
-	}
-
+	
+	/*
+	 * BOTH add realtionshp and delete relationship should work the same way
+	 * Each call should add/delete two relationships if possible
+	 * 
+	 */
 
 	public void addNewRelationship(PeopleClass currentPerson, PeopleClass target, RelationType type) {
 		int id = lastRelationshipId++;
-		Relationship newRelationship = new Relationship(id,currentPerson,target,type);
+		Relationship newRelationship = new Relationship(id,currentPerson,target,type); //Creates relationship
+		relationshipsList.add(newRelationship);//Adds it to the list
+		
+		//Now, adds a relationship to the target person that is an inverse of the realtionship you are adding
+		//E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
 		id++;
-		Relationship newInverseRelationship = new Relationship(id,target,currentPerson,type);
-		relationshipsList.add(newRelationship);
+		//TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
+		RelationType inverseType = getInverseRelationship(type);
+		Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
 		relationshipsList.add(newInverseRelationship);
 		lastRelationshipId = id;
 	}
-
+	public void deleteRelationship(Relationship relationship) {
+		// TODO Auto-generated method stub
+		relationshipsList.remove(relationship);
+			
+	
+	}
+	
 	//add realtionship without inverse
 	public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
     {
