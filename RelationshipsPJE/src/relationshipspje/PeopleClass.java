@@ -45,17 +45,33 @@ public class PeopleClass
     {
         return id;
     }
+    public void setId(int newId)
+    {
+        this.id=newId;
+    }
     public String getLastName()
     {
         return lastName;
+    }
+    public void setLastName(String newLastName)
+    {
+        this.lastName=newLastName;
     }
     public String getFirstName()
     {
         return firstName;
     }
+    public void setFirstName(String newFirstName)
+    {
+        this.firstName=newFirstName;
+    }
     public boolean getIsMale()
     {
         return isMale;
+    }
+    public void setGender(boolean newIsMale)
+    {
+        this.isMale=newIsMale;
     }
     public TreeMap<PeopleClass ,RelationType> getAllRelationships()
     {
