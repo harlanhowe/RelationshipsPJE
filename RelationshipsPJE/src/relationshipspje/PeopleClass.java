@@ -64,9 +64,6 @@ public class PeopleClass
     public void addRelationship(PeopleClass person, RelationType relationGiven)
     {
         relations.put(person, relationGiven);
-        if (relationGiven.inverseOfSelf()==true)
-            person.addRelationship(this, relationGiven);
-        
     }
     
 }
