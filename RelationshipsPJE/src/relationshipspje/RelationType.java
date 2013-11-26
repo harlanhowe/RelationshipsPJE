@@ -19,12 +19,8 @@ public class RelationType
     private String fwdFemaleName;
     private String revMaleName;
     private String revFemaleName;
-    private TreeMap<Integer, Integer> relationNumber;
+
     
-    public RelationType()
-    {
-        relationNumber=new TreeMap<Integer, Integer>();
-    }
     /** Precondition: data must be given from Controller
      * 
      * @param newId Id for the new relation
@@ -42,7 +38,9 @@ public class RelationType
         fwdFemaleName=newFemaleName;
         revMaleName=newInverseMaleName;
         revFemaleName=newInverseFemaleName;
+
     }
+
     
     public int getId() {
 		return id;
@@ -80,21 +78,6 @@ public class RelationType
 	public void setRevFemaleName(String revFemaleName) {
 		this.revFemaleName = revFemaleName;
 	}
-	public TreeMap<Integer, Integer> getRelationNumber() {
-		return relationNumber;
-	}
-	public void setRelationNumber(TreeMap<Integer, Integer> relationNumber) {
-		this.relationNumber = relationNumber;
-	}
-	/**
-     * 
-     * @return whether or not the relationship is an inverse of itself
-     */
-    public boolean inverseOfSelf()
-    {
-        if((maleName.equals(inverseMaleName))&&(femaleName.equals(inverseFemaleName)))
-            return true;
-        else
-            return false;
-    }
+
+
 }
