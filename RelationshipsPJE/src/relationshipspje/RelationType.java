@@ -38,8 +38,6 @@ public class RelationType
         revFemaleName=newRevFemaleName;
 
     }
-
-    
     public int getId() 
     {
 	return id;
