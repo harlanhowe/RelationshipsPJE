@@ -44,48 +44,48 @@ public class RelationType
     {
 	return id;
     }
-    public void setId(int id) 
+    public void setId(int newId) 
     {
-	this.id = id;
+	this.id = newId;
     }
     public String getGenericName() 
     {
 	return genericName;
     }
-    public void setGenericName(String genericName) 
+    public void setGenericName(String newGenericName) 
     {
-	this.genericName = genericName;
+	this.genericName = newGenericName;
     }
     public String getFwdMaleName() 
     {
 	return fwdMaleName;
     }
-    public void setFwdMaleName(String fwdMaleName) 
+    public void setFwdMaleName(String newFwdMaleName) 
     {
-	this.fwdMaleName = fwdMaleName;
+	this.fwdMaleName = newFwdMaleName;
     }
     public String getFwdFemaleName() 
     {
 	return fwdFemaleName;
     }
-    public void setFwdFemaleName(String fwdFemaleName) 
+    public void setFwdFemaleName(String newFwdFemaleName) 
     {
-	this.fwdFemaleName = fwdFemaleName;
+	this.fwdFemaleName = newFwdFemaleName;
     }
     public String getRevMaleName() 
     {
 	return revMaleName;
     }
-    public void setRevMaleName(String revMaleName) 
+    public void setRevMaleName(String newRevMaleName) 
     {
-	this.revMaleName = revMaleName;
+	this.revMaleName = newRevMaleName;
     }
     public String getRevFemaleName() 
     {
 	return revFemaleName;
     }
-    public void setRevFemaleName(String revFemaleName) 
+    public void setRevFemaleName(String newRevFemaleName) 
     {
-	this.revFemaleName = revFemaleName;
+	this.revFemaleName = newRevFemaleName;
     }
 }
