@@ -41,6 +41,10 @@ public class PeopleClass
         lastName=newLastName;
         isMale=newIsMale;
     }
+    /**Precondition: there is already a person given
+     * 
+     * @return the id number of this person
+     */
     public int getId()
     {
         return id;
@@ -49,6 +53,10 @@ public class PeopleClass
     {
         this.id=newId;
     }
+    /**Precondition: there is already a person given
+     * 
+     * @return the last name of this person
+     */
     public String getLastName()
     {
         return lastName;
@@ -57,6 +65,10 @@ public class PeopleClass
     {
         this.lastName=newLastName;
     }
+    /**Precondition: there is already a person given
+     * 
+     * @return the first name of this person
+     */
     public String getFirstName()
     {
         return firstName;
@@ -65,6 +77,10 @@ public class PeopleClass
     {
         this.firstName=newFirstName;
     }
+    /**Precondition: there is already a person given
+     * 
+     * @return whether this person is male or not
+     */
     public boolean getIsMale()
     {
         return isMale;
@@ -73,10 +89,20 @@ public class PeopleClass
     {
         this.isMale=newIsMale;
     }
+    /**Precondition: there is already a person given
+     * Precondition: the person has a relationship
+     * 
+     * @return all the relations of this person
+     */
     public TreeMap<PeopleClass ,RelationType> getAllRelationships()
     {
         return relations;
     }
+    /**
+     * 
+     * @param person the relationshipee of the person
+     * @param relationGiven the relation the person has with the relationshipee
+     */
     public void addRelationship(PeopleClass person, RelationType relationGiven)
     {
         relations.put(person, relationGiven);
