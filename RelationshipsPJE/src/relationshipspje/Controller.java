@@ -6,11 +6,9 @@ package relationshipspje;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 import javax.swing.JFileChooser;
 
@@ -23,6 +21,7 @@ public class Controller
     private File preferredPeopleFile;
     private File preferredRelTypeFile;
     private File preferredRelationFile;
+    private File preferredFile;
     
     private ArrayList<PeopleClass> personList;
     private ArrayList<RelationType> relationTypeList;
@@ -198,25 +197,26 @@ public class Controller
                 	int person2id;
                 	int relTypeid;
                 	String inputString = input.nextLine();
-				    String[] part = inputString.split("\t");
-                	
-				    
-				    id = Integer.parseInt(part[0]);
-				    person1id = Integer.parseInt(part[1]);
-				    person2id = Integer.parseInt(part[2]);
-				    relTypeid = Integer.parseInt(part[3]);
-				    
-				    PeopleClass person1 = this.getPersonById(person1id);
-				    PeopleClass person2 = this.getPersonById(person2id);
-				    RelationType relType = this.getRelationTypeById(relTypeid);
-				    
-				    Relationship newRelationship = new Relationship(id,person1,person2,relType);
-				    relationshipsList.add(newRelationship);
-				    
-				    if (!input.hasNext()){
-				    	lastRelationshipId = id;
-				    	break;
-				    }
+                        String[] part = inputString.split("\t");
+
+
+                        id = Integer.parseInt(part[0]);
+                        person1id = Integer.parseInt(part[1]);
+                        person2id = Integer.parseInt(part[2]);
+                        relTypeid = Integer.parseInt(part[3]);
+
+                        PeopleClass person1 = this.getPersonById(person1id);
+                        PeopleClass person2 = this.getPersonById(person2id);
+                        RelationType relType = this.getRelationTypeById(relTypeid);
+
+                        Relationship newRelationship = new Relationship(id,person1,person2,relType);
+                        relationshipsList.add(newRelationship);
+
+                        if (!input.hasNext())
+                        {
+                            lastRelationshipId = id;
+                            break;
+                        }
 				    
                 }
                 
@@ -261,7 +261,8 @@ public class Controller
         lastPersonId = id;
     }
     
-    public ArrayList<Relationship> getAllRelationshispForPerson(PeopleClass person){
+    public ArrayList<Relationship> getAllRelationshispForPerson(PeopleClass person)
+    {
     	ArrayList<Relationship> relationships = new ArrayList<Relationship>();
     	
     	for (int i = 0;i<relationshipsList.size();i++){
@@ -285,11 +286,7 @@ public class Controller
         {
             if (personList.get(i).getFirstName().equals(name) || personList.get(i).getLastName().equals(name))
             {
-                //
-                //
-                //IMPORTANT!!! Talk about having the TreeMap in PeopleClass be in the format <RelateeId, RelationTypeId>.
-                //
-                //
+                
                 
                 personList.remove(i);
             }
@@ -298,6 +295,7 @@ public class Controller
     
     public void addRelation(String relatorName, String relateeName, String relationType)
     {
+        
         int relationId = lastRelTypeId++;
     }
     
@@ -332,15 +330,15 @@ public class Controller
 
 	//add realtionship without inverse
 	public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
-    {
-        int id = lastRelTypeId++;
-        
-        RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
-                    
-        relationTypeList.add(theNewRel);
-        
-        lastRelTypeId = id;
-    }
+        {
+            int id = lastRelTypeId++;
+
+            RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
+
+            relationTypeList.add(theNewRel);
+
+            lastRelTypeId = id;
+        }
 	
 	//Add relationship type with inverse
 	public void addRelType(String genericName, String fwdMaleName,String fwdFemaleName, String revMaleName, String revFemaleName,String inverseGenericName) {
@@ -368,9 +366,214 @@ public class Controller
 		}
 	}
         
-        public void saveData()
+        public void savePeopleData()
         {
-            
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredPeopleFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredPeopleFile = chooser.getSelectedFile();
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredPeopleFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < personList.size(); i ++)
+                        output.println(personList.get(i).getId()+"\t"+personList.get(i).getFirstName()+"\t"+personList.get(i).getLastName()+"\t"+personList.get(i).getIsMale());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredPeopleFile+" cannot be saved.");
+                }
+            }
+        }
+        
+        public void saveRelationships()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredRelationFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredRelationFile = chooser.getSelectedFile();
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredRelationFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < relationshipsList.size(); i ++)
+                        output.println(relationshipsList.get(i).getId()+"\t"+relationshipsList.get(i).getPrimaryPerson().getId()+"\t"+relationshipsList.get(i).getSecondaryPerson().getId()+"\t"+relationshipsList.get(i).getRelationType().getId());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredRelationFile+" cannot be saved.");
+                }
+            }
+        }
+        
+        public void saveRelTypes()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredRelTypeFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredRelTypeFile = chooser.getSelectedFile();
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredRelTypeFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < relationTypeList.size(); i ++)
+                        output.println(relationTypeList.get(i).getId()+"\t"+relationTypeList.get(i).getGenericName()+"\t"+relationTypeList.get(i).getFwdMaleName()+"\t"+relationTypeList.get(i).getFwdFemaleName()+"\t"+relationTypeList.get(i).getRevMaleName()+"\t"+relationTypeList.get(i).getRevFemaleName());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredRelTypeFile+" cannot be saved.");
+                }
+            }
+        }
+        
+        public void saveAll()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredFile = chooser.getSelectedFile();
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredFile);
+                    // you can now write to the file by saying
+                    
+                    output.println("People");
+                    //save the people
+                    for (int i = 0; i < personList.size(); i ++)
+                        output.println(personList.get(i).getId()+"\t"+personList.get(i).getFirstName()+"\t"+personList.get(i).getLastName()+"\t"+personList.get(i).getIsMale());
+                    
+                    output.println("Types");
+                    //save the rel types
+                    for (int i = 0; i < relationTypeList.size(); i ++)
+                        output.println(relationTypeList.get(i).getId()+"\t"+relationTypeList.get(i).getGenericName()+"\t"+relationTypeList.get(i).getFwdMaleName()+"\t"+relationTypeList.get(i).getFwdFemaleName()+"\t"+relationTypeList.get(i).getRevMaleName()+"\t"+relationTypeList.get(i).getRevFemaleName());
+                
+                    output.println("Relations");
+                    //save the relationships
+                    for (int i = 0; i < relationshipsList.size(); i ++)
+                        output.println(relationshipsList.get(i).getId()+"\t"+relationshipsList.get(i).getPrimaryPerson().getId()+"\t"+relationshipsList.get(i).getSecondaryPerson().getId()+"\t"+relationshipsList.get(i).getRelationType().getId());
+                    
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredRelTypeFile+" cannot be saved.");
+                }
+            }
+        }
+        
+        public void loadAll()
+        {
+            Scanner input;
+            try 
+            {
+                input = new Scanner(new File("people.dat"));
+                int phase = 1;
+	
+				// read from the file, store relations into arrayList;
+		while (input.hasNext())
+		{
+                    int personId;
+                    boolean personIsMale;
+                    String personFirstName;
+                    String personLastName;
+                    
+                    int typeId;
+                    String genericName;
+                    String fwdMaleName;
+                    String fwdFemaleName;
+                    String revMaleName;
+                    String revFemaleName;
+                    
+                    int relationId;
+                    int person1id;
+                    int person2id;
+                    int relTypeid;
+
+                    String inputString = input.nextLine();
+                        
+                    if (inputString.equals("Types"))
+                        phase = 2;
+                    else if (inputString.equals("Relations"))
+                        phase = 3;
+                    
+                    
+                    String[] part = inputString.split("\t");
+                    
+                    if (phase == 1)
+                    {
+                        
+                        personId = Integer.parseInt(part[0]);
+                        personFirstName = part[1];
+                        personLastName = part[2];
+                        personIsMale = Boolean.parseBoolean(part[3]);
+                    
+                        PeopleClass theNewGuy = new PeopleClass(personId, personFirstName, personLastName, personIsMale);
+
+                        personList.add(theNewGuy);
+
+                        lastPersonId = personId;
+                        
+                    }
+                    else if(phase == 2)
+                    {
+                        typeId = Integer.parseInt(part[0]);
+                        genericName = part[1];
+			fwdMaleName = part[2];
+			fwdFemaleName = part[3];
+			revMaleName = part[4];
+			revFemaleName = part[5];
+				    
+			RelationType theNewRel = new RelationType(typeId, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+                        relationTypeList.add(theNewRel);
+                        
+                        lastRelTypeId = typeId;
+                    }
+                    else if(phase == 3)
+                    {
+
+
+                        relationId = Integer.parseInt(part[0]);
+                        person1id = Integer.parseInt(part[1]);
+                        person2id = Integer.parseInt(part[2]);
+                        relTypeid = Integer.parseInt(part[3]);
+
+                        PeopleClass person1 = this.getPersonById(person1id);
+                        PeopleClass person2 = this.getPersonById(person2id);
+                        RelationType relType = this.getRelationTypeById(relTypeid);
+
+                        Relationship newRelationship = new Relationship(relationId,person1,person2,relType);
+                        relationshipsList.add(newRelationship);
+                        
+                        lastRelationshipId = relationId;
+                    }
+                   
+				    
+                }
+				
+				
+                input.close();
+	    }
+            catch(Exception e)
+            {
+	        	
+	    }
         }
         
         public void deletePerson(PeopleClass personToDel)
