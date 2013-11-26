@@ -69,7 +69,7 @@ public class PeopleClass
     {
         return isMale;
     }
-    public void setGender(boolean newIsMale)
+    public void setIsMale(boolean newIsMale)
     {
         this.isMale=newIsMale;
     }
