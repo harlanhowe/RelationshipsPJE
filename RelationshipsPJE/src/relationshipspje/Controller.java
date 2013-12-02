@@ -293,7 +293,11 @@ public class Controller
         }
     }
     
+    public void addRelation(String relatorName, String relateeName, String relationType)
+    {
     
+        int relationId = lastRelTypeId++;
+    }
     
 
 
