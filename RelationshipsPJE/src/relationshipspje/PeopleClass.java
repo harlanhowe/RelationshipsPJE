@@ -41,32 +41,71 @@ public class PeopleClass
         lastName=newLastName;
         isMale=newIsMale;
     }
+    /**Precondition: there is already a person given
+     * 
+     * @return the id number of this person
+     */
     public int getId()
     {
         return id;
     }
+    public void setId(int newId)
+    {
+        this.id=newId;
+    }
+    /**Precondition: there is already a person given
+     * 
+     * @return the last name of this person
+     */
     public String getLastName()
     {
         return lastName;
     }
+    public void setLastName(String newLastName)
+    {
+        this.lastName=newLastName;
+    }
+    /**Precondition: there is already a person given
+     * 
+     * @return the first name of this person
+     */
     public String getFirstName()
     {
         return firstName;
     }
+    public void setFirstName(String newFirstName)
+    {
+        this.firstName=newFirstName;
+    }
+    /**Precondition: there is already a person given
+     * 
+     * @return whether this person is male or not
+     */
     public boolean getIsMale()
     {
         return isMale;
     }
+    public void setIsMale(boolean newIsMale)
+    {
+        this.isMale=newIsMale;
+    }
+    /**Precondition: there is already a person given
+     * Precondition: the person has a relationship
+     * 
+     * @return all the relations of this person
+     */
     public TreeMap<PeopleClass ,RelationType> getAllRelationships()
     {
         return relations;
     }
+    /**
+     * 
+     * @param person who the person is related to
+     * @param relationGiven the relation the person has with the other
+     */
     public void addRelationship(PeopleClass person, RelationType relationGiven)
     {
         relations.put(person, relationGiven);
-        if (relationGiven.inverseOfSelf()==true)
-            person.addRelationship(this, relationGiven);
-        
     }
     
 }
