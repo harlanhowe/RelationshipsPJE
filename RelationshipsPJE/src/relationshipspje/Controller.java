@@ -497,10 +497,18 @@ public class Controller
         
         public void loadAll()
         {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredFile);
+            int result = chooser.showOpenDialog(null);//this);
+            if (result == JFileChooser.APPROVE_OPTION)
+            {
+                preferredFile = chooser.getSelectedFile();
+            }
+            
             Scanner input;
             try 
             {
-                input = new Scanner(new File("people.dat"));
+                input = new Scanner(preferredFile);
                 int phase = 1;
 	
 				// read from the file, store relations into arrayList;
