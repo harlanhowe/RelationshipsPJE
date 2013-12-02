@@ -334,6 +334,16 @@ public class Controller
 			
 	
 	}
+        
+        public RelationType getInverseRelationship(RelationType relationToCompare)
+        {
+            for (RelationType relation:relationTypeList)
+            {
+                if (relation.getRevMaleName().equals(relationToCompare.getFwdMaleName()))
+                    return relation;
+            }
+            return null;
+        }
 	
 	//add realtionship without inverse
 	public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
