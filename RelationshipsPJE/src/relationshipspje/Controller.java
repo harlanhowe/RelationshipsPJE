@@ -60,14 +60,16 @@ public class Controller
             {
                 Scanner input = new Scanner(new File("people.dat"));
 	
-				// read from the file, store relations into arrayList;
+		// read from the file, store relations into arrayList;
 		while (input.hasNext())
 		{
+                    //set up variables to store info
                     int id;
                     boolean isMale;
                     String firstName;
                     String lastName;
-
+                    
+                    //process each line by splitting string by tab and storing values into variables
                     String inputString = input.nextLine();
 
                     String[] part = inputString.split("\t");
@@ -75,14 +77,17 @@ public class Controller
                     id = Integer.parseInt(part[0]);
                     lastName = part[1];
                     firstName = part[2];
+                    
+                    //if the person is male, set ismale to true
                     if (part[3].equals("true"))
-                    isMale = true;
+                        isMale = true;
                     else
                         isMale = false;
+                    //create a new person class and add it to the list
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
-
                     personList.add(theNewGuy);
 
+                    //if last line of input, set the last id to the last person and exi the loop
                     if (!input.hasNext())
                         {
                             lastPersonId = id;
@@ -91,7 +96,7 @@ public class Controller
 				    
                 }
 				
-				
+                //close input
                 input.close();
 	    }
             catch(Exception e)
@@ -125,6 +130,7 @@ public class Controller
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
+                    //set up variables
                     int id;
                     String genericName;
                     String fwdMaleName;
@@ -132,6 +138,7 @@ public class Controller
                     String revMaleName;
                     String revFemaleName;
                     
+                    //process each string by splitting lines by tabs and storing info in variables
                     String inputString = input.nextLine();
                     
                     String[] part = inputString.split("\t");
@@ -142,9 +149,11 @@ public class Controller
                     revMaleName = part[4];
                     revFemaleName = part[5];
 
+                    //create a new RelationType class and add it to the main list
                     RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
                     relationTypeList.add(theNewRel);
                     
+                    //if last line of input set the last id to the id of the last used relationtype and exit loop
                     if (!input.hasNext()){
                         lastRelTypeId = id;
                         break;
@@ -192,10 +201,13 @@ public class Controller
                 
                 while (input.hasNext())
                 {
+                    //set up variables to store info in
                 	int id;
                 	int person1id;
                 	int person2id;
                 	int relTypeid;
+                        
+                        //process each string by splitting each line by tab and storing values in variables
                 	String inputString = input.nextLine();
                         String[] part = inputString.split("\t");
 
@@ -209,9 +221,11 @@ public class Controller
                         PeopleClass person2 = this.getPersonById(person2id);
                         RelationType relType = this.getRelationTypeById(relTypeid);
 
+                        //creating new Relationship class and add it to the list
                         Relationship newRelationship = new Relationship(id,person1,person2,relType);
                         relationshipsList.add(newRelationship);
 
+                        //if last line of input store the last id value and exit the loop
                         if (!input.hasNext())
                         {
                             lastRelationshipId = id;
@@ -497,18 +511,10 @@ public class Controller
         
         public void loadAll()
         {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setSelectedFile(preferredFile);
-            int result = chooser.showOpenDialog(null);//this);
-            if (result == JFileChooser.APPROVE_OPTION)
-            {
-                preferredFile = chooser.getSelectedFile();
-            }
-            
             Scanner input;
             try 
             {
-                input = new Scanner(preferredFile);
+                input = new Scanner(new File("people.dat"));
                 int phase = 1;
 	
 				// read from the file, store relations into arrayList;
