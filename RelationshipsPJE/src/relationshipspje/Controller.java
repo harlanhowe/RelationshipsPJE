@@ -56,10 +56,9 @@ public class Controller
             // now try to open the file and read from it with a scanner.
         
         
-            Scanner input;
             try 
             {
-                input = new Scanner(new File("people.dat"));
+                Scanner input = new Scanner(new File("people.dat"));
 	
 				// read from the file, store relations into arrayList;
 		while (input.hasNext())
@@ -74,8 +73,8 @@ public class Controller
                     String[] part = inputString.split("\t");
 
                     id = Integer.parseInt(part[0]);
-                    firstName = part[1];
-                    lastName = part[2];
+                    lastName = part[1];
+                    firstName = part[2];
                     if (part[3].equals("true"))
                     isMale = true;
                     else
@@ -97,7 +96,7 @@ public class Controller
 	    }
             catch(Exception e)
             {
-	        	
+	        throw new RuntimeException("File not found error.");
 	    }
             
             
@@ -135,21 +134,21 @@ public class Controller
                     
                     String inputString = input.nextLine();
                     
-				    String[] part = inputString.split("\t");
-				    id = Integer.parseInt(part[0]);
-				    genericName = part[1];
-				    fwdMaleName = part[2];
-				    fwdFemaleName = part[3];
-				    revMaleName = part[4];
-				    revFemaleName = part[5];
-				    
-				    RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+                    String[] part = inputString.split("\t");
+                    id = Integer.parseInt(part[0]);
+                    genericName = part[1];
+                    fwdMaleName = part[2];
+                    fwdFemaleName = part[3];
+                    revMaleName = part[4];
+                    revFemaleName = part[5];
+
+                    RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
                     relationTypeList.add(theNewRel);
                     
                     if (!input.hasNext()){
-				    	lastRelTypeId = id;
-				    	break;
-				    }
+                        lastRelTypeId = id;
+                        break;
+                    }
                     
 
                     
@@ -165,6 +164,7 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
+                fnfe.printStackTrace();
                 throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
             }
     }

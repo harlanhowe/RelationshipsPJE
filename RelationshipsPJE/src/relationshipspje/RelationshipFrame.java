@@ -4,6 +4,7 @@
  */
 package relationshipspje;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
      * which person is currently selected, or -1 if none are.
      */
     private int currentPersonIndex; 
+    private Controller controller;
+    private PeopleClass currentPerson;
     
     /**
      * Creates new form RelationshipFrame
@@ -28,11 +31,16 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO  you do this! (constructor)
         
         
+        controller = new Controller();
+        controller.openPeople();
+        controller.openRelTypes();
+        controller.openRelationships();
         
         
         
         // then send the lists on screen whatever information they need to start.
         currentPersonIndex = -1;  // nobody is selected.
+        currentPerson = null;
         updatePeopleList();
         updateRelationshipList();
         
@@ -46,13 +54,17 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     {
         // create a new array of Strings the size of the number of people to
         //   display.
-        String[] names = new String[0]; // = new String[???];
         
         // fill the array in with your names, from whatever data structure you 
         //   have.
         // TODO: You do this! (updatePeopleList - size and fill list)
         
-        
+        ArrayList<PeopleClass> people = controller.getAllPeople(); //gets all people from controller
+        ArrayList<String> peopleNames = new ArrayList<String>(); //new arraylist to store names only
+        for (int i = 0;i<people.size();i++){ //loops through each person and builds a string using the person's firstname and lastname while adding it to peopleNames
+            peopleNames.add(people.get(i).getLastName()+", "+people.get(i).getFirstName());          
+        }
+        String[] names = (String[]) peopleNames.toArray(new String[peopleNames.size()]); //converts peopleNames to a primitive type
         
         
         
@@ -70,12 +82,41 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     {
         // create a new array of Strings the size of the number of people to
         //  display ... which might be zero if there is no selected person.
-        String[] relationshipStrings=new String[0];
-        
+        String[] relationshipStrings;
         
         // fill the array with Strings describing each relationship for the 
         // selected person.
         // TODO: You do this! (updateRelationshipList - fill array)
+        if (currentPerson!=null){
+            ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson); //get all relationships for person
+            ArrayList<String> relationshipInfos = new ArrayList<String>(); //create arraylist to hold information about strings.
+            for (int i = 0;i<relationships.size();i++){ //iterate through each relationship
+
+                    Relationship relationship = relationships.get(i);
+                    RelationType type = relationship.getRelationType(); //get the type of the relationship
+                    PeopleClass secondaryPerson = relationship.getSecondaryPerson();//get the secondary person of the relationship
+
+                    String relationshipTypeName;
+                    if (secondaryPerson.getIsMale()) //depending on the gender of the secondary person, the title will be different
+                            relationshipTypeName = type.getFwdMaleName();
+                    else
+                            relationshipTypeName = type.getFwdFemaleName();
+
+                    //build the 'currentPerson' has a 'relationshipTypeName', 'secondaryPerson' statement
+                    String relationshipInfo = currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a "+
+                            relationshipTypeName+", "+
+                            relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName();
+                    relationshipInfos.add(relationshipInfo); //add the statement to the arraylist that stores them
+
+
+            }
+            relationshipStrings = (String[]) relationshipInfos.toArray(new String[relationshipInfos.size()]); //convert the arraylist of relationship infos to an string[]
+            
+            
+        }else{
+            relationshipStrings = new String[0]; //otherwise sets the relationship infos to an empty array
+        }
+        
         
         
         
@@ -548,6 +589,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        personList.setPreferredSize(new java.awt.Dimension(50, 85));
         personList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 personSelectionChanged(evt);
@@ -575,7 +617,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -588,7 +630,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         personalMapPane1.setLayout(personalMapPane1Layout);
         personalMapPane1Layout.setHorizontalGroup(
             personalMapPane1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 554, Short.MAX_VALUE)
+            .add(0, 560, Short.MAX_VALUE)
         );
         personalMapPane1Layout.setVerticalGroup(
             personalMapPane1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -657,9 +699,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jSplitPane1)
-                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -776,8 +816,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO: You do this! (personSelectionChanged)
         
         
-        
-        
+        int clickIndex = personList.getSelectedIndex();
+        currentPerson = controller.getAllPeople().get(clickIndex);
         
         
         
