@@ -45,13 +45,13 @@ public class Controller
     //Read our list of people from a save file, and store them in a map for easy access by the user interface.
     public void openPeople()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredPeopleFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredPeopleFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredPeopleFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredPeopleFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
@@ -59,7 +59,8 @@ public class Controller
             Scanner input;
             try 
             {
-                input = new Scanner(new File("people.dat"));
+                //input = new Scanner(new File("people.dat"));
+                input = new Scanner(preferredPeopleFile);
 	
 				// read from the file, store relations into arrayList;
 		while (input.hasNext())
@@ -109,20 +110,21 @@ public class Controller
     
     public void openRelTypes()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredRelTypeFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredRelTypeFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelTypeFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelTypeFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                Scanner input = new Scanner(new File("relTypes.dat"));
+                //Scanner input = new Scanner(new File("relTypes.dat"));
+                Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
@@ -171,20 +173,21 @@ public class Controller
     
     public void openRelationships()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredRelationFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredRelationFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelationFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelationFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                Scanner input = new Scanner(new File("relationships.dat"));
+                //Scanner input = new Scanner(new File("relationships.dat"));
+                Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
@@ -280,18 +283,6 @@ public class Controller
     }
     
     
-    public void removePerson(String name)
-    {
-        for (int i = 0; i < personList.size(); i ++)
-        {
-            if (personList.get(i).getFirstName().equals(name) || personList.get(i).getLastName().equals(name))
-            {
-                
-                
-                personList.remove(i);
-            }
-        }
-    }
     
     public void addRelation(String relatorName, String relateeName, String relationType)
     {
@@ -330,6 +321,13 @@ public class Controller
 	}
 	public void deleteRelationship(Relationship relationship) {
 		// TODO Auto-generated method stub
+                RelationType inverseChecker = getInverseRelationship(relationship.getRelationType());
+                ArrayList<Relationship> removeList = relationshipsList;
+                for (Relationship rel:removeList)
+                {
+                    if (rel.getRelationType().equals(inverseChecker))
+                        relationshipsList.remove(rel);
+                }
 		relationshipsList.remove(relationship);
 			
 	
@@ -603,10 +601,10 @@ public class Controller
         
         public void deletePerson(PeopleClass personToDel)
         {
-            
-            for (int i = 0; i <relationshipsList.size(); i++)
-                if (relationshipsList.get(i).isRelationshipOf(personToDel)||relationshipsList.get(i).getSecondaryPerson().equals(personToDel))
-                    relationshipsList.remove(i);
+            ArrayList<Relationship> removeList = relationshipsList;
+            for (Relationship rel:removeList)
+                if (rel.isRelationshipOf(personToDel)||rel.isRelationshipTo(personToDel))
+                    relationshipsList.remove(rel);
             personList.remove(personToDel);
         }
 }
