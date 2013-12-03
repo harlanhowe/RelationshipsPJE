@@ -139,7 +139,7 @@ public class Application {
 	 */
 	private void saveState() {
 		// TODO Auto-generated method stub
-		controller.saveData();
+		controller.saveAll();
 		
 	}
 
