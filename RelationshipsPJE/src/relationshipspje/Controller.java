@@ -334,6 +334,7 @@ public class Controller
                 {
                     if (rel.getRelationType().equals(inverseChecker))
                         relationshipsList.remove(rel);
+                    System.out.println(rel);
                 }
 		relationshipsList.remove(relationship);
 			
@@ -476,7 +477,7 @@ public class Controller
                     PrintWriter output = new PrintWriter(preferredFile);
                     // you can now write to the file by saying
                     
-                    output.println("People");
+                    //output.println("People");
                     //save the people
                     for (int i = 0; i < personList.size(); i ++)
                         output.println(personList.get(i).getId()+"\t"+personList.get(i).getFirstName()+"\t"+personList.get(i).getLastName()+"\t"+personList.get(i).getIsMale());
@@ -502,15 +503,26 @@ public class Controller
         
         public void loadAll()
         {
+            
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredFile);
+            int result = chooser.showOpenDialog(null);//this);
+            if (result == JFileChooser.APPROVE_OPTION)
+            {
+                preferredFile = chooser.getSelectedFile();
+            }
+            
             Scanner input;
             try 
             {
-                input = new Scanner(new File("people.dat"));
+                input = new Scanner(preferredFile);
                 int phase = 1;
 	
 				// read from the file, store relations into arrayList;
 		while (input.hasNext())
 		{
+                    String eater;
+                    
                     int personId;
                     boolean personIsMale;
                     String personFirstName;
@@ -531,9 +543,15 @@ public class Controller
                     String inputString = input.nextLine();
                         
                     if (inputString.equals("Types"))
+                    {
                         phase = 2;
+                        continue;
+                    }
                     else if (inputString.equals("Relations"))
+                    {
                         phase = 3;
+                        continue;
+                    }
                     
                     
                     String[] part = inputString.split("\t");
