@@ -273,7 +273,7 @@ public class Controller
         
         PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
                     
-        personList.add(id,theNewGuy);
+        personList.add(theNewGuy);
         
         lastPersonId = id;
     }
@@ -296,13 +296,6 @@ public class Controller
     	return this.personList;
     }
     
-    
-    
-    public void addRelation(String relatorName, String relateeName, String relationType)
-    {
-    
-        int relationId = lastRelTypeId++;
-    }
     
 
 
