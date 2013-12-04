@@ -58,8 +58,8 @@ public class Controller
         
             try 
             {
-                //input = new Scanner(new File("people.dat"));
-                input = new Scanner(preferredPeopleFile);
+                //Scanner input = new Scanner(new File("people.dat"));
+                Scanner input = new Scanner(preferredPeopleFile);
 	
 		// read from the file, store relations into arrayList;
 		while (input.hasNext())
