@@ -87,11 +87,6 @@ public class PeopleClass
     {
         this.isMale=newIsMale;
     }
-    /**Precondition: there is already a person given
-     * Precondition: the person has a relationship
-     * 
-     * @return all the relations of this person
-     */
 
     
 }
