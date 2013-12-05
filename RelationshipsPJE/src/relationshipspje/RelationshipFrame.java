@@ -866,7 +866,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         this.updatePeopleList();
         // Create a new person and add them to your list of people.
         // TODO: You do this! (addPersonButton)
+        controller.addPerson(first, last, isMale);
         
+        updatePeopleList();
+        updateRelationshipList();
         
         
         
