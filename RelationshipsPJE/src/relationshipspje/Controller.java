@@ -307,9 +307,7 @@ public class Controller
 
 	
 	/*
-	 * BOTH add realtionshp and delete relationship should work the same way
-	 * Each call should add/delete two relationships if possible
-	 * 
+	 * adds a single relationship to the current person
 	 */
 
 	public void addNewRelationship(PeopleClass currentPerson, PeopleClass target, RelationType type) {
@@ -317,15 +315,31 @@ public class Controller
 		Relationship newRelationship = new Relationship(id,currentPerson,target,type); //Creates relationship
 		relationshipsList.add(newRelationship);//Adds it to the list
 		
-		//Now, adds a relationship to the target person that is an inverse of the realtionship you are adding
-		//E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
-		id++;
-		//TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
-		RelationType inverseType = getInverseRelationship(type);
-		Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
-		relationshipsList.add(newInverseRelationship);
+
 		lastRelationshipId = id;
 	}
+        
+        /*
+	 * adds two relationships, one for the current person and one for the target person
+	 */
+        public void addNewRelationshipAndReciprocal (PeopleClass currentPerson, PeopleClass target, RelationType type){
+            int id = lastRelationshipId++;
+            Relationship newRelationship = new Relationship(id,currentPerson,target,type); //Creates relationship
+            relationshipsList.add(newRelationship);//Adds it to the list
+
+            //Now, adds a relationship to the target person that is an inverse of the realtionship you are adding
+            //E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
+            id++;
+            //TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
+            RelationType inverseType = getInverseRelationship(type);
+            Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
+            relationshipsList.add(newInverseRelationship);
+            lastRelationshipId = id;
+            
+        }
+        
+        
+        
 	public void deleteRelationship(Relationship relationship) {
 		// TODO Auto-generated method stub
                 RelationType inverseChecker = getInverseRelationship(relationship.getRelationType());
@@ -334,7 +348,6 @@ public class Controller
                 {
                     if (rel.getRelationType().equals(inverseChecker))
                         relationshipsList.remove(rel);
-                    System.out.println(rel);
                 }
 		relationshipsList.remove(relationship);
 			

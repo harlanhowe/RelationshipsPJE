@@ -820,7 +820,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         
         int clickIndex = personList.getSelectedIndex();
-        System.out.println(controller.getAllPeople().size());
         currentPerson = controller.getAllPeople().get(clickIndex);
         
         
@@ -944,7 +943,18 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         PeopleClass target= people.get(personIndex);
         RelationType relType = relationTypes.get(relTypeIndex);
-        controller.addNewRelationship(currentPerson, target, relType);
+        
+        if (reciprocateCheckbox.isSelected()){
+            //add two relationshps here
+            
+            
+        }
+        else{
+            controller.addNewRelationship(currentPerson, target, relType);
+        }
+        
+        
+        
         
         // respond - access interface to create response.
         // Create a relationship and add it to your collection of relationships.
@@ -998,10 +1008,13 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         String revMaleName = revMaleRTNameField.getText();
         String revFemaleName = revFemaleRTNameField.getText();
         
+        
+        
+        
         //Ok. Now create a relationship type based on this.
         // TODO: You do this! (addTypeButton)
         
-        
+        controller.addRelType(genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
         
         
         
@@ -1012,11 +1025,15 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // Create a new list of RelationshipType strings and populate it with
         //  your revised list of relationship types.
         // TODO: You do this! (addRelationshipTypeButton update the type list)
-        String[] rtListNames = new String[0];
+        String[] rtListNames;
                 
-       
-        
-        
+       ArrayList<RelationType> relTypes = controller.getAllRelationshipTypes();
+       ArrayList<String> relTypeNames = new ArrayList<String>();
+       for (int i = 0;i<relTypes.size();i++){
+           relTypeNames.add(relTypes.get(i).getGenericName());
+       }
+        rtListNames = new String[relTypeNames.size()];
+        rtListNames = relTypeNames.toArray(rtListNames);
         
         
         // update the list of relationship types in the previous dialog box.
