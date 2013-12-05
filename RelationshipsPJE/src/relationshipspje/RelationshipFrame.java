@@ -1034,7 +1034,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // I suggest that you tell your controller to do the saving, and let it
         // delegate, as needed.
         // TODO: You do this! (SaveMenuItem)
-       
+       controller.savePeopleData();
+       controller.saveRelTypes();
+       controller.saveRelationships();
         
         
         
