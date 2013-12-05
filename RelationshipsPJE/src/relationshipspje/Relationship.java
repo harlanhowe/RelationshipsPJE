@@ -27,6 +27,14 @@ public class Relationship {
 		else
 			return false;
 	}
+        
+        public boolean isRelationshipTo(PeopleClass person)
+        {
+            if (secondaryPerson == person)
+			return true;
+		else
+			return false;
+        }
 
 	public PeopleClass getSecondaryPerson() {
 		return secondaryPerson;

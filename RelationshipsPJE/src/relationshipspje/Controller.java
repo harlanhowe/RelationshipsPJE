@@ -45,29 +45,32 @@ public class Controller
     //Read our list of people from a save file, and store them in a map for easy access by the user interface.
     public void openPeople()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredPeopleFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredPeopleFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredPeopleFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredPeopleFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try 
             {
-                Scanner input = new Scanner(new File("people.dat"));
+                //Scanner input = new Scanner(new File("people.dat"));
+                Scanner input = new Scanner(preferredPeopleFile);
 	
-				// read from the file, store relations into arrayList;
+		// read from the file, store relations into arrayList;
 		while (input.hasNext())
 		{
+                    //set up variables to store info
                     int id;
                     boolean isMale;
                     String firstName;
                     String lastName;
-
+                    
+                    //process each line by splitting string by tab and storing values into variables
                     String inputString = input.nextLine();
 
                     String[] part = inputString.split("\t");
@@ -75,14 +78,17 @@ public class Controller
                     id = Integer.parseInt(part[0]);
                     lastName = part[1];
                     firstName = part[2];
+                    
+                    //if the person is male, set ismale to true
                     if (part[3].equals("true"))
-                    isMale = true;
+                        isMale = true;
                     else
                         isMale = false;
+                    //create a new person class and add it to the list
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
-
                     personList.add(theNewGuy);
 
+                    //if last line of input, set the last id to the last person and exi the loop
                     if (!input.hasNext())
                         {
                             lastPersonId = id;
@@ -91,7 +97,7 @@ public class Controller
 				    
                 }
 				
-				
+                //close input
                 input.close();
 	    }
             catch(Exception e)
@@ -108,23 +114,25 @@ public class Controller
     
     public void openRelTypes()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredRelTypeFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredRelTypeFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelTypeFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelTypeFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                Scanner input = new Scanner(new File("relTypes.dat"));
+                //Scanner input = new Scanner(new File("relTypes.dat"));
+                Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
+                    //set up variables
                     int id;
                     String genericName;
                     String fwdMaleName;
@@ -132,6 +140,7 @@ public class Controller
                     String revMaleName;
                     String revFemaleName;
                     
+                    //process each string by splitting lines by tabs and storing info in variables
                     String inputString = input.nextLine();
                     
                     String[] part = inputString.split("\t");
@@ -142,9 +151,11 @@ public class Controller
                     revMaleName = part[4];
                     revFemaleName = part[5];
 
+                    //create a new RelationType class and add it to the main list
                     RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
                     relationTypeList.add(theNewRel);
                     
+                    //if last line of input set the last id to the id of the last used relationtype and exit loop
                     if (!input.hasNext()){
                         lastRelTypeId = id;
                         break;
@@ -171,20 +182,21 @@ public class Controller
     
     public void openRelationships()
     {
-//        JFileChooser chooser = new JFileChooser();
-//        chooser.setSelectedFile(preferredRelationFile);
-//        int result = chooser.showOpenDialog(null);//this);
-//        if (result == JFileChooser.APPROVE_OPTION)
-//        {
-//            preferredRelationFile = chooser.getSelectedFile();
-//        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelationFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelationFile = chooser.getSelectedFile();
+        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                Scanner input = new Scanner(new File("relationships.dat"));
+                //Scanner input = new Scanner(new File("relationships.dat"));
+                Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
@@ -192,10 +204,13 @@ public class Controller
                 
                 while (input.hasNext())
                 {
+                    //set up variables to store info in
                 	int id;
                 	int person1id;
                 	int person2id;
                 	int relTypeid;
+                        
+                        //process each string by splitting each line by tab and storing values in variables
                 	String inputString = input.nextLine();
                         String[] part = inputString.split("\t");
 
@@ -209,9 +224,11 @@ public class Controller
                         PeopleClass person2 = this.getPersonById(person2id);
                         RelationType relType = this.getRelationTypeById(relTypeid);
 
+                        //creating new Relationship class and add it to the list
                         Relationship newRelationship = new Relationship(id,person1,person2,relType);
                         relationshipsList.add(newRelationship);
 
+                        //if last line of input store the last id value and exit the loop
                         if (!input.hasNext())
                         {
                             lastRelationshipId = id;
@@ -256,7 +273,7 @@ public class Controller
         
         PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
                     
-        personList.add(id,theNewGuy);
+        personList.add(theNewGuy);
         
         lastPersonId = id;
     }
@@ -279,25 +296,6 @@ public class Controller
     	return this.personList;
     }
     
-    
-    public void removePerson(String name)
-    {
-        for (int i = 0; i < personList.size(); i ++)
-        {
-            if (personList.get(i).getFirstName().equals(name) || personList.get(i).getLastName().equals(name))
-            {
-                
-                
-                personList.remove(i);
-            }
-        }
-    }
-    
-    public void addRelation(String relatorName, String relateeName, String relationType)
-    {
-    
-        int relationId = lastRelTypeId++;
-    }
     
 
 
@@ -330,6 +328,14 @@ public class Controller
 	}
 	public void deleteRelationship(Relationship relationship) {
 		// TODO Auto-generated method stub
+                RelationType inverseChecker = getInverseRelationship(relationship.getRelationType());
+                ArrayList<Relationship> removeList = relationshipsList;
+                for (Relationship rel:removeList)
+                {
+                    if (rel.getRelationType().equals(inverseChecker))
+                        relationshipsList.remove(rel);
+                    System.out.println(rel);
+                }
 		relationshipsList.remove(relationship);
 			
 	
@@ -471,7 +477,7 @@ public class Controller
                     PrintWriter output = new PrintWriter(preferredFile);
                     // you can now write to the file by saying
                     
-                    output.println("People");
+                    //output.println("People");
                     //save the people
                     for (int i = 0; i < personList.size(); i ++)
                         output.println(personList.get(i).getId()+"\t"+personList.get(i).getFirstName()+"\t"+personList.get(i).getLastName()+"\t"+personList.get(i).getIsMale());
@@ -497,6 +503,7 @@ public class Controller
         
         public void loadAll()
         {
+            
             JFileChooser chooser = new JFileChooser();
             chooser.setSelectedFile(preferredFile);
             int result = chooser.showOpenDialog(null);//this);
@@ -514,6 +521,8 @@ public class Controller
 				// read from the file, store relations into arrayList;
 		while (input.hasNext())
 		{
+                    String eater;
+                    
                     int personId;
                     boolean personIsMale;
                     String personFirstName;
@@ -534,9 +543,15 @@ public class Controller
                     String inputString = input.nextLine();
                         
                     if (inputString.equals("Types"))
+                    {
                         phase = 2;
+                        continue;
+                    }
                     else if (inputString.equals("Relations"))
+                    {
                         phase = 3;
+                        continue;
+                    }
                     
                     
                     String[] part = inputString.split("\t");
@@ -603,10 +618,10 @@ public class Controller
         
         public void deletePerson(PeopleClass personToDel)
         {
-            
-            for (int i = 0; i <relationshipsList.size(); i++)
-                if (relationshipsList.get(i).isRelationshipOf(personToDel)||relationshipsList.get(i).getSecondaryPerson().equals(personToDel))
-                    relationshipsList.remove(i);
+            ArrayList<Relationship> removeList = relationshipsList;
+            for (Relationship rel:removeList)
+                if (rel.isRelationshipOf(personToDel)||rel.isRelationshipTo(personToDel))
+                    relationshipsList.remove(rel);
             personList.remove(personToDel);
         }
 }
