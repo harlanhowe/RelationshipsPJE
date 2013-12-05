@@ -1037,7 +1037,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
        controller.savePeopleData();
        controller.saveRelTypes();
        controller.saveRelationships();
-       System.out.println("WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! /n YOU HAVE CHANGED THE BASE FILES!");
+       System.out.println("WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!\nYOU HAVE CHANGED THE BASE FILES!");
         
         
         
