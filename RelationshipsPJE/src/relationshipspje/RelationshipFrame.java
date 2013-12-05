@@ -862,8 +862,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         String last = lastNameField.getText();
         boolean isMale = genderMaleButton.isSelected();
         
-        controller.addPerson(first, last, isMale);
-        this.updatePeopleList();
         // Create a new person and add them to your list of people.
         // TODO: You do this! (addPersonButton)
         controller.addPerson(first, last, isMale);
