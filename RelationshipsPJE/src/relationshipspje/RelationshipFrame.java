@@ -724,7 +724,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO: you do this! (removePersonButton)
         
         
-        
+        ArrayList<PeopleClass> people = controller.getAllPeople();
+        controller.deletePerson(people.get(selectedRow));
         
         
         
@@ -754,7 +755,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             // Identify which relationship is selected, and do what you need to
             // to remove it.
             // TODO: you do this! (removeRelationship - list view.)
-            
+            ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
+            selectedRelationship = relationships.get(relationshipList.getSelectedIndex());
+            controller.deleteRelationship(selectedRelationship);
         
             
             
@@ -817,6 +820,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         
         int clickIndex = personList.getSelectedIndex();
+        System.out.println(controller.getAllPeople().size());
         currentPerson = controller.getAllPeople().get(clickIndex);
         
         
@@ -857,6 +861,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         String first = firstNameField.getText();
         String last = lastNameField.getText();
         boolean isMale = genderMaleButton.isSelected();
+        
+        controller.addPerson(first, last, isMale);
+        this.updatePeopleList();
         // Create a new person and add them to your list of people.
         // TODO: You do this! (addPersonButton)
         
@@ -890,12 +897,29 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         //       you don't want it to include the selected person.
         // Create an array of Strings for the relationship types
         // TODO: You do this! (addRelationshipButton - setup UI)
-        String[] names = new String[0];
-        String[] typeStrings = new String[0];
+        String[] names;
+        String[] typeStrings;
+        
+        //List of people WITHOUT currentPerson
+        ArrayList<PeopleClass> people = new ArrayList<PeopleClass>(controller.getAllPeople());
+        people.remove(this.currentPerson);
+        
+        ArrayList<RelationType> relationTypes = controller.getAllRelationshipTypes();
+        ArrayList<String> peopleNames = new ArrayList<String>();
+        ArrayList<String> relationTypeNames = new ArrayList<String>();
+        for (int i = 0;i<people.size();i++){
+            peopleNames.add(people.get(i).getLastName()+", "+people.get(i).getFirstName());
+        }
+        for (int i= 0;i<relationTypes.size();i++){
+            relationTypeNames.add(relationTypes.get(i).getGenericName());
+        }
         
         
         
-        
+        names = new String[peopleNames.size()];
+        names = peopleNames.toArray(names);
+        typeStrings= new String[relationTypeNames.size()];
+        typeStrings = relationTypeNames.toArray(typeStrings);
         
         
         
@@ -917,6 +941,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // alternately....
         // String relTypeDescription = relTypeList.getSelectedValue();
         
+        PeopleClass target= people.get(personIndex);
+        RelationType relType = relationTypes.get(relTypeIndex);
+        controller.addNewRelationship(currentPerson, target, relType);
         
         // respond - access interface to create response.
         // Create a relationship and add it to your collection of relationships.

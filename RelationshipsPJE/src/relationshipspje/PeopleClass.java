@@ -17,7 +17,6 @@ public class PeopleClass
     private String lastName;
     private String firstName;
     private boolean isMale;
-    private TreeMap<PeopleClass, RelationType> relations;
     
     /**
      *
@@ -25,7 +24,6 @@ public class PeopleClass
     public PeopleClass()
     {
         
-        relations=new TreeMap<PeopleClass ,RelationType>();
     }
     /**precondition: need to receive information from Controller 
      * 
@@ -94,18 +92,6 @@ public class PeopleClass
      * 
      * @return all the relations of this person
      */
-    public TreeMap<PeopleClass ,RelationType> getAllRelationships()
-    {
-        return relations;
-    }
-    /**
-     * 
-     * @param person who the person is related to
-     * @param relationGiven the relation the person has with the other
-     */
-    public void addRelationship(PeopleClass person, RelationType relationGiven)
-    {
-        relations.put(person, relationGiven);
-    }
+
     
 }

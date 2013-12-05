@@ -45,21 +45,21 @@ public class Controller
     //Read our list of people from a save file, and store them in a map for easy access by the user interface.
     public void openPeople()
     {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredPeopleFile);
-        int result = chooser.showOpenDialog(null);//this);
-        if (result == JFileChooser.APPROVE_OPTION)
-        {
-            preferredPeopleFile = chooser.getSelectedFile();
-        }
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.setSelectedFile(preferredPeopleFile);
+//        int result = chooser.showOpenDialog(null);//this);
+//        if (result == JFileChooser.APPROVE_OPTION)
+//        {
+//            preferredPeopleFile = chooser.getSelectedFile();
+//        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try 
             {
-                //Scanner input = new Scanner(new File("people.dat"));
-                Scanner input = new Scanner(preferredPeopleFile);
+                Scanner input = new Scanner(new File("people.dat"));
+                //Scanner input = new Scanner(preferredPeopleFile);
 	
 		// read from the file, store relations into arrayList;
 		while (input.hasNext())
@@ -114,21 +114,21 @@ public class Controller
     
     public void openRelTypes()
     {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredRelTypeFile);
-        int result = chooser.showOpenDialog(null);//this);
-        if (result == JFileChooser.APPROVE_OPTION)
-        {
-            preferredRelTypeFile = chooser.getSelectedFile();
-        }
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.setSelectedFile(preferredRelTypeFile);
+//        int result = chooser.showOpenDialog(null);//this);
+//        if (result == JFileChooser.APPROVE_OPTION)
+//        {
+//            preferredRelTypeFile = chooser.getSelectedFile();
+//        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                //Scanner input = new Scanner(new File("relTypes.dat"));
-                Scanner input = new Scanner(preferredRelTypeFile);
+                Scanner input = new Scanner(new File("relTypes.dat"));
+                //Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
@@ -182,21 +182,21 @@ public class Controller
     
     public void openRelationships()
     {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSelectedFile(preferredRelationFile);
-        int result = chooser.showOpenDialog(null);//this);
-        if (result == JFileChooser.APPROVE_OPTION)
-        {
-            preferredRelationFile = chooser.getSelectedFile();
-        }
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.setSelectedFile(preferredRelationFile);
+//        int result = chooser.showOpenDialog(null);//this);
+//        if (result == JFileChooser.APPROVE_OPTION)
+//        {
+//            preferredRelationFile = chooser.getSelectedFile();
+//        }
             
             // now try to open the file and read from it with a scanner.
         
         
             try
             {
-                //Scanner input = new Scanner(new File("relationships.dat"));
-                Scanner input = new Scanner(preferredRelationFile);
+                Scanner input = new Scanner(new File("relationships.dat"));
+                //Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
