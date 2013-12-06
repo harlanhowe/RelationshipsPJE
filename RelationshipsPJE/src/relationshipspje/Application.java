@@ -194,7 +194,7 @@ public class Application {
 			System.out.println("Please enter the generic name of the inverse relationship type");
 			String inverseGenericName  = input.nextLine();
 
-			controller.addRelType(genericName,fwdMaleName,fwdFemaleName,revMaleName,revFemaleName,inverseGenericName);//Create with inverse
+			//controller.addRelType(genericName,fwdMaleName,fwdFemaleName,revMaleName,revFemaleName,inverseGenericName);//Create with inverse
 		}
 
 		
