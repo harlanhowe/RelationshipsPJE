@@ -820,8 +820,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         
         int clickIndex = personList.getSelectedIndex();
-        currentPerson = controller.getAllPeople().get(clickIndex);
-        
+        if(clickIndex!=-1)
+            currentPerson = controller.getAllPeople().get(clickIndex);
+        else
+            clickIndex=0;
         
         
         
