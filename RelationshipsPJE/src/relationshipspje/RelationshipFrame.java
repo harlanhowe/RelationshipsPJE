@@ -946,7 +946,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         if (reciprocateCheckbox.isSelected()){
             //add two relationshps here
-            
+            controller.addNewRelationshipAndReciprocal(currentPerson, target, relType);
             
         }
         else{
@@ -1014,9 +1014,30 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         //Ok. Now create a relationship type based on this.
         // TODO: You do this! (addTypeButton)
         
+        
+        
         controller.addRelType(genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
-        
-        
+        RelationType newRelationType = controller.getRelationTypeByGenericName(genericName); //get the newly created relationship
+        RelationType inverse = controller.getInverseRelationType(newRelationType);
+        if (inverse == null){
+            if (fwdMaleName.equals(revMaleName) && fwdFemaleName.equals(revFemaleName)){
+		 
+            }
+            else{
+                String inverseGenericName = JOptionPane.showInputDialog(null,
+                        "Please Enter the Inverse Generic Name for the RelationType",
+                        "Enter Inverse Generic Name");
+                if (inverseGenericName == null){
+                    JOptionPane.showMessageDialog(null, "New RelationType Creation Cancelled.");
+                    controller.deleteRelationshipType(newRelationType); //get rid of the relationtype the user just created
+                }
+                else{
+                    controller.addRelType(inverseGenericName, revMaleName, revFemaleName, fwdMaleName, fwdFemaleName);
+
+                }
+            }
+            
+        }
         
         
         
