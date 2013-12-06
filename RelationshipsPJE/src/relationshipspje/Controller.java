@@ -351,16 +351,23 @@ public class Controller
         
         
 	public void deleteRelationship(Relationship relationship) {
-		// TODO Auto-generated method stub
-                RelationType inverseChecker = getInverseRelationType(relationship.getRelationType());
-                ArrayList<Relationship> removeList = relationshipsList;
-                for (Relationship rel:removeList)
-                {
-                    if (rel.getRelationType().equals(inverseChecker))
-                        relationshipsList.remove(rel);
+            
+            RelationType inverseType = getInverseRelationType(relationship.getRelationType());
+            PeopleClass primaryPerson = relationship.getPrimaryPerson();
+            PeopleClass secondaryPerson = relationship.getSecondaryPerson();
+            Relationship inverse = null;
+
+            for (int i = 0;i<relationshipsList.size();i++){
+                Relationship rel = relationshipsList.get(i);
+                if (rel.getPrimaryPerson().getId() == secondaryPerson.getId() && rel.getSecondaryPerson().getId()==primaryPerson.getId() && rel.getRelationType().getId()==inverseType.getId()){
+                    inverse = rel;
+                    break;
                 }
-		relationshipsList.remove(relationship);
-			
+            }
+            relationshipsList.remove(relationship);
+            if (inverse!=null)
+                relationshipsList.remove(inverse);
+		
 	
 	}
         
