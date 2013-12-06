@@ -632,9 +632,14 @@ public class Controller
         public void deletePerson(PeopleClass personToDel)
         {
             ArrayList<Relationship> removeList = relationshipsList;
+            ArrayList<Relationship> toBeRemovedList= new ArrayList<Relationship>();
             for (Relationship rel:removeList)
                 if (rel.isRelationshipOf(personToDel)||rel.isRelationshipTo(personToDel))
-                    relationshipsList.remove(rel);
+                    toBeRemovedList.add(rel);
+            for(int i=0; i<toBeRemovedList.size(); i++)
+            {
+                relationshipsList.remove(toBeRemovedList.get(i));
+            }
             personList.remove(personToDel);
         }
 }
