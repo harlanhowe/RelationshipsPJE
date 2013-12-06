@@ -331,30 +331,47 @@ public class Controller
             //E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
             id++;
             //TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
-            RelationType inverseType = getInverseRelationship(type);
+            RelationType inverseType = getInverseRelationType(type);
             Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
             relationshipsList.add(newInverseRelationship);
             lastRelationshipId = id;
             
         }
         
+        public RelationType getRelationTypeByGenericName(String name){
+            for (int i = 0;i<relationTypeList.size();i++){
+                if (relationTypeList.get(i).getGenericName().equals(name))
+                    return relationTypeList.get(i);
+            }
+            return null;
+            
+            
+        }
+        
         
         
 	public void deleteRelationship(Relationship relationship) {
-		// TODO Auto-generated method stub
-                RelationType inverseChecker = getInverseRelationship(relationship.getRelationType());
-                ArrayList<Relationship> removeList = relationshipsList;
-                for (Relationship rel:removeList)
-                {
-                    if (rel.getRelationType().equals(inverseChecker))
-                        relationshipsList.remove(rel);
+            
+            RelationType inverseType = getInverseRelationType(relationship.getRelationType());
+            PeopleClass primaryPerson = relationship.getPrimaryPerson();
+            PeopleClass secondaryPerson = relationship.getSecondaryPerson();
+            Relationship inverse = null;
+
+            for (int i = 0;i<relationshipsList.size();i++){
+                Relationship rel = relationshipsList.get(i);
+                if (rel.getPrimaryPerson().getId() == secondaryPerson.getId() && rel.getSecondaryPerson().getId()==primaryPerson.getId() && rel.getRelationType().getId()==inverseType.getId()){
+                    inverse = rel;
+                    break;
                 }
-		relationshipsList.remove(relationship);
-			
+            }
+            relationshipsList.remove(relationship);
+            if (inverse!=null)
+                relationshipsList.remove(inverse);
+		
 	
 	}
         
-        public RelationType getInverseRelationship(RelationType relationToCompare)
+        public RelationType getInverseRelationType(RelationType relationToCompare)
         {
             for (RelationType relation:relationTypeList)
             {
@@ -376,19 +393,19 @@ public class Controller
             lastRelTypeId = id;
         }
 	
-	//Add relationship type with inverse
-	public void addRelType(String genericName, String fwdMaleName,String fwdFemaleName, String revMaleName, String revFemaleName,String inverseGenericName) {
-		// TODO Auto-generated method stub
-		int id = lastRelTypeId++;
-        
-        RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
-        id++;
-        RelationType newRelInverse = new RelationType(id,inverseGenericName,revMaleName,revFemaleName,fwdMaleName,fwdFemaleName);
-        relationTypeList.add(theNewRel);
-        relationTypeList.add(newRelInverse);
-        lastRelTypeId = id;
-		
-	}
+//	//Add relationship type with inverse
+//	public void addRelType(String genericName, String fwdMaleName,String fwdFemaleName, String revMaleName, String revFemaleName,String inverseGenericName) {
+//		// TODO Auto-generated method stub
+//		int id = lastRelTypeId++;
+//        
+//        RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+//        id++;
+//        RelationType newRelInverse = new RelationType(id,inverseGenericName,revMaleName,revFemaleName,fwdMaleName,fwdFemaleName);
+//        relationTypeList.add(theNewRel);
+//        relationTypeList.add(newRelInverse);
+//        lastRelTypeId = id;
+//		
+//	}
 
 
 	public void deleteRelationshipType(RelationType relationType) {
