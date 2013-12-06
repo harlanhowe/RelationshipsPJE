@@ -757,7 +757,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             // TODO: you do this! (removeRelationship - list view.)
             ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
             selectedRelationship = relationships.get(relationshipList.getSelectedIndex());
-            controller.deleteRelationship(selectedRelationship);
         
             
             
@@ -793,6 +792,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
                 JOptionPane.OK_CANCEL_OPTION);
         if (response == JOptionPane.CANCEL_OPTION)
             return;
+        else{
+            controller.deleteRelationship(selectedRelationship);
+        }
         // Have the controller remove the relationship.
         // TODO: You do this (removeRelationship - theWork.)
         
