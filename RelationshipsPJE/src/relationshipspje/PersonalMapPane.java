@@ -23,7 +23,8 @@ public class PersonalMapPane extends JPanel
     // private RelationshipData data;
     
     
-    private int currentPersonID;
+    private PeopleClass currentPerson;
+    private Controller controller;
    
     private Font myFont = new Font("Times New Roman",Font.PLAIN, 10);
     // colors for the center circle, outer circles, and connecting lines.
@@ -44,6 +45,7 @@ public class PersonalMapPane extends JPanel
         addMouseListener(new PanelListener()); // activates the panelListener, 
                                                // so you can collect mouse clicks.
         selectedObjectId = -1; // nobody is selected...
+        currentPerson = null;
     }
 
     
@@ -56,26 +58,20 @@ public class PersonalMapPane extends JPanel
      */
     // TODO: you do this! (write the setData method.)
     
-//    public void setData(RelationshipData inData)
-//    {
-//        data = inData;
-//    }
+    public void setData(Controller controller)
+    {
+        this.controller = controller;
+    }
 
     public int getSelectedObjectId() {
         return selectedObjectId;
     }
 
-    public int getCurrentPersonID() {
-        return currentPersonID;
+    public PeopleClass getCurrentPerson(){
+        return this.currentPerson;
     }
-
-    /**
-     * changes which person is at the center of the pane and refreshes the pane.
-     * @param currentPersonID - the id# of the current person.
-     */
-    public void setCurrentPersonID(int currentPersonID) {
-        this.currentPersonID = currentPersonID;
-        
+    public void setCurrentPerson(PeopleClass person){
+        this.currentPerson = person;
         repaint();
     }
     /**
@@ -117,7 +113,30 @@ public class PersonalMapPane extends JPanel
         int height = this.getBounds().height;
         circleDiam = Math.min(width/10, height/10);        
         if (numRelationships>0)
-            return (int)(width/2-circleDiam*4*Math.cos(2*index*Math.PI/numRelationships));
+            return (int)(height/2-circleDiam*4*Math.cos(2*index*Math.PI/numRelationships));
+        return -1;
+    }
+    /*
+    Does exact same as top two methods but returns values that would be true for a panel zoomed in by two times relative to the actual one and is also centered
+    */
+    
+    int getCenterXForObjectHalfDistance(int index, int numRelationships)
+    {
+        int width = this.getBounds().width/2;//half screen size
+        int height = this.getBounds().height/2;
+        circleDiam = Math.min(width/10, height/10);
+        if (numRelationships>0)
+            return (int)(width/2-circleDiam*4*Math.sin(2*index*Math.PI/numRelationships))+width/2; //add half the screen so it is centered
+        return -1;
+    }
+
+    int getCenterYForObjectHalfDistance(int index, int numRelationships)
+    {
+        int width = this.getBounds().width/2; //half screen size
+        int height = this.getBounds().height/2;
+        circleDiam = Math.min(width/10, height/10);        
+        if (numRelationships>0)
+            return (int)(height/2-circleDiam*4*Math.cos(2*index*Math.PI/numRelationships))+height/2; //add half the screen so it is centered
         return -1;
     }
     
@@ -163,7 +182,8 @@ public class PersonalMapPane extends JPanel
         super.paintComponent(g);
         // bail out if data is null, or if nobody is selected.....
         // TODO: you do this! (paintComponent - bail)
-
+        if (currentPerson == null)
+            return;
         
         
         int width = this.getBounds().width;
@@ -180,13 +200,55 @@ public class PersonalMapPane extends JPanel
         //  You'll want to make use of getCenterXForObject(), getCenterYForObject(),
         //  lineColor, objectColor, 
         // TODO: you do this! (paintComponent - loop through relations)
+        ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
+        for (int i = 0;i<relationships.size();i++){
+            Relationship currentRel = relationships.get(i);
+            PeopleClass secondaryPerson = currentRel.getSecondaryPerson();
+            RelationType relType = currentRel.getRelationType();
+            String secondaryPersonName = secondaryPerson.getFullName();
+            String relationTypeName;
+            if (secondaryPerson.getIsMale())
+                relationTypeName = relType.getFwdMaleName();
+            else
+                relationTypeName = relType.getFwdFemaleName();
+            int stringWidth;
+            int stringHeight; //I realize that hte stringHeight is 10 pixels, but I will use Java's built in methods to calculate it
+            
+            //draw the lines that branch off the center circle
+            g.setColor(lineColor);
+            g.drawLine(width/2, height/2, getCenterXForObject(i,relationships.size()), getCenterYForObject(i,relationships.size()));
+            
+            //draw ovals
+            g.setColor(objectColor);
+            g.fillOval(getCenterXForObject(i,relationships.size())-circleDiam/2, getCenterYForObject(i,relationships.size())-circleDiam/2, circleDiam, circleDiam);
+            
+            //draw the name of the secondaryPerson
+            g.setColor(Color.BLACK);
+            stringWidth = (int)g.getFontMetrics().getStringBounds(secondaryPersonName, g).getWidth();
+            stringHeight = (int)g.getFontMetrics().getStringBounds(secondaryPersonName, g).getHeight();
+            g.drawString(secondaryPersonName, getCenterXForObject(i,relationships.size())-stringWidth/2, getCenterYForObject(i,relationships.size())+stringHeight/2);
+            
+            
+            //clear a bit of area to draw the string
+            g.setColor(Color.LIGHT_GRAY);
+            stringWidth = (int)g.getFontMetrics().getStringBounds(relationTypeName, g).getWidth();
+            stringHeight = (int)g.getFontMetrics().getStringBounds(relationTypeName, g).getHeight();
+            g.fillRect(getCenterXForObjectHalfDistance(i,relationships.size())-stringWidth/2, getCenterYForObjectHalfDistance(i,relationships.size())-stringHeight/2, stringWidth, stringHeight);
+            
+            //draw the relationTypeName string in the space you cleared out
+            g.setColor(Color.BLACK);
+            g.drawString(relationTypeName, getCenterXForObjectHalfDistance(i,relationships.size())-stringWidth/2, getCenterYForObjectHalfDistance(i,relationships.size())+stringHeight/2);
+            
+            
+        }
+        
         
         g.setColor(subjectColor);
         g.fillOval(width/2-circleDiam/2,height/2-circleDiam/2,circleDiam,circleDiam);
         
         // Get the name of the current person, and set 'mainName' to it.
         // TODO: You do this! (paintComponent - mainName)
-        String mainName = "Somebody";
+        String mainName = currentPerson.getFullName();
         
         g.setColor(Color.BLACK);
         nameWidth = g.getFontMetrics().stringWidth(mainName);

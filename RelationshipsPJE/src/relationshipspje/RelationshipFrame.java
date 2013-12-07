@@ -36,7 +36,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         controller.openRelTypes();
         controller.openRelationships();
         
-        
+        personalMapPane1.setData(controller);
         
         // then send the lists on screen whatever information they need to start.
         currentPersonIndex = -1;  // nobody is selected.
@@ -822,8 +822,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         
         int clickIndex = personList.getSelectedIndex();
-        if(clickIndex!=-1)
+        if(clickIndex!=-1){
             currentPerson = controller.getAllPeople().get(clickIndex);
+            personalMapPane1.setCurrentPerson(currentPerson);
+        }
         else
             clickIndex=0;
         

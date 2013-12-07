@@ -88,5 +88,8 @@ public class PeopleClass
         this.isMale=newIsMale;
     }
 
+    public String getFullName(){
+        return lastName+", "+firstName;
+    }
     
 }
