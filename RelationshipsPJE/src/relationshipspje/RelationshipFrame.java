@@ -723,9 +723,11 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // do whatever you have to to remove the person in question.
         // TODO: you do this! (removePersonButton)
         
-        
-        ArrayList<PeopleClass> people = controller.getAllPeople();
-        controller.deletePerson(people.get(selectedRow));
+        if (selectedRow!=-1)
+        {
+            ArrayList<PeopleClass> people = controller.getAllPeople();
+            controller.deletePerson(people.get(selectedRow));
+        }
         
         
         
