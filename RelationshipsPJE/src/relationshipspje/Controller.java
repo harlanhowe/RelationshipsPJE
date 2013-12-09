@@ -54,6 +54,7 @@ public class Controller
 //        }
             
             // now try to open the file and read from it with a scanner.
+        personList.clear();
         
         
             try 
@@ -121,6 +122,8 @@ public class Controller
 //        {
 //            preferredRelTypeFile = chooser.getSelectedFile();
 //        }
+        
+        relationTypeList.clear();
             
             // now try to open the file and read from it with a scanner.
         
@@ -189,6 +192,7 @@ public class Controller
 //        {
 //            preferredRelationFile = chooser.getSelectedFile();
 //        }
+        relationshipsList.clear();
             
             // now try to open the file and read from it with a scanner.
         
