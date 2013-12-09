@@ -723,12 +723,14 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // do whatever you have to to remove the person in question.
         // TODO: you do this! (removePersonButton)
         
-        
-        ArrayList<PeopleClass> people = controller.getAllPeople();
-        PeopleClass personToDelete = people.get(selectedRow);
-        if(personToDelete.getId() == this.currentPerson.getId())
-            personalMapPane1.setCurrentPerson(null);
-        controller.deletePerson(personToDelete);
+        if (selectedRow != -1){
+            ArrayList<PeopleClass> people = controller.getAllPeople();
+            PeopleClass personToDelete = people.get(selectedRow);
+            if(personToDelete.getId() == this.currentPerson.getId())
+                personalMapPane1.setCurrentPerson(null);
+            controller.deletePerson(personToDelete);
+            currentPerson = null;
+        }
         
         
         
@@ -864,12 +866,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         if (result == JOptionPane.CANCEL_OPTION) // if the user clicked "cancel"
                                                 // then bail out....
             return;
-        
-        if (firstNameField.equals("") || lastNameField.equals(""))
-        {
-            System.out.println("Please fill out both name fields, thanks!");
-            return;
-        }
         
         //--------- STEP 3
         String first = firstNameField.getText();
