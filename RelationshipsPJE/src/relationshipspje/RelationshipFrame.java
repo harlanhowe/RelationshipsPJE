@@ -1116,6 +1116,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         controller.openRelTypes();
         controller.openRelationships();
         
+        this.updatePeopleList();
+        this.updatePersonalMap();
+        this.updateRelationshipList();
+        
         System.out.println("Hey, would you look at that. I loaded the files, yo!");
         
     }//GEN-LAST:event_LoadMenuActionPerformed
