@@ -924,8 +924,11 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         //       you don't want it to include the selected person.
         // Create an array of Strings for the relationship types
         // TODO: You do this! (addRelationshipButton - setup UI)
-        if (currentPerson == null)
+        if (currentPerson == null){
+            JOptionPane.showMessageDialog(null, "No person selected!");
             return;
+        }
+            
         String[] names;
         String[] typeStrings;
         
