@@ -865,6 +865,12 @@ public final class RelationshipFrame extends javax.swing.JFrame {
                                                 // then bail out....
             return;
         
+        if (firstNameField.equals("") || lastNameField.equals(""))
+        {
+            System.out.println("Please fill out both name fields, thanks!");
+            return;
+        }
+        
         //--------- STEP 3
         String first = firstNameField.getText();
         String last = lastNameField.getText();
