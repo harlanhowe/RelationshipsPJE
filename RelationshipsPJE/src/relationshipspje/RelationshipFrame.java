@@ -723,13 +723,13 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // do whatever you have to to remove the person in question.
         // TODO: you do this! (removePersonButton)
         
-        if(selectedRow!=-1)
-        {
+        if (selectedRow != -1){
             ArrayList<PeopleClass> people = controller.getAllPeople();
             PeopleClass personToDelete = people.get(selectedRow);
             if(personToDelete.getId() == this.currentPerson.getId())
                 personalMapPane1.setCurrentPerson(null);
             controller.deletePerson(personToDelete);
+            currentPerson = null;
         }
         
         
@@ -969,6 +969,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         else{
             controller.addNewRelationship(currentPerson, target, relType);
         }
+        personalMapPane1.repaint();
         
         
         
