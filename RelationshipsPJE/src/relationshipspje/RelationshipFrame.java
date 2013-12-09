@@ -217,6 +217,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         SaveMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jLabel3.setText("First");
@@ -697,6 +698,15 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         });
         jMenu1.add(SaveMenuItem);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.META_MASK));
+        jMenuItem1.setText("Load");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -1111,6 +1121,20 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_SaveMenuItemActionPerformed
 
+    private void LoadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadMenuActionPerformed
+        // TODO add your handling code here:
+        controller.openPeople();
+        controller.openRelTypes();
+        controller.openRelationships();
+        
+        this.updatePeopleList();
+        this.updatePersonalMap();
+        this.updateRelationshipList();
+        
+        System.out.println("Hey, would you look at that. I loaded the files, yo!");
+        
+    }//GEN-LAST:event_LoadMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1191,6 +1215,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
