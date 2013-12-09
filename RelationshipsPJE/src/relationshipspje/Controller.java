@@ -425,12 +425,14 @@ public class Controller
         
         public void savePeopleData()
         {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setSelectedFile(preferredPeopleFile);
-            int result = chooser.showSaveDialog(chooser);
-            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
-            {
-                preferredPeopleFile = chooser.getSelectedFile();
+//            JFileChooser chooser = new JFileChooser();
+//            chooser.setSelectedFile(preferredPeopleFile);
+//            int result = chooser.showSaveDialog(chooser);
+//            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+//            {
+                //preferredPeopleFile = chooser.getSelectedFile();
+                
+                preferredPeopleFile = new File("people.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredPeopleFile);
@@ -445,17 +447,18 @@ public class Controller
                 {
                     throw new RuntimeException("File "+preferredPeopleFile+" cannot be saved.");
                 }
-            }
+            //}
         }
         
         public void saveRelationships()
         {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setSelectedFile(preferredRelationFile);
-            int result = chooser.showSaveDialog(chooser);
-            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
-            {
-                preferredRelationFile = chooser.getSelectedFile();
+//            JFileChooser chooser = new JFileChooser();
+//            chooser.setSelectedFile(preferredRelationFile);
+//            int result = chooser.showSaveDialog(chooser);
+//            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            //{
+                //preferredRelationFile = chooser.getSelectedFile();
+                preferredRelationFile = new File("relationships.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredRelationFile);
@@ -470,17 +473,17 @@ public class Controller
                 {
                     throw new RuntimeException("File "+preferredRelationFile+" cannot be saved.");
                 }
-            }
+            //}
         }
         
         public void saveRelTypes()
         {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setSelectedFile(preferredRelTypeFile);
-            int result = chooser.showSaveDialog(chooser);
-            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
-            {
-                preferredRelTypeFile = chooser.getSelectedFile();
+//            JFileChooser chooser = new JFileChooser();
+//            chooser.setSelectedFile(preferredRelTypeFile);
+//            int result = chooser.showSaveDialog(chooser);
+//            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+//            {
+                preferredRelTypeFile = new File("relTypes.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredRelTypeFile);
@@ -495,7 +498,7 @@ public class Controller
                 {
                     throw new RuntimeException("File "+preferredRelTypeFile+" cannot be saved.");
                 }
-            }
+            //}
         }
         
         public void saveAll()
