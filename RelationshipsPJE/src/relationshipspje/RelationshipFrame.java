@@ -862,6 +862,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
                                                 // then bail out....
             return;
         
+        if (firstNameField.equals("") || lastNameField.equals(""))
+            return;
+        
         //--------- STEP 3
         String first = firstNameField.getText();
         String last = lastNameField.getText();
