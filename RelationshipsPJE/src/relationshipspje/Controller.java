@@ -312,7 +312,6 @@ public class Controller
 
 
 	public ArrayList<RelationType> getAllRelationshipTypes() {
-		// TODO Auto-generated method stub
 		return relationTypeList;
 	}
 
@@ -341,9 +340,15 @@ public class Controller
 
             //Now, adds a relationship to the target person that is an inverse of the realtionship you are adding
             //E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
+            // look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
+            RelationType inverseType = getInverseRelationType(type);//get the inverse relationtype
+            if (type == null){ //if there is not one defined, display error message
+                JOptionPane.showMessageDialog(null, "There is no inverse relationship defined. Please create one.");
+                lastRelationshipId = id; //set the last id
+                return; //bail
+            }
+            //otherwise, increment id and create a new relationship that is an inverse
             id++;
-            //TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
-            RelationType inverseType = getInverseRelationType(type);
             Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
             relationshipsList.add(newInverseRelationship);
             lastRelationshipId = id;
