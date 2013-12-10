@@ -4,6 +4,7 @@
  */
 package relationshipspje;
 
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -221,6 +222,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         SaveMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jLabel3.setText("First");
@@ -702,6 +705,22 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("Save file");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveFileActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Load file");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadFileActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -1141,6 +1160,41 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_LoadMenuActionPerformed
 
+    private void SaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileActionPerformed
+        // TODO add your handling code here:
+        String[] selectionList = new String[3];
+        selectionList[0] = "People";
+        selectionList[1] = "Relation Types";
+        selectionList[2] = "Relationships";
+        String question = "What data type do you want to save?";
+        String instructions = "Select a data type below";
+        int response = JOptionPane.showOptionDialog(this, instructions, question, WIDTH, WIDTH, null, selectionList, evt);
+        if (response == 0)
+            controller.savePeopleAs();
+        else if (response == 1)
+            controller.saveTypesAs();
+        else if (response == 2)
+            controller.saveRelationsAs();
+    }//GEN-LAST:event_SaveFileActionPerformed
+
+    private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
+        // TODO add your handling code here:
+        
+        String[] selectionList = new String[3];
+        selectionList[0] = "People";
+        selectionList[1] = "Relation Types";
+        selectionList[2] = "Relationships";
+        String question = "What data type do you want to load?";
+        String instructions = "Select a data type below";
+        int response = JOptionPane.showOptionDialog(this, instructions, question, WIDTH, WIDTH, null, selectionList, evt);
+        if (response == 0)
+            controller.loadPeopleAs();
+        else if (response == 1)
+            controller.loadTypesAs();
+        else if (response == 2)
+            controller.loadRelationsAs();
+    }//GEN-LAST:event_LoadFileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1222,6 +1276,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
