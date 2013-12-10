@@ -724,7 +724,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * John Woodhouse
      * the user has just pressed the removePerson Button, and it's time to respond.
      * @param evt - a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
@@ -1143,8 +1142,12 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         this.updatePersonalMap();
         this.updateRelationshipList();
         
-        
-        
+        //If all the files have nothing, it means that either there are no files or that the user has no data in the files
+        //Alert the user that there is no data, or tell them that the data has been succesfully loaded
+        if (controller.getAllPeople().isEmpty() && controller.getAllRelationshipTypes().isEmpty() && controller.getAllRelationships().isEmpty())
+            JOptionPane.showMessageDialog(null, "Empty data set.");
+        else
+            JOptionPane.showMessageDialog(null, "Data loaded.");
     }//GEN-LAST:event_LoadMenuActionPerformed
 
     /**
