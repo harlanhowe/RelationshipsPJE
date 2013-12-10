@@ -116,6 +116,70 @@ public class Controller
         
     }
     
+    public void loadPeopleAs()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredPeopleFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredPeopleFile = chooser.getSelectedFile();
+        }
+            
+            // now try to open the file and read from it with a scanner.
+        personList.clear();
+        
+        
+            try 
+            {
+                //Scanner input = new Scanner(new File("people.dat"));
+                Scanner input = new Scanner(preferredPeopleFile);
+	
+		// read from the file, store relations into arrayList;
+		while (input.hasNext())
+		{
+                    //set up variables to store info
+                    int id;
+                    boolean isMale;
+                    String firstName;
+                    String lastName;
+                    
+                    //process each line by splitting string by tab and storing values into variables
+                    String inputString = input.nextLine();
+
+                    String[] part = inputString.split("\t");
+
+                    id = Integer.parseInt(part[0]);
+                    lastName = part[1];
+                    firstName = part[2];
+                    
+                    //if the person is male, set ismale to true
+                    if (part[3].equals("true"))
+                        isMale = true;
+                    else
+                        isMale = false;
+                    //create a new person class and add it to the list
+                    PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
+                    personList.add(theNewGuy);
+
+                    //if last line of input, set the last id to the last person and exi the loop
+                    if (!input.hasNext())
+                        {
+                            lastPersonId = id;
+                            break;
+                        }
+				    
+                }
+				
+                //close input
+                input.close();
+	    }
+            catch(Exception e)
+            {
+	        throw new RuntimeException("File not found error.");
+	    }
+    }
+    
     
     public void openRelTypes()
     {
@@ -136,6 +200,76 @@ public class Controller
             {
                 Scanner input = new Scanner(new File("relTypes.dat"));
                 //Scanner input = new Scanner(preferredRelTypeFile);
+                // read from the file, store relations into arrayList;
+                while (input.hasNext())
+                {
+                    //set up variables
+                    int id;
+                    String genericName;
+                    String fwdMaleName;
+                    String fwdFemaleName;
+                    String revMaleName;
+                    String revFemaleName;
+                    
+                    //process each string by splitting lines by tabs and storing info in variables
+                    String inputString = input.nextLine();
+                    
+                    String[] part = inputString.split("\t");
+                    id = Integer.parseInt(part[0]);
+                    genericName = part[1];
+                    fwdMaleName = part[2];
+                    fwdFemaleName = part[3];
+                    revMaleName = part[4];
+                    revFemaleName = part[5];
+
+                    //create a new RelationType class and add it to the main list
+                    RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
+                    relationTypeList.add(theNewRel);
+                    
+                    //if last line of input set the last id to the id of the last used relationtype and exit loop
+                    if (!input.hasNext()){
+                        lastRelTypeId = id;
+                        break;
+                    }
+                    
+
+                    
+
+                    
+                    
+                }
+
+                
+                
+                
+                input.close();
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                fnfe.printStackTrace();
+                throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
+            }
+    }
+    
+    public void loadTypesAs()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelTypeFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelTypeFile = chooser.getSelectedFile();
+        }
+        
+        relationTypeList.clear();
+            
+            // now try to open the file and read from it with a scanner.
+        
+        
+            try
+            {
+                //Scanner input = new Scanner(new File("relTypes.dat"));
+                Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
@@ -253,6 +387,73 @@ public class Controller
                 throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
             }
         
+    }
+    
+    public void loadRelationsAs()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(preferredRelationFile);
+        int result = chooser.showOpenDialog(null);//this);
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            preferredRelationFile = chooser.getSelectedFile();
+        }
+        relationshipsList.clear();
+            
+            // now try to open the file and read from it with a scanner.
+        
+        
+            try
+            {
+                //Scanner input = new Scanner(new File("relationships.dat"));
+                Scanner input = new Scanner(preferredRelationFile);
+                // read from the file, store relations into arrayList;
+               
+                // output.println("Here is example stuff to save....");
+                // put your output code here!
+                
+                while (input.hasNext())
+                {
+                    //set up variables to store info in
+                	int id;
+                	int person1id;
+                	int person2id;
+                	int relTypeid;
+                        
+                        //process each string by splitting each line by tab and storing values in variables
+                	String inputString = input.nextLine();
+                        String[] part = inputString.split("\t");
+
+
+                        id = Integer.parseInt(part[0]);
+                        person1id = Integer.parseInt(part[1]);
+                        person2id = Integer.parseInt(part[2]);
+                        relTypeid = Integer.parseInt(part[3]);
+
+                        PeopleClass person1 = this.getPersonById(person1id);
+                        PeopleClass person2 = this.getPersonById(person2id);
+                        RelationType relType = this.getRelationTypeById(relTypeid);
+
+                        //creating new Relationship class and add it to the list
+                        Relationship newRelationship = new Relationship(id,person1,person2,relType);
+                        relationshipsList.add(newRelationship);
+
+                        //if last line of input store the last id value and exit the loop
+                        if (!input.hasNext())
+                        {
+                            lastRelationshipId = id;
+                            break;
+                        }
+				    
+                }
+                
+                
+                input.close();
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
+            }
     }
     
     
@@ -441,6 +642,33 @@ public class Controller
             //}
         }
         
+        public void savePeopleAs()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredPeopleFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredPeopleFile = chooser.getSelectedFile();
+                
+                //preferredPeopleFile = new File("people.dat");
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredPeopleFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < personList.size(); i ++)
+                        output.println(personList.get(i).getId()+"\t"+personList.get(i).getFirstName()+"\t"+personList.get(i).getLastName()+"\t"+personList.get(i).getIsMale());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredPeopleFile+" cannot be saved.");
+                }
+            }
+        }
+        
         public void saveRelationships()
         {
 //            JFileChooser chooser = new JFileChooser();
@@ -467,6 +695,32 @@ public class Controller
             //}
         }
         
+        public void saveRelationsAs()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredRelationFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                preferredRelationFile = chooser.getSelectedFile();
+                //preferredRelationFile = new File("relationships.dat");
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredRelationFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < relationshipsList.size(); i ++)
+                        output.println(relationshipsList.get(i).getId()+"\t"+relationshipsList.get(i).getPrimaryPerson().getId()+"\t"+relationshipsList.get(i).getSecondaryPerson().getId()+"\t"+relationshipsList.get(i).getRelationType().getId());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredRelationFile+" cannot be saved.");
+                }
+            }
+        }
+        
         public void saveRelTypes()
         {
 //            JFileChooser chooser = new JFileChooser();
@@ -490,6 +744,32 @@ public class Controller
                     throw new RuntimeException("File "+preferredRelTypeFile+" cannot be saved.");
                 }
             //}
+        }
+        
+        public void saveTypesAs()
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(preferredRelTypeFile);
+            int result = chooser.showSaveDialog(chooser);
+            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
+            {
+                //preferredRelTypeFile = new File("relTypes.dat");
+                preferredRelTypeFile = chooser.getSelectedFile();
+                try
+                {
+                    PrintWriter output = new PrintWriter(preferredRelTypeFile);
+                    // you can now write to the file by saying
+                    
+                    for (int i = 0; i < relationTypeList.size(); i ++)
+                        output.println(relationTypeList.get(i).getId()+"\t"+relationTypeList.get(i).getGenericName()+"\t"+relationTypeList.get(i).getFwdMaleName()+"\t"+relationTypeList.get(i).getFwdFemaleName()+"\t"+relationTypeList.get(i).getRevMaleName()+"\t"+relationTypeList.get(i).getRevFemaleName());
+                
+                    output.close();
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    throw new RuntimeException("File "+preferredRelTypeFile+" cannot be saved.");
+                }
+            }
         }
         
         public void saveAll()
