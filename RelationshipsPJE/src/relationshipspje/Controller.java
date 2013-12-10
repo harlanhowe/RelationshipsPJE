@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,7 +108,8 @@ public class Controller
 	    }
             catch(Exception e)
             {
-	        throw new RuntimeException("File not found error.");
+	           JOptionPane.showMessageDialog(null, "people.dat could not be loaded automatically.");
+
 	    }
             
             
@@ -316,8 +318,7 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                fnfe.printStackTrace();
-                throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
+                JOptionPane.showMessageDialog(null, "relTypes.dat could not be loaded automatically.");
             }
     }
     
@@ -384,7 +385,7 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
+                JOptionPane.showMessageDialog(null, "relationships.dat could not be loaded automatically.");
             }
         
     }
@@ -487,6 +488,9 @@ public class Controller
         lastPersonId = id;
     }
     
+    public ArrayList<Relationship> getAllRelationships(){
+        return this.relationshipsList;
+    }
     public ArrayList<Relationship> getAllRelationshispForPerson(PeopleClass person)
     {
     	ArrayList<Relationship> relationships = new ArrayList<Relationship>();
@@ -509,7 +513,6 @@ public class Controller
 
 
 	public ArrayList<RelationType> getAllRelationshipTypes() {
-		// TODO Auto-generated method stub
 		return relationTypeList;
 	}
 
@@ -538,9 +541,15 @@ public class Controller
 
             //Now, adds a relationship to the target person that is an inverse of the realtionship you are adding
             //E.G. If you add Mrs. Howe as Mr. Howe's wife, it will add Mr. Howe as Mrs. Howe's husband
+            // look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
+            RelationType inverseType = getInverseRelationType(type);//get the inverse relationtype
+            if (type == null){ //if there is not one defined, display error message
+                JOptionPane.showMessageDialog(null, "There is no inverse relationship defined. Please create one.");
+                lastRelationshipId = id; //set the last id
+                return; //bail
+            }
+            //otherwise, increment id and create a new relationship that is an inverse
             id++;
-            //TODO look for an inverse relationship for the one we're adding if it has one (if it's not the inverse of itself) and add a new relationship for the target
-            RelationType inverseType = getInverseRelationType(type);
             Relationship newInverseRelationship = new Relationship(id,target,currentPerson,inverseType);
             relationshipsList.add(newInverseRelationship);
             lastRelationshipId = id;

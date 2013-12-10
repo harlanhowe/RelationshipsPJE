@@ -65,7 +65,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         ArrayList<PeopleClass> people = controller.getAllPeople(); //gets all people from controller
         ArrayList<String> peopleNames = new ArrayList<String>(); //new arraylist to store names only
         for (int i = 0;i<people.size();i++){ //loops through each person and builds a string using the person's firstname and lastname while adding it to peopleNames
-            peopleNames.add(people.get(i).getLastName()+", "+people.get(i).getFirstName());          
+            peopleNames.add(people.get(i).getFullName());          
         }
         String[] names = (String[]) peopleNames.toArray(new String[peopleNames.size()]); //converts peopleNames to a primitive type
         
@@ -108,9 +108,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
 
                     //build the 'currentPerson' has a 'relationshipTypeName', 'secondaryPerson' statement
                     //Howe, Harlan has a student, Yu, Eric
-                    String relationshipInfo = currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a "+
+                    String relationshipInfo = currentPerson.getFullName()+" has a "+
                             relationshipTypeName+", "+
-                            relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName();
+                            relationship.getSecondaryPerson().getFullName();
                     relationshipInfos.add(relationshipInfo); //add the statement to the arraylist that stores them
 
 
@@ -876,6 +876,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         updatePersonalMap();
     }//GEN-LAST:event_personSelectionChanged
 /**
+ * John Woodhouse
  * the user just clicked on the addPersonButton, and now it's time to respond.
  * @param evt a description of the event (e.g., when did they click, exactly;
  * were they holding the option button, etc.) You probably won't use this
@@ -1127,6 +1128,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
      * @param evt a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
      * variable.
+     * John Woodhouse
      */
     private void SaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveMenuItemActionPerformed
         // I suggest that you tell your controller to do the saving, and let it
@@ -1147,17 +1149,24 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Call controller methods that load database files, update the gui, and display a message
-        controller.clearData();
+        controller.clearData(); //clear all data
+        personalMapPane1.setCurrentPerson(null);//since all the objects will be changed, set the graphic panel's current person to null
+        //load data from files
         controller.openPeople();
         controller.openRelTypes();
         controller.openRelationships();
         
+        //update lists accordingly
         this.updatePeopleList();
         this.updatePersonalMap();
         this.updateRelationshipList();
         
-        JOptionPane.showMessageDialog(null, "Data loaded.");
-        
+        //If all the files have nothing, it means that either there are no files or that the user has no data in the files
+        //Alert the user that there is no data, or tell them that the data has been succesfully loaded
+        if (controller.getAllPeople().isEmpty() && controller.getAllRelationshipTypes().isEmpty() && controller.getAllRelationships().isEmpty())
+            JOptionPane.showMessageDialog(null, "Empty data set.");
+        else
+            JOptionPane.showMessageDialog(null, "Data loaded.");
     }//GEN-LAST:event_LoadMenuActionPerformed
 
     private void SaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileActionPerformed

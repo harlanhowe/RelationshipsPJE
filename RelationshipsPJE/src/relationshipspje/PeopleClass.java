@@ -47,6 +47,10 @@ public class PeopleClass
     {
         return id;
     }
+    /**Precondition: there is already a person given
+     * Change the Id of the person
+     * @param newId the new Id
+     */
     public void setId(int newId)
     {
         this.id=newId;
@@ -59,6 +63,10 @@ public class PeopleClass
     {
         return lastName;
     }
+    /**Precondition: there is already a person given
+     * Change the last name of the person
+     * @param newLastName the new last name
+     */
     public void setLastName(String newLastName)
     {
         this.lastName=newLastName;
@@ -71,6 +79,10 @@ public class PeopleClass
     {
         return firstName;
     }
+    /**Precondition: there is already a person given
+     * Change the first name of the person
+     * @param newFirstName the new first name
+     */
     public void setFirstName(String newFirstName)
     {
         this.firstName=newFirstName;
@@ -83,12 +95,16 @@ public class PeopleClass
     {
         return isMale;
     }
+    /**Precondition: there is already a person given
+     * Change whether or not the person is male
+     * @param newIsMale 
+     */
     public void setIsMale(boolean newIsMale)
     {
         this.isMale=newIsMale;
     }
-
-    public String getFullName(){
+    public String getFullName()
+    {
         return lastName+", "+firstName;
     }
     
