@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author harlan.howe
+ * Eric Yu
  */
 public final class RelationshipFrame extends javax.swing.JFrame {
     /**

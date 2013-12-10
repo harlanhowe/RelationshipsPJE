@@ -396,20 +396,7 @@ public class Controller
 
             lastRelTypeId = id;
         }
-	
-//	//Add relationship type with inverse
-//	public void addRelType(String genericName, String fwdMaleName,String fwdFemaleName, String revMaleName, String revFemaleName,String inverseGenericName) {
-//		// TODO Auto-generated method stub
-//		int id = lastRelTypeId++;
-//        
-//        RelationType theNewRel = new RelationType(id, genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
-//        id++;
-//        RelationType newRelInverse = new RelationType(id,inverseGenericName,revMaleName,revFemaleName,fwdMaleName,fwdFemaleName);
-//        relationTypeList.add(theNewRel);
-//        relationTypeList.add(newRelInverse);
-//        lastRelTypeId = id;
-//		
-//	}
+
 
 
 	public void deleteRelationshipType(RelationType relationType) {

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 /**
  *
  * @author harlan.howe
+ * Eric Yu
  */
 public class PersonalMapPane extends JPanel 
 {
