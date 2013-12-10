@@ -1141,7 +1141,6 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         this.updateRelationshipList();
         
         
-        JOptionPane.showMessageDialog(null, "Data loaded.");
         
     }//GEN-LAST:event_LoadMenuActionPerformed
 

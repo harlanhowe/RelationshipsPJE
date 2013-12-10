@@ -5,6 +5,8 @@ package relationshipspje;
  * and open the template in the editor.
  */
 
+import java.util.*;
+
 /**
  *
  * @author john.woodhouse
@@ -86,8 +88,7 @@ public class PeopleClass
         this.isMale=newIsMale;
     }
 
-    public String getFullName()
-    {
+    public String getFullName(){
         return lastName+", "+firstName;
     }
     

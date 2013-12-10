@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,7 +108,8 @@ public class Controller
 	    }
             catch(Exception e)
             {
-	        throw new RuntimeException("File not found error.");
+	           JOptionPane.showMessageDialog(null, "people.dat could not be loaded automatically.");
+
 	    }
             
             
@@ -182,8 +184,7 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                fnfe.printStackTrace();
-                throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
+                JOptionPane.showMessageDialog(null, "relTypes.dat could not be loaded automatically.");
             }
     }
     
@@ -250,7 +251,7 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
+                JOptionPane.showMessageDialog(null, "relationships.dat could not be loaded automatically.");
             }
         
     }
