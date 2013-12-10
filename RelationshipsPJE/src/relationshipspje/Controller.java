@@ -287,6 +287,9 @@ public class Controller
         lastPersonId = id;
     }
     
+    public ArrayList<Relationship> getAllRelationships(){
+        return this.relationshipsList;
+    }
     public ArrayList<Relationship> getAllRelationshispForPerson(PeopleClass person)
     {
     	ArrayList<Relationship> relationships = new ArrayList<Relationship>();
