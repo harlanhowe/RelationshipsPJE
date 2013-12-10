@@ -101,10 +101,6 @@ public class PeopleClass
     {
         this.isMale=newIsMale;
     }
-    /**Precondition: there is already a person given
-     * 
-     * @return The person name, last name, first name
-     */
     public String getFullName()
     {
         return lastName+", "+firstName;
