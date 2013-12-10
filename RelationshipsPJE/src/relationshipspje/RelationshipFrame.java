@@ -15,9 +15,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     /**
      * which person is currently selected, or -1 if none are.
      */
-    private int currentPersonIndex; 
-    private Controller controller;
-    private PeopleClass currentPerson;
+    private Controller controller; //stores reference to controller
+    private PeopleClass currentPerson; //stores the current person
     
     /**
      * Creates new form RelationshipFrame
@@ -30,19 +29,21 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // a copy to your "specialty" views.
         // TODO  you do this! (constructor)
         
-        
+        /*
+        Instantiate a new controller object that interacts with the data directly
+        Tell it to open the three database files
+        */
         controller = new Controller();
         controller.openPeople();
         controller.openRelTypes();
         controller.openRelationships();
         
+        //Sends the graphical relationships panel a copy of controller
         personalMapPane1.setData(controller);
         
-        // then send the lists on screen whatever information they need to start.
-        currentPersonIndex = -1;  // nobody is selected.
-        currentPerson = null;
-        updatePeopleList();
-        updateRelationshipList();
+        currentPerson = null; //set current person to nobody
+        updatePeopleList(); //refresh the list of people
+        updateRelationshipList();//refresh the list of relationships
         
     }
 
@@ -87,7 +88,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // fill the array with Strings describing each relationship for the 
         // selected person.
         // TODO: You do this! (updateRelationshipList - fill array)
-        if (currentPerson!=null){
+        
+        if (currentPerson!=null){//only do this when there is a currentPerson
             ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson); //get all relationships for person
             ArrayList<String> relationshipInfos = new ArrayList<String>(); //create arraylist to hold information about strings.
             for (int i = 0;i<relationships.size();i++){ //iterate through each relationship
@@ -103,6 +105,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
                             relationshipTypeName = type.getFwdFemaleName();
 
                     //build the 'currentPerson' has a 'relationshipTypeName', 'secondaryPerson' statement
+                    //Howe, Harlan has a student, Yu, Eric
                     String relationshipInfo = currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a "+
                             relationshipTypeName+", "+
                             relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName();
@@ -138,7 +141,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // to update its appearance.
         // TODO: you do this! (updatePersonalMap)
        
-        
+        personalMapPane1.repaint();
         
         
     }
@@ -733,13 +736,15 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // do whatever you have to to remove the person in question.
         // TODO: you do this! (removePersonButton)
         
-        if (selectedRow != -1){
+        
+        /*
+        Deletes the currently selected person from the list of people
+        */
+        if (selectedRow != -1){ //check if there is a row selected
             ArrayList<PeopleClass> people = controller.getAllPeople();
-            PeopleClass personToDelete = people.get(selectedRow);
-            if(personToDelete.getId() == this.currentPerson.getId())
-                personalMapPane1.setCurrentPerson(null);
-            controller.deletePerson(personToDelete);
-            currentPerson = null;
+            personalMapPane1.setCurrentPerson(null); //set currentPerson to nothing in the graphic pane
+            controller.deletePerson(people.get(selectedRow)); //delete the currentPerson from the list of all poeple
+            currentPerson = null;//set currentPerson to nothing 
         }
         
         
@@ -770,8 +775,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             // Identify which relationship is selected, and do what you need to
             // to remove it.
             // TODO: you do this! (removeRelationship - list view.)
-            ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson);
-            selectedRelationship = relationships.get(relationshipList.getSelectedIndex());
+            ArrayList<Relationship> relationships = controller.getAllRelationshispForPerson(currentPerson); //get all realtionships
+            selectedRelationship = relationships.get(relationshipList.getSelectedIndex()); //get the object of the relationship that is selected
         
             
             
@@ -783,14 +788,14 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         else if (relationshipTabPanel.getSelectedIndex() ==1 ) // if we are
                                               // showing the personal map view 
         {
-            if (personalMapPane1.getSelectedObjectId()==-1)// bail if no
+            if (personalMapPane1.getSelectedRelationship()==null)// bail if no
                                                 // relationship is selected.
                 return;
             // Identify which relationship is selected, and do what you need to
             // to remove it.
             // TODO: you do this! (removeRelationship - personal map view.)    
             
-            
+            selectedRelationship = personalMapPane1.getSelectedRelationship();
             
             
             
@@ -808,7 +813,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         if (response == JOptionPane.CANCEL_OPTION)
             return;
         else{
-            controller.deleteRelationship(selectedRelationship);
+            controller.deleteRelationship(selectedRelationship); //delete the relationship
         }
         // Have the controller remove the relationship.
         // TODO: You do this (removeRelationship - theWork.)
@@ -836,10 +841,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO: You do this! (personSelectionChanged)
         
         
-        int clickIndex = personList.getSelectedIndex();
-        if(clickIndex!=-1){
-            currentPerson = controller.getAllPeople().get(clickIndex);
-            personalMapPane1.setCurrentPerson(currentPerson);
+        int clickIndex = personList.getSelectedIndex(); //get the index of the selected row
+        if(clickIndex!=-1){ //make sure a row is actually selected
+            currentPerson = controller.getAllPeople().get(clickIndex); //set the current person to the person you selected from the row
+            personalMapPane1.setCurrentPerson(currentPerson); //set the current person for the graphic panel as well
         }
         else
             clickIndex=0;
@@ -890,7 +895,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         // Create a new person and add them to your list of people.
         // TODO: You do this! (addPersonButton)
-        controller.addPerson(first, last, isMale);
+        controller.addPerson(first, last, isMale); //add new person
         
         updatePeopleList();
         updateRelationshipList();
@@ -932,22 +937,23 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         String[] names;
         String[] typeStrings;
         
-        //List of people WITHOUT currentPerson
+        //Make a list of people WITHOUT currentPerson
         ArrayList<PeopleClass> people = new ArrayList<PeopleClass>(controller.getAllPeople());
         people.remove(this.currentPerson);
         
+        //Get a list of relationship types
         ArrayList<RelationType> relationTypes = controller.getAllRelationshipTypes();
-        ArrayList<String> peopleNames = new ArrayList<String>();
-        ArrayList<String> relationTypeNames = new ArrayList<String>();
-        for (int i = 0;i<people.size();i++){
-            peopleNames.add(people.get(i).getLastName()+", "+people.get(i).getFirstName());
+        ArrayList<String> peopleNames = new ArrayList<String>(); //to store the names of people
+        ArrayList<String> relationTypeNames = new ArrayList<String>(); //to store the generic names of relationship types
+        for (int i = 0;i<people.size();i++){ //adds each persoon's full name to the list of peopleNames
+            peopleNames.add(people.get(i).getFullName());
         }
-        for (int i= 0;i<relationTypes.size();i++){
+        for (int i= 0;i<relationTypes.size();i++){ //adds each relationship type's generic name to the list of relationTypeNames
             relationTypeNames.add(relationTypes.get(i).getGenericName());
         }
         
         
-        
+        //create primitive string arrays from the arraylists of names
         names = new String[peopleNames.size()];
         names = peopleNames.toArray(names);
         typeStrings= new String[relationTypeNames.size()];
@@ -973,18 +979,19 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // alternately....
         // String relTypeDescription = relTypeList.getSelectedValue();
         
+        //store selected people into objects
         PeopleClass target= people.get(personIndex);
         RelationType relType = relationTypes.get(relTypeIndex);
         
-        if (reciprocateCheckbox.isSelected()){
+        if (reciprocateCheckbox.isSelected()){//check if user wants to automatically create reciprocal relationship
             //add two relationshps here
-            controller.addNewRelationshipAndReciprocal(currentPerson, target, relType);
+            controller.addNewRelationshipAndReciprocal(currentPerson, target, relType); //call controller method that creates new relationship AND reciprocal
             
         }
         else{
-            controller.addNewRelationship(currentPerson, target, relType);
+            controller.addNewRelationship(currentPerson, target, relType); //call controller method that only creates a new relationship
         }
-        personalMapPane1.repaint();
+        updatePersonalMap();
         
         
         
@@ -1081,12 +1088,12 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO: You do this! (addRelationshipTypeButton update the type list)
         String[] rtListNames;
                 
-       ArrayList<RelationType> relTypes = controller.getAllRelationshipTypes();
-       ArrayList<String> relTypeNames = new ArrayList<String>();
-       for (int i = 0;i<relTypes.size();i++){
+       ArrayList<RelationType> relTypes = controller.getAllRelationshipTypes(); //get all relationtypes
+       ArrayList<String> relTypeNames = new ArrayList<String>(); // create anew, updated arraylist of names of relationship types
+       for (int i = 0;i<relTypes.size();i++){ //add generic names of relationship types to the array
            relTypeNames.add(relTypes.get(i).getGenericName());
        }
-        rtListNames = new String[relTypeNames.size()];
+        rtListNames = new String[relTypeNames.size()]; //convert arraylist to primitive array
         rtListNames = relTypeNames.toArray(rtListNames);
         
         
@@ -1105,11 +1112,12 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // I suggest that you tell your controller to do the saving, and let it
         // delegate, as needed.
         // TODO: You do this! (SaveMenuItem)
+        
+        //Call controller methods that save data and display message
        controller.savePeopleData();
        controller.saveRelTypes();
        controller.saveRelationships();
-       System.out.println("WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!\nYOU HAVE CHANGED THE BASE FILES!");
-        
+       JOptionPane.showMessageDialog(null, "Data saved.");
         
         
         
@@ -1117,6 +1125,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
 
     private void LoadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadMenuActionPerformed
         // TODO add your handling code here:
+        
+        //Call controller methods that load database files, update the gui, and display a message
         controller.openPeople();
         controller.openRelTypes();
         controller.openRelationships();
@@ -1125,7 +1135,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         this.updatePersonalMap();
         this.updateRelationshipList();
         
-        System.out.println("Hey, would you look at that. I loaded the files, yo!");
+        JOptionPane.showMessageDialog(null, "Data loaded.");
         
     }//GEN-LAST:event_LoadMenuActionPerformed
 
