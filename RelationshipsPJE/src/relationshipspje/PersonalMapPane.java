@@ -176,7 +176,6 @@ public class PersonalMapPane extends JPanel
                 repaint();
                 return;
             }
-            i++;
         }
         selectedRelationship = null;
     }
