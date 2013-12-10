@@ -41,7 +41,11 @@ public class Controller
         relationshipsList = new ArrayList<Relationship>();
     }
     
-    
+    public void clearData(){
+        personList.clear();
+        relationTypeList.clear();
+        relationshipsList.clear();
+    }
     //Read our list of people from a save file, and store them in a map for easy access by the user interface.
     public void openPeople()
     {

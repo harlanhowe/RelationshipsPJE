@@ -1128,6 +1128,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Call controller methods that load database files, update the gui, and display a message
+        controller.clearData();
         controller.openPeople();
         controller.openRelTypes();
         controller.openRelationships();
