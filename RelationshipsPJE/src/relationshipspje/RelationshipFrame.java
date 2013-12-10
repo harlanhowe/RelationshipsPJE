@@ -724,6 +724,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * John Woodhouse
      * the user has just pressed the removePerson Button, and it's time to respond.
      * @param evt - a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
@@ -857,6 +858,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         updatePersonalMap();
     }//GEN-LAST:event_personSelectionChanged
 /**
+ * John Woodhouse
  * the user just clicked on the addPersonButton, and now it's time to respond.
  * @param evt a description of the event (e.g., when did they click, exactly;
  * were they holding the option button, etc.) You probably won't use this
@@ -1108,6 +1110,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
      * @param evt a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
      * variable.
+     * John Woodhouse
      */
     private void SaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveMenuItemActionPerformed
         // I suggest that you tell your controller to do the saving, and let it
