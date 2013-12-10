@@ -1202,6 +1202,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             controller.loadTypesAs();
         else if (response == 2)
             controller.loadRelationsAs();
+        
+        this.updatePeopleList();
+        this.updatePersonalMap();
+        this.updateRelationshipList();
     }//GEN-LAST:event_LoadFileActionPerformed
 
     /**
