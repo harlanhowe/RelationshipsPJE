@@ -64,7 +64,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         ArrayList<PeopleClass> people = controller.getAllPeople(); //gets all people from controller
         ArrayList<String> peopleNames = new ArrayList<String>(); //new arraylist to store names only
         for (int i = 0;i<people.size();i++){ //loops through each person and builds a string using the person's firstname and lastname while adding it to peopleNames
-            peopleNames.add(people.get(i).getLastName()+", "+people.get(i).getFirstName());          
+            peopleNames.add(people.get(i).getFullName());          
         }
         String[] names = (String[]) peopleNames.toArray(new String[peopleNames.size()]); //converts peopleNames to a primitive type
         
@@ -107,9 +107,9 @@ public final class RelationshipFrame extends javax.swing.JFrame {
 
                     //build the 'currentPerson' has a 'relationshipTypeName', 'secondaryPerson' statement
                     //Howe, Harlan has a student, Yu, Eric
-                    String relationshipInfo = currentPerson.getLastName()+", "+currentPerson.getFirstName()+" has a "+
+                    String relationshipInfo = currentPerson.getFullName()+" has a "+
                             relationshipTypeName+", "+
-                            relationship.getSecondaryPerson().getLastName()+", "+relationship.getSecondaryPerson().getFirstName();
+                            relationship.getSecondaryPerson().getFullName();
                     relationshipInfos.add(relationshipInfo); //add the statement to the arraylist that stores them
 
 
