@@ -36,6 +36,7 @@ public class Controller
     
     public Controller()
     {
+        
         //relationList = new TreeMap<Integer, RelationType>();
         personList = new ArrayList<PeopleClass>();
         relationTypeList = new ArrayList<RelationType>();
@@ -345,12 +346,12 @@ public class Controller
         
             
             // now try to open the file and read from it with a scanner.
-        
+        relationshipsList.clear();
         
             try
             {
                 Scanner input = new Scanner(preferredRelationFile);
-                relationshipsList.clear();
+                
                 //Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
