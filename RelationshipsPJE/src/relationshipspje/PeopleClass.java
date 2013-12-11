@@ -5,8 +5,6 @@ package relationshipspje;
  * and open the template in the editor.
  */
 
-import java.util.*;
-
 /**
  *
  * @author john.woodhouse
