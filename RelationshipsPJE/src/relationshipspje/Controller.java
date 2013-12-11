@@ -367,7 +367,6 @@ public class Controller
                         
                         //process each string by splitting each line by tab and storing values in variables
                 	String inputString = input.nextLine();
-                        System.out.println(inputString);
                         String[] part = inputString.split("\t");
 
 
