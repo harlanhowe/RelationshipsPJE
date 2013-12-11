@@ -824,20 +824,18 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             
             
         }
-        if (selectedRelationship != null)
-        {
-            String whichThingToDelete = "";
-            int response = JOptionPane.showConfirmDialog(this,
+        if (selectedRelationship == null)
+            return;
+        String whichThingToDelete = "";
+        int response = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete"+whichThingToDelete+"?",
                 whichThingToDelete,
                 JOptionPane.OK_CANCEL_OPTION);
-            if (response == JOptionPane.CANCEL_OPTION)
-                return;
-            else
-                controller.deleteRelationship(selectedRelationship); //delete the relationship
-        }
-        else
+        if (response == JOptionPane.CANCEL_OPTION)
             return;
+        else{
+            controller.deleteRelationship(selectedRelationship); //delete the relationship
+        }
         // Have the controller remove the relationship.
         // TODO: You do this (removeRelationship - theWork.)
         
@@ -901,6 +899,8 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         genderMaleButton.setSelected(true);
         genderFemaleButton.setSelected(false);
         
+        
+        
         //--------- STEP 2
         int result = JOptionPane.showConfirmDialog(this,newPersonPanel,"Add Person",JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.CANCEL_OPTION) // if the user clicked "cancel"
@@ -909,7 +909,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         if (firstNameField.getText().equals("") || lastNameField.getText().equals(""))
         {
-            System.out.println("Please fill out both name fields, thanks!");
+            JOptionPane.showMessageDialog(null, "Please fill out both name fields, thanks!");
             return;
         }
         
@@ -1078,7 +1078,10 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         
         //Ok. Now create a relationship type based on this.
         // TODO: You do this! (addTypeButton)
-        
+        if (genericName.equals("")||fwdMaleName.equals("")||fwdFemaleName.equals("")||revMaleName.equals("")||revFemaleName.equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill in all fields. Try again.");
+            return;
+        }
         
         
         controller.addRelType(genericName, fwdMaleName, fwdFemaleName, revMaleName, revFemaleName);
@@ -1125,6 +1128,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // update the list of relationship types in the previous dialog box.
         relTypeList.setListData(rtListNames);
         
+        //update the map 
         updatePersonalMap();
     }//GEN-LAST:event_addTypeButtonActionPerformed
     /**
