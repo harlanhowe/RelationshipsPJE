@@ -40,6 +40,7 @@ public class Controller
         personList = new ArrayList<PeopleClass>();
         relationTypeList = new ArrayList<RelationType>();
         relationshipsList = new ArrayList<Relationship>();
+
     }
     
     public void clearData(){
@@ -366,6 +367,7 @@ public class Controller
                         
                         //process each string by splitting each line by tab and storing values in variables
                 	String inputString = input.nextLine();
+                        System.out.println(inputString);
                         String[] part = inputString.split("\t");
 
 
@@ -382,12 +384,9 @@ public class Controller
                         Relationship newRelationship = new Relationship(id,person1,person2,relType);
                         relationshipsList.add(newRelationship);
 
-                        //if last line of input store the last id value and exit the loop
-                       // if (!input.hasNext())
-                        //{
-                            lastRelationshipId = id;
-                            break;
-                        //}
+                  
+                           lastRelationshipId = id;
+                         
 				    
                 }
                 
