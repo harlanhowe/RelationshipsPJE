@@ -384,13 +384,9 @@ public class Controller
                         Relationship newRelationship = new Relationship(id,person1,person2,relType);
                         relationshipsList.add(newRelationship);
 
-                        //if last line of input store the last id value and exit the loop
-                       // if (!input.hasNext())
-                        //{
-                            lastRelationshipId = id;
-                           // break;
-                        //}
-
+                  
+                           lastRelationshipId = id;
+                         
 				    
                 }
                 
