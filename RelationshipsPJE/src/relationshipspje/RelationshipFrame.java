@@ -824,18 +824,20 @@ public final class RelationshipFrame extends javax.swing.JFrame {
             
             
         }
-        if (selectedRelationship == null)
-            return;
-        String whichThingToDelete = "";
-        int response = JOptionPane.showConfirmDialog(this,
+        if (selectedRelationship != null)
+        {
+            String whichThingToDelete = "";
+            int response = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete"+whichThingToDelete+"?",
                 whichThingToDelete,
                 JOptionPane.OK_CANCEL_OPTION);
-        if (response == JOptionPane.CANCEL_OPTION)
-            return;
-        else{
-            controller.deleteRelationship(selectedRelationship); //delete the relationship
+            if (response == JOptionPane.CANCEL_OPTION)
+                return;
+            else
+                controller.deleteRelationship(selectedRelationship); //delete the relationship
         }
+        else
+            return;
         // Have the controller remove the relationship.
         // TODO: You do this (removeRelationship - theWork.)
         
