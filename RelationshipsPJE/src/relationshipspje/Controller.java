@@ -19,9 +19,9 @@ import javax.swing.JOptionPane;
  */
 public class Controller 
 {
-    private File preferredPeopleFile;
-    private File preferredRelTypeFile;
-    private File preferredRelationFile;
+    private File preferredPeopleFile = new File("people.dat");
+    private File preferredRelTypeFile = new File("relTypes.dat");
+    private File preferredRelationFile = new File("relationships.dat");
     private File preferredFile;
     
     private ArrayList<PeopleClass> personList;
@@ -64,7 +64,7 @@ public class Controller
         
             try 
             {
-                Scanner input = new Scanner(new File("people.dat"));
+                Scanner input = new Scanner(preferredPeopleFile);
                 personList.clear();
                 //Scanner input = new Scanner(preferredPeopleFile);
 	
@@ -92,15 +92,16 @@ public class Controller
                     else
                         isMale = false;
                     //create a new person class and add it to the list
+                    lastPersonId = id;
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
                     personList.add(theNewGuy);
 
                     //if last line of input, set the last id to the last person and exi the loop
-                    if (!input.hasNext())
-                        {
-                            lastPersonId = id;
-                            break;
-                        }
+                    //if (!input.hasNext())
+                      //  {
+                            
+                         //   break;
+                       // }
 				    
                 }
 				
@@ -109,7 +110,8 @@ public class Controller
 	    }
             catch(Exception e)
             {
-	           JOptionPane.showMessageDialog(null, "people.dat could not be loaded automatically.");
+                String message = preferredPeopleFile+" could not be loaded automatically. Try selecting a new file through open file.";
+	           JOptionPane.showMessageDialog(null, message);
 
 	    }
             
@@ -163,15 +165,16 @@ public class Controller
                     else
                         isMale = false;
                     //create a new person class and add it to the list
+                    lastPersonId = id;
                     PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
                     personList.add(theNewGuy);
 
                     //if last line of input, set the last id to the last person and exi the loop
-                    if (!input.hasNext())
-                        {
-                            lastPersonId = id;
-                            break;
-                        }
+                    //if (!input.hasNext())
+                      //  {
+                            
+                          //  break;
+                        //}
 				    
                 }
 				
@@ -203,7 +206,7 @@ public class Controller
         
             try
             {
-                Scanner input = new Scanner(new File("relTypes.dat"));
+                Scanner input = new Scanner(preferredRelTypeFile);
                 relationTypeList.clear();
                 //Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
@@ -233,10 +236,10 @@ public class Controller
                     relationTypeList.add(theNewRel);
                     
                     //if last line of input set the last id to the id of the last used relationtype and exit loop
-                    if (!input.hasNext()){
+                    //if (!input.hasNext()){
                         lastRelTypeId = id;
-                        break;
-                    }
+                      //  break;
+                    //}
                     
 
                     
@@ -304,10 +307,10 @@ public class Controller
                     relationTypeList.add(theNewRel);
                     
                     //if last line of input set the last id to the id of the last used relationtype and exit loop
-                    if (!input.hasNext()){
+                   // if (!input.hasNext()){
                         lastRelTypeId = id;
-                        break;
-                    }
+                       // break;
+                   // }
                     
 
                     
@@ -323,7 +326,8 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                JOptionPane.showMessageDialog(null, "relTypes.dat could not be loaded automatically.");
+                String message = preferredRelTypeFile+" could not be loaded automatically. Try selecting a new file through open file.";
+                JOptionPane.showMessageDialog(null, message);
             }
         }
     }
@@ -344,7 +348,7 @@ public class Controller
         
             try
             {
-                Scanner input = new Scanner(new File("relationships.dat"));
+                Scanner input = new Scanner(preferredRelationFile);
                 relationshipsList.clear();
                 //Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
@@ -379,11 +383,11 @@ public class Controller
                         relationshipsList.add(newRelationship);
 
                         //if last line of input store the last id value and exit the loop
-                        if (!input.hasNext())
-                        {
+                       // if (!input.hasNext())
+                        //{
                             lastRelationshipId = id;
                             break;
-                        }
+                        //}
 				    
                 }
                 
@@ -392,7 +396,8 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                JOptionPane.showMessageDialog(null, "relationships.dat could not be loaded automatically.");
+                String message = preferredRelationFile+" could not be loaded automatically. Try selecting a new file through open file.";
+                JOptionPane.showMessageDialog(null, message);
             }
         
     }
@@ -448,11 +453,11 @@ public class Controller
                         relationshipsList.add(newRelationship);
 
                         //if last line of input store the last id value and exit the loop
-                        if (!input.hasNext())
-                        {
+                        //if (!input.hasNext())
+                        //{
                             lastRelationshipId = id;
-                            break;
-                        }
+                          //  break;
+                        //}
 				    
                 }
                 
@@ -488,7 +493,7 @@ public class Controller
     
     public void addPerson(String firstName, String lastName, Boolean isMale)
     {
-        int id = lastPersonId++;
+        int id = lastPersonId+1;
         
         
         PeopleClass theNewGuy = new PeopleClass(id, firstName, lastName, isMale);
@@ -533,7 +538,7 @@ public class Controller
 	 */
 
 	public void addNewRelationship(PeopleClass currentPerson, PeopleClass target, RelationType type) {
-		int id = lastRelationshipId++;
+		int id = lastRelationshipId+1;
 		Relationship newRelationship = new Relationship(id,currentPerson,target,type); //Creates relationship
 		relationshipsList.add(newRelationship);//Adds it to the list
 		
@@ -612,7 +617,7 @@ public class Controller
 	//add realtionship without inverse
 	public void addRelType(String neutral, String male, String female, String maleInv, String femaleInv)
         {
-            int id = lastRelTypeId++;
+            int id = lastRelTypeId+1;
 
             RelationType theNewRel = new RelationType(id, neutral, male, female, maleInv, femaleInv);
 
@@ -643,7 +648,7 @@ public class Controller
 //            {
                 //preferredPeopleFile = chooser.getSelectedFile();
                 
-                preferredPeopleFile = new File("people.dat");
+                //preferredPeopleFile = new File("people.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredPeopleFile);
@@ -696,7 +701,7 @@ public class Controller
 //            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
             //{
                 //preferredRelationFile = chooser.getSelectedFile();
-                preferredRelationFile = new File("relationships.dat");
+                //preferredRelationFile = new File("relationships.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredRelationFile);
@@ -747,7 +752,7 @@ public class Controller
 //            int result = chooser.showSaveDialog(chooser);
 //            if (result == JFileChooser.APPROVE_OPTION) // if the user clicked "save"
 //            {
-                preferredRelTypeFile = new File("relTypes.dat");
+                //preferredRelTypeFile = new File("relTypes.dat");
                 try
                 {
                     PrintWriter output = new PrintWriter(preferredRelTypeFile);
