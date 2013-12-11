@@ -384,7 +384,7 @@ public class Controller
                         relationshipsList.add(newRelationship);
 
                   
-                           lastRelationshipId = id;
+                        lastRelationshipId = id;
                          
 				    
                 }
@@ -548,7 +548,7 @@ public class Controller
 	 * adds two relationships, one for the current person and one for the target person
 	 */
         public void addNewRelationshipAndReciprocal (PeopleClass currentPerson, PeopleClass target, RelationType type){
-            int id = lastRelationshipId++;
+            int id = lastRelationshipId+1;
             Relationship newRelationship = new Relationship(id,currentPerson,target,type); //Creates relationship
             relationshipsList.add(newRelationship);//Adds it to the list
 
