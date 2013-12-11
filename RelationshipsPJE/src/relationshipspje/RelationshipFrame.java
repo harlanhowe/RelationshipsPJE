@@ -1084,7 +1084,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         RelationType inverse = controller.getInverseRelationType(newRelationType);
         if (inverse == null){
             if (fwdMaleName.equals(revMaleName) && fwdFemaleName.equals(revFemaleName)){
-		 
+                
             }
             else{
                 String inverseGenericName = JOptionPane.showInputDialog(null,
@@ -1123,7 +1123,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
         // update the list of relationship types in the previous dialog box.
         relTypeList.setListData(rtListNames);
         
-        
+        updatePersonalMap();
     }//GEN-LAST:event_addTypeButtonActionPerformed
     /**
      * The user just chose "Save" from the File menu. It's time to save the data.
