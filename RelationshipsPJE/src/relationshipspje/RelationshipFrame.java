@@ -747,6 +747,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
      * @param evt - a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
      * variable.
+     * John Woodhouse
      */
     private void removePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePersonButtonActionPerformed
         // find out which # row on the list is selected, starting at zero
@@ -852,6 +853,7 @@ public final class RelationshipFrame extends javax.swing.JFrame {
  * @param evt a description of the event (e.g., when did they click, exactly;
      * were they holding the option button, etc.) You probably won't use this
      * variable.
+     * John Woodhouse
  */
     private void personSelectionChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_personSelectionChanged
         
