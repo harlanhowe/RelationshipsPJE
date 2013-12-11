@@ -36,7 +36,6 @@ public class Controller
     
     public Controller()
     {
-        
         //relationList = new TreeMap<Integer, RelationType>();
         personList = new ArrayList<PeopleClass>();
         relationTypeList = new ArrayList<RelationType>();
@@ -185,7 +184,8 @@ public class Controller
 	    }
             catch(Exception e)
             {
-	        throw new RuntimeException("File not found error.");
+	        String message = preferredRelTypeFile+" could not be loaded automatically. Try selecting a new file through open file.";
+	           JOptionPane.showMessageDialog(null, message);
 	    }
         }
     }
@@ -257,8 +257,8 @@ public class Controller
             }
             catch (FileNotFoundException fnfe)
             {
-                fnfe.printStackTrace();
-                throw new RuntimeException("File "+preferredRelTypeFile+" cannot be laoded.");
+                String message = preferredRelationFile+" could not be loaded automatically. Try selecting a new file through open file.";
+	           JOptionPane.showMessageDialog(null, message);
             }
     }
     
@@ -346,12 +346,12 @@ public class Controller
         
             
             // now try to open the file and read from it with a scanner.
-        relationshipsList.clear();
+        
         
             try
             {
                 Scanner input = new Scanner(preferredRelationFile);
-                
+                relationshipsList.clear();
                 //Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
