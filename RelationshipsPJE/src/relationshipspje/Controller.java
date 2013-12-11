@@ -59,12 +59,13 @@ public class Controller
 //        }
             
             // now try to open the file and read from it with a scanner.
-        personList.clear();
+        
         
         
             try 
             {
                 Scanner input = new Scanner(new File("people.dat"));
+                personList.clear();
                 //Scanner input = new Scanner(preferredPeopleFile);
 	
 		// read from the file, store relations into arrayList;
@@ -126,16 +127,17 @@ public class Controller
         if (result == JFileChooser.APPROVE_OPTION)
         {
             preferredPeopleFile = chooser.getSelectedFile();
-        }
+        
             
             // now try to open the file and read from it with a scanner.
-        personList.clear();
+        
         
         
             try 
             {
                 //Scanner input = new Scanner(new File("people.dat"));
                 Scanner input = new Scanner(preferredPeopleFile);
+                personList.clear();
 	
 		// read from the file, store relations into arrayList;
 		while (input.hasNext())
@@ -180,6 +182,7 @@ public class Controller
             {
 	        throw new RuntimeException("File not found error.");
 	    }
+        }
     }
     
     
@@ -193,7 +196,7 @@ public class Controller
 //            preferredRelTypeFile = chooser.getSelectedFile();
 //        }
         
-        relationTypeList.clear();
+        
             
             // now try to open the file and read from it with a scanner.
         
@@ -201,6 +204,7 @@ public class Controller
             try
             {
                 Scanner input = new Scanner(new File("relTypes.dat"));
+                relationTypeList.clear();
                 //Scanner input = new Scanner(preferredRelTypeFile);
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
@@ -261,9 +265,9 @@ public class Controller
         if (result == JFileChooser.APPROVE_OPTION)
         {
             preferredRelTypeFile = chooser.getSelectedFile();
-        }
         
-        relationTypeList.clear();
+        
+        
             
             // now try to open the file and read from it with a scanner.
         
@@ -272,6 +276,7 @@ public class Controller
             {
                 //Scanner input = new Scanner(new File("relTypes.dat"));
                 Scanner input = new Scanner(preferredRelTypeFile);
+                relationTypeList.clear();
                 // read from the file, store relations into arrayList;
                 while (input.hasNext())
                 {
@@ -320,6 +325,7 @@ public class Controller
             {
                 JOptionPane.showMessageDialog(null, "relTypes.dat could not be loaded automatically.");
             }
+        }
     }
     
     public void openRelationships()
@@ -331,7 +337,7 @@ public class Controller
 //        {
 //            preferredRelationFile = chooser.getSelectedFile();
 //        }
-        relationshipsList.clear();
+        
             
             // now try to open the file and read from it with a scanner.
         
@@ -339,6 +345,7 @@ public class Controller
             try
             {
                 Scanner input = new Scanner(new File("relationships.dat"));
+                relationshipsList.clear();
                 //Scanner input = new Scanner(preferredRelationFile);
                 // read from the file, store relations into arrayList;
                
@@ -398,8 +405,8 @@ public class Controller
         if (result == JFileChooser.APPROVE_OPTION)
         {
             preferredRelationFile = chooser.getSelectedFile();
-        }
-        relationshipsList.clear();
+        
+            
             
             // now try to open the file and read from it with a scanner.
         
@@ -408,6 +415,7 @@ public class Controller
             {
                 //Scanner input = new Scanner(new File("relationships.dat"));
                 Scanner input = new Scanner(preferredRelationFile);
+                relationshipsList.clear();
                 // read from the file, store relations into arrayList;
                
                 // output.println("Here is example stuff to save....");
@@ -451,10 +459,12 @@ public class Controller
                 
                 input.close();
             }
+        
             catch (FileNotFoundException fnfe)
             {
                 throw new RuntimeException("File "+preferredRelationFile+" cannot be loaded.");
             }
+        }
     }
     
     
