@@ -41,6 +41,7 @@ public class Controller
         personList = new ArrayList<PeopleClass>();
         relationTypeList = new ArrayList<RelationType>();
         relationshipsList = new ArrayList<Relationship>();
+
     }
     
     public void clearData(){
@@ -389,6 +390,7 @@ public class Controller
                             lastRelationshipId = id;
                            // break;
                         //}
+
 				    
                 }
                 
